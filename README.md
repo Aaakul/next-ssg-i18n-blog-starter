@@ -3,18 +3,6 @@
 - [简体中文](README-zh.md)
 - [日本語](README-ja.md)
 
----
-
-title: 'Introducing Next SSG i18n Blog Starter v0.1'
-summary: 'This article introduces the Next SSG i18n Blog Starter, a ready-to-use Next.js blog template that supports static site generation and multiple languages'
-translationKey: 'intro'
-date: '2025-11-11T15:45:00+08:00'
-tags: ['next', 'coding', 'guide']
-language: 'en'
-authors: ['default']
-
----
-
 > [!NOTE]
 > This article was translated by AI
 
@@ -43,10 +31,10 @@ Building on the core [features](https://github.com/timlrx/tailwind-nextjs-starte
 - **Zero-Config In-Site Search**: Modified from [`pliny/search`](https://github.com/timlrx/pliny/tree/main/packages/pliny/src/search), powered by [`KBar`](https://github.com/timc1/kbar).
 - **Modern Markdown Authoring**:
   - Supports [MDX](https://mdxjs.com/), allowing you to embed JSX/React components directly in Markdown.
-  - Processes Markdown/MDX files with [`contentlayer2`](https://github.com/timlrx/contentlayer2)\*\*.
+  - Processes Markdown/MDX files with [`contentlayer2`](https://github.com/timlrx/contentlayer2).
   - Syntax highlighting powered by [`rehype-pretty-code`](https://rehype-pretty.pages.dev), including line numbers and highlighting. Code copying is adapted from [`pliny/ui/Pre`](https://github.com/timlrx/pliny/blob/main/packages/pliny/src/ui/Pre.tsx).
   - Math formula rendering with [KaTeX](https://katex.org/).
-  - Supports [GitHub-style alerts](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts)\*\*, implemented via [remark-github-blockquote-alert](https://github.com/jaywcjlove/remark-github-blockquote-alert).
+  - Supports [GitHub-style alerts](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts), implemented via [remark-github-blockquote-alert](https://github.com/jaywcjlove/remark-github-blockquote-alert).
 
 ---
 
