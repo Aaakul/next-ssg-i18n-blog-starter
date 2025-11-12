@@ -1,0 +1,221 @@
+---
+title: 'MDXの例'
+summary: 'この記事ではMDX構文の例を提供します'
+translationKey: 'mdx'
+date: '2025-11-11T15:40:00+08:00'
+tags: ['markdown', 'ガイド', 'jsx', 'mdx', '数学公式']
+language: 'ja'
+layout: 'PostBanner'
+---
+
+> [!NOTE]
+> この文章はAIによって翻訳されました
+
+## JSX コンポーネント
+
+### 内蔵目次コンポーネント
+
+```jsx
+// 内蔵目次コンポーネント
+//「内蔵目次コンポーネント」セクションは除外されます
+
+<TOCInline toc={props.toc} exclude="内蔵目次コンポーネント" toHeading={3} />
+```
+
+<TOCInline toc={props.toc} exclude="内蔵目次コンポーネント" toHeading={3} />
+
+### JSXの例：ギャラリー
+
+```jsx
+// Tailwind CSSを直接使用できます
+<div className="container mx-auto p-4">
+  <h3 className="text-center">Unsplash ギャラリー</h3>
+  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
+      <img
+        src="/static/images/canada/mountains.jpg"
+        alt="山脈"
+        className="h-[200px] w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105"
+      />
+      <p className="text-center">山脈</p>
+    </div>
+    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
+      <img
+        src="/static/images/canada/toronto.jpg"
+        alt="トロント"
+        className="h-[200px] w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105"
+      />
+      <p className="text-center">トロント</p>
+    </div>
+  </div>
+</div>
+```
+
+<div className="container mx-auto p-4">
+  <h3 className="text-center">Unsplash ギャラリー</h3>
+  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
+      <img
+        src="/static/images/canada/mountains.jpg"
+        alt="山脈"
+        className="h-[200px] w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105"
+      />
+      <p className="text-center">山脈</p>
+    </div>
+    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
+      <img
+        src="/static/images/canada/toronto.jpg"
+        alt="トロント"
+        className="h-[200px] w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105"
+      />
+      <p className="text-center">トロント</p>
+    </div>
+  </div>
+</div>
+
+山脈の写真の作者は [John
+Lee](https://unsplash.com/@john_artifexfilms?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) です。
+
+トロントの写真の作者は [Matthew
+Henry](https://unsplash.com/@matthewhenry?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) です。
+
+## GitHub 風のアラートボックス
+
+```md
+> [!NOTE]
+> ユーザーが目を通すだけでも知っておくと役立つ情報。
+
+> [!TIP]
+> より良く、または簡単に行うための役立つアドバイス。
+
+> [!IMPORTANT]
+> ユーザーが目標を達成するために知っておく必要がある重要な情報。
+
+> [!WARNING]
+> 問題を避けるために、直ちにユーザーの注意が必要な緊急の情報。
+
+> [!CAUTION]
+> 特定の行動によるリスクや悪影響についての注意事項。
+```
+
+> [!NOTE]
+> ユーザーが目を通すだけでも知っておくと役立つ情報。
+
+> [!TIP]
+> より良く、または簡単に行うための役立つアドバイス。
+
+> [!IMPORTANT]
+> ユーザーが目標を達成するために知っておく必要がある重要な情報。
+
+> [!WARNING]
+> 問題を避けるために、直ちにユーザーの注意が必要な緊急の情報。
+
+> [!CAUTION]
+> 特定の行動によるリスクや悪影響についての注意事項。
+
+## 脚注
+
+```plaintext
+これは脚注です[^1]
+
+これは2番目の脚注です[^2]
+
+[^1]: 参考文献1
+
+[^2]:
+    脚注に改行を追加するには、行末に半角スペース2つを追加してください
+    これは2行目です
+```
+
+これは脚注です[^1]
+
+これは2番目の脚注です[^2]
+
+[^1]: 参考文献1
+
+[^2]:
+    脚注に改行を追加するには、行末に半角スペース2つを追加してください  
+    これは2行目です
+
+## コードハイライト
+
+コードのハイライトは [`rehype-pretty-code`](https://rehype-pretty.pages.dev/) によって実現されています。
+
+### タイトルと行番号付きのコードブロック
+
+````
+```ts title="utils/types.ts" showLineNumbers
+export interface User {
+  id: number
+  name: string
+  email: string
+}
+
+export type UserRole = 'admin' | 'user' | 'guest'
+```
+````
+
+```ts title="utils/types.ts" showLineNumbers
+export interface User {
+  id: number
+  name: string
+  email: string
+}
+
+export type UserRole = 'admin' | 'user' | 'guest'
+```
+
+### Diff
+
+```diff title="package.json changes"
+{
+  "name": "my-app",
+  "version": "1.0.0",
+- "dependencies": {
+-   "react": "^17.0.0"
+- },
++ "dependencies": {
++   "react": "^18.0.0",
++   "react-dom": "^18.0.0"
++ },
+  "devDependencies": {
+    "typescript": "^4.5.0"
+  }
+}
+```
+
+## 数学公式
+
+数学の公式の表示には [KaTeX](https://katex.org/) を使用します
+
+インライン数式 `$E = mc^2$`: $E = mc^2$
+
+ブロック形式の数式:
+
+```plaintext
+$$
+\int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi}
+$$
+```
+
+$$
+\int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi}
+$$
+
+行列:
+
+```plaintext
+$$
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}
+$$
+```
+
+$$
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}
+$$

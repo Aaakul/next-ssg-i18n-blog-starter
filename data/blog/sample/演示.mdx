@@ -1,0 +1,33 @@
+---
+title: '特性演示'
+translationKey: 'wrong-translationKey'
+date: '2025-11-11T15:30:00+08:00'
+language: 'zh'
+---
+
+## 文章摘要回退机制
+
+文章的 `frontmatter` 中没有 `summary` 字段时，会使用目录作为替代。
+如果目录为空，则最终会使用 `title` 作为回退。
+
+## 语言切换回退机制
+
+本文未通过 `translationKey` 关联英文或日文版本。您可以尝试切换语言，以查看语言回退提示框。
+
+```mdx
+---
+title: '特性演示'
+translationKey: 'wrong-translationKey'
+date: '2025-11-11T15:30:00+08:00'
+language: 'zh'
+---
+
+## 文章摘要回退机制
+
+文章的 `frontmatter` 中没有 `summary` 字段时，会使用目录作为替代。
+如果目录为空，则最终会使用 `title` 作为回退。
+
+## 语言切换回退机制
+
+本文未通过 `translationKey` 关联英文或日文版本。您可以尝试切换语言，以查看语言回退提示框。
+```

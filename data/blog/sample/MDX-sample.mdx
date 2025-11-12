@@ -1,0 +1,222 @@
+---
+title: 'MDX Sample'
+summary: 'This article provides examples of writing and formatting syntax in MDX'
+translationKey: 'mdx'
+date: '2025-11-11T15:40:00+08:00'
+tags: ['markdown', 'guide', 'jsx', 'mdx', 'formula']
+language: 'en'
+layout: 'PostBanner'
+---
+
+> [!NOTE]
+> This article was translated by AI
+
+## JSX Component
+
+### Built-in table of contents component
+
+```jsx
+// Built-in table of contents component
+// "Built-in table of contents component" section will be excluded
+
+<TOCInline toc={props.toc} exclude="Built-in table of contents component" toHeading={3} />
+```
+
+<TOCInline toc={props.toc} exclude="Built-in table of contents component" toHeading={3} />
+
+### JSX Sample：Gallery
+
+```jsx
+// Tailwind CSS can be used directly
+<div className="container mx-auto p-4">
+  <h3 className="text-center">Unsplash Gallery</h3>
+  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
+      <img
+        src="/static/images/canada/mountains.jpg"
+        alt="Mountain"
+        className="h-[200px] w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105"
+      />
+      <p className="text-center">Mountain</p>
+    </div>
+    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
+      <img
+        src="/static/images/canada/toronto.jpg"
+        alt="Toronto"
+        className="h-[200px] w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105"
+      />
+      <p className="text-center">Toronto</p>
+    </div>
+  </div>
+</div>
+```
+
+<div className="container mx-auto p-4">
+  <h3 className="text-center">Unsplash Gallery</h3>
+  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
+      <img
+        src="/static/images/canada/mountains.jpg"
+        alt="Mountain"
+        className="h-[200px] w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105"
+      />
+      <p className="text-center">Mountain</p>
+    </div>
+    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
+      <img
+        src="/static/images/canada/toronto.jpg"
+        alt="Toronto"
+        className="h-[200px] w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105"
+      />
+      <p className="text-center">Toronto</p>
+    </div>
+  </div>
+</div>
+
+Mountains photo by [John
+Lee](https://unsplash.com/@john_artifexfilms?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+
+Toronto photo by [Matthew
+Henry](https://unsplash.com/@matthewhenry?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+
+## Github-style Alert
+
+```md
+> [!NOTE]
+> Useful information that users should know, even when skimming content.
+
+> [!TIP]
+> Helpful advice for doing things better or more easily.
+
+> [!IMPORTANT]
+> Key information users need to know to achieve their goal.
+
+> [!WARNING]
+> Urgent info that needs immediate user attention to avoid problems.
+
+> [!CAUTION]
+> Advises about risks or negative outcomes of certain actions.
+```
+
+> [!NOTE]
+> Useful information that users should know, even when skimming content.
+
+> [!TIP]
+> Helpful advice for doing things better or more easily.
+
+> [!IMPORTANT]
+> Key information users need to know to achieve their goal.
+
+> [!WARNING]
+> Urgent info that needs immediate user attention to avoid problems.
+
+> [!CAUTION]
+> Advises about risks or negative outcomes of certain actions.
+
+## Footnote
+
+```plaintext
+This is a footnote[^1]
+
+This is the second footnote[^2]
+
+[^1]: Reference 1
+
+
+[^2]:
+    To add line breaks within a footnote, add 2 spaces to the end of a line.
+    This is a second line
+```
+
+This is a footnote[^1]
+
+This is the second footnote[^2]
+
+[^1]: Reference 1
+
+[^2]:
+    To add line breaks within a footnote, add 2 spaces to the end of a line.  
+    This is a second line
+
+## Code Highlighting
+
+Code highlighting is implemented by [`rehype-pretty-code`](https://rehype-pretty.pages.dev/).
+
+### Code block with title and line numbers
+
+````
+```ts title="utils/types.ts" showLineNumbers
+export interface User {
+  id: number
+  name: string
+  email: string
+}
+
+export type UserRole = 'admin' | 'user' | 'guest'
+```
+````
+
+```ts title="utils/types.ts" showLineNumbers
+export interface User {
+  id: number
+  name: string
+  email: string
+}
+
+export type UserRole = 'admin' | 'user' | 'guest'
+```
+
+### Diff
+
+```diff title="package.json changes"
+{
+  "name": "my-app",
+  "version": "1.0.0",
+- "dependencies": {
+-   "react": "^17.0.0"
+- },
++ "dependencies": {
++   "react": "^18.0.0",
++   "react-dom": "^18.0.0"
++ },
+  "devDependencies": {
+    "typescript": "^4.5.0"
+  }
+}
+```
+
+## Mathematical formula
+
+Mathematical formulas are rendered using [KaTeX](https://katex.org/)
+
+Inline formula `$E = mc^2$`: $E = mc^2$
+
+Block formula:
+
+```plaintext
+$$
+\int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi}
+$$
+```
+
+$$
+\int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi}
+$$
+
+Matrix:
+
+```plaintext
+$$
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}
+$$
+```
+
+$$
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}
+$$

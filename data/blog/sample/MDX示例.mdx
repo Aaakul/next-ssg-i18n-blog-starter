@@ -1,0 +1,221 @@
+---
+title: 'MDX示例'
+summary: '本文提供了MDX语法的示例'
+translationKey: 'mdx'
+date: '2025-11-11T15:40:00+08:00'
+tags: ['markdown', '指南', 'jsx', 'mdx', '数学公式']
+language: 'zh'
+layout: 'PostBanner'
+isCanonical: true
+---
+
+## JSX组件
+
+### 内置目录组件
+
+```jsx
+// 内置目录组件
+// "内置目录组件"章节会被排除
+
+<TOCInline toc={props.toc} exclude="内置目录组件" toHeading={3} />
+```
+
+<TOCInline toc={props.toc} exclude="内置目录组件" toHeading={3} />
+
+### JSX示例：图库
+
+```jsx
+// 可以直接使用Tailwind CSS
+<div className="container mx-auto p-4">
+  <h3 className="text-center">Unsplash 图库</h3>
+  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
+      <img
+        src="/static/images/canada/mountains.jpg"
+        alt="山脉"
+        className="h-[200px] w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105"
+      />
+      <p className="text-center">山脉</p>
+    </div>
+    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
+      <img
+        src="/static/images/canada/toronto.jpg"
+        alt="多伦多"
+        className="h-[200px] w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105"
+      />
+      <p className="text-center">多伦多</p>
+    </div>
+  </div>
+</div>
+```
+
+<div className="container mx-auto p-4 ">
+  <h3 className="text-center">Unsplash 图库</h3>
+  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div className="group relative dark:bg-gray-900 bg-neutral-100 overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out">
+      <img
+        src="/static/images/canada/mountains.jpg"
+        alt="山脉"
+        className="w-full h-[200px] object-cover object-center group-hover:scale-105 transition-transform duration-300 ease-in-out"
+      />
+      <p className="text-center">山脉</p>
+    </div>
+    <div className="group relative dark:bg-gray-900 bg-neutral-100 overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out">
+      <img
+        src="/static/images/canada/toronto.jpg"
+        alt="多伦多"
+        className="w-full h-[200px] object-cover object-center group-hover:scale-105 transition-transform duration-300 ease-in-out"
+      />
+      <p className="text-center">多伦多</p>
+    </div>
+
+  </div>
+</div>
+
+山脉照片来自 [John
+Lee](https://unsplash.com/@john_artifexfilms?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+
+多伦多照片来自 [Matthew
+Henry](https://unsplash.com/@matthewhenry?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+
+## GitHub 风格提示框
+
+```md
+> [!NOTE]
+> 用户即使快速浏览内容，也应该了解的有用信息。
+
+> [!TIP]
+> 提供更好或更轻松完成任务的有用建议。
+
+> [!IMPORTANT]
+> 用户需要知道的关键信息，以实现其目标。
+
+> [!WARNING]
+> 需要用户立即注意的紧急信息，以避免问题。
+
+> [!CAUTION]
+> 提醒某些操作可能带来的风险或负面结果。
+```
+
+> [!NOTE]
+> 用户即使快速浏览内容，也应该了解的有用信息。
+
+> [!TIP]
+> 提供更好或更轻松完成任务的有用建议。
+
+> [!IMPORTANT]
+> 用户需要知道的关键信息，以实现其目标。
+
+> [!WARNING]
+> 需要用户立即注意的紧急信息，以避免问题。
+
+> [!CAUTION]
+> 提醒某些操作可能带来的风险或负面结果。
+
+## 脚注
+
+```plaintext
+这是一个脚注[^1]
+
+这是第二个脚注[^2]
+
+[^1]: 参考文献1
+
+
+[^2]:
+    要在脚注中添加换行，请在行末添加两个空格
+    这是第二行
+```
+
+这是一个脚注[^1].
+
+支持多行脚注[^2].
+
+[^1]: 参考文献1
+
+[^2]:
+    要在脚注中添加换行，请在行末添加两个空格  
+    这是第二行
+
+## 代码高亮
+
+代码高亮由 [`rehype-pretty-code`](https://rehype-pretty.pages.dev/) 实现。
+
+### 带标题与行号的代码块
+
+````
+```ts title="utils/types.ts" showLineNumbers
+export interface User {
+  id: number
+  name: string
+  email: string
+}
+
+export type UserRole = 'admin' | 'user' | 'guest'
+```
+````
+
+```ts title="utils/types.ts" showLineNumbers
+export interface User {
+  id: number
+  name: string
+  email: string
+}
+
+export type UserRole = 'admin' | 'user' | 'guest'
+```
+
+### Diff
+
+```diff title="package.json changes"
+{
+  "name": "my-app",
+  "version": "1.0.0",
+- "dependencies": {
+-   "react": "^17.0.0"
+- },
++ "dependencies": {
++   "react": "^18.0.0",
++   "react-dom": "^18.0.0"
++ },
+  "devDependencies": {
+    "typescript": "^4.5.0"
+  }
+}
+```
+
+## 数学公式
+
+数学公式渲染采用 [KaTeX](https://katex.org/)
+
+行内公式 `$E = mc^2$`: $E = mc^2$
+
+块级公式:
+
+```plaintext
+$$
+\int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi}
+$$
+```
+
+$$
+\int_{-\infty }^{\infty} e^{-x^2} \, dx = \sqrt{\pi}
+$$
+
+矩阵:
+
+```plaintext
+$$
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}
+$$
+```
+
+$$
+\begin{bmatrix}
+a & b \\
+c & d
+\end{bmatrix}
+$$

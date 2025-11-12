@@ -1,0 +1,316 @@
+---
+title: 'Introducing Next SSG i18n Blog Starter v0.1'
+summary: 'This article introduces the Next SSG i18n Blog Starter, a ready-to-use Next.js blog template that supports static site generation and multiple languages'
+translationKey: 'intro'
+date: '2025-11-11T15:45:00+08:00'
+tags: ['next', 'coding', 'guide']
+language: 'en'
+authors: ['default', 'test']
+---
+
+> [!NOTE]
+> This article was translated by AI
+
+## Motivation
+
+I was keen on using Next.js's **Static Site Generation (SSG)**. I chose the popular [**Tailwind Next.js Starter Blog**](https://github.com/timlrx/tailwind-nextjs-starter-blog) as the base for my personal blog but ran into many issue when adding **internationalization (i18n)**.
+
+After trying several approaches, I finally achieved stable and efficient i18n support using **[next-intl](https://next-intl.dev/)**, which led to this project. This is a **ready-to-use blog template** that lets you easily set up a **multilingual blog**, even with little coding experience. I also hope this project serves as a good reference for combining SSG and i18n.
+
+---
+
+## Features
+
+Building on the core [features](https://github.com/timlrx/tailwind-nextjs-starter-blog#features) of the Tailwind Next.js Starter Blog, this project integrates i18n and improves the development process. Key features include:
+
+- **Excellent User Experience**: Near-perfect Lighthouse scores.
+- **Out-of-the-Box i18n**: Integrated with [next-intl](https://next-intl.dev/), supporting SSG.
+  - Automatically detects the user's browser language.
+  - Saves the user's language preference via a **Cookie** (supports configurable expiration for compliance; defaults to a session cookie).
+  - Includes translations for Simplified Chinese, English, and Japanese.
+- **i18n SEO Optimization**:
+  - Automatically generates `<link rel="alternate" hreflang="...">` tags, `Metadata`, and `Open Graph` tags.
+  - Uses [next-sitemap](https://github.com/iamvishnusankar/next-sitemap) to generate multilingual `sitemap` and `robots.txt` files during the build.
+- **Multilingual RSS/Atom Feed Support**: Uses [feed](https://github.com/jpmonette/feed) to generate separate static feed files for each language during the build process.
+- **Modern Styling**: Based on [**Tailwind CSS v4.1**](https://tailwindcss.com/) for easy customization.
+- **Zero-Config In-Site Search**: Modified from [`pliny/search`](https://github.com/timlrx/pliny/tree/main/packages/pliny/src/search), powered by [`KBar`](https://github.com/timc1/kbar).
+- **Modern Markdown Authoring**:
+  - Supports [MDX](https://mdxjs.com/), allowing you to embed JSX/React components directly in Markdown.
+  - Processes Markdown/MDX files with [`contentlayer2`](https://github.com/timlrx/contentlayer2)\*\*.
+  - Syntax highlighting powered by [`rehype-pretty-code`](https://rehype-pretty.pages.dev), including line numbers and highlighting. Code copying is adapted from [`pliny/ui/Pre`](https://github.com/timlrx/pliny/blob/main/packages/pliny/src/ui/Pre.tsx).
+  - Math formula rendering with [KaTeX](https://katex.org/).
+  - Supports [GitHub-style alerts](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts)\*\*, implemented via [remark-github-blockquote-alert](https://github.com/jaywcjlove/remark-github-blockquote-alert).
+
+---
+
+## Quick Start
+
+1.  **Clone the repository**
+
+    ```bash
+    git clone https://github.com/Aaakul/next-ssg-i18n-blog-starter.git
+    ```
+
+2.  **Install dependencies**
+
+    ```bash
+    cd next-ssg-i18n-blog-starter
+    npm install
+    ```
+
+3.  **Configure basic site settings**
+    Edit `./data/SiteConfig.mjs` to set your website's basic information and social media links.
+
+4.  **Localize content**
+    Update the following fields in `./i18n/messages/*.json`:
+    - `header_title`: Navigation bar title
+    - `site_title`: Website title
+    - `site_description`: Website description
+
+5.  **Replace icons and avatar**
+    Update the following files:
+    - Site icons: `./app/favicon.ico`, `./app/apple-touch.png`, `./public/favicon.svg`
+    - Default author avatar: `./public/static/images/avatar.svg`
+    - Open Graph and Twitter cards image: `./public/static/images/twitter-card.png`
+
+6.  **Customize the projects page**
+    Edit `./data/projectsData.ts` to update the projects descriptions.
+
+7.  **Configure author information**
+    Edit the corresponding language file at `./data/authors/.../default.md` (see "Markdown / MDX - Author Page" section).
+
+8.  **Add blog posts**
+    Create new Markdown files in the `./data/blog/` directory (refer to "Markdown / MDX - Articles" section).
+
+---
+
+## Development
+
+Start the development server using Turbopack:
+
+```bash
+npm run dev
+```
+
+> [!NOTE]
+> If you're editing Markdown files or modifying Contentlayer2 config and need **hot reloading**, use **Webpack** mode instead:
+
+```bash
+npm run dev:webpack
+```
+
+> [!TIP]
+> To manually build Contentlayer2 content:
+
+```bash
+npm run contentlayer
+```
+
+---
+
+## Customization
+
+### i18n
+
+The project includes built-in support for Simplified Chinese (`zh`), English (`en`), and Japanese (`ja`). Translation files are in `./i18n/messages/`. You can improve these or add more languages.
+
+### Other Customizations
+
+- **Styling**  
+  Adjust the overall style easily via `tailwind.config.js` and `styles/*.css` to change Tailwind configuration and CSS styles.
+
+- **MDX Components**  
+  Register custom React components in `components/MDXComponents.tsx` to use them in `.mdx` or `.md` files.
+  **Note: Use default exports for components to avoid a** [**known Next.js issue**](https://github.com/vercel/next.js/issues/51593).
+
+- **Navigation Bar**  
+  Modify `./components/Header.tsx` to customize the top navigation links.
+
+- **Post Layouts**  
+  The post page supports three layouts (located in `./layouts/`):
+  - `PostLayout` (default): Two-column layout with a sidebar table of contents (TOC).
+  - `PostSimple`: A simplified version of `PostLayout`, without the sidebar TOC.
+  - `PostBanner`: Full-width banner image at the top, no sidebar TOC. [View sample page](/en/blog/sample/MDX-sample).
+
+  Specify the desired layout in the post's Frontmatter using the `layout` field.
+
+---
+
+## Markdown / MDX
+
+The project uses [Contentlayer2](https://www.contentlayer.dev/docs/getting-started) to process `.md` and `.mdx` files.
+
+### Frontmatter
+
+Frontmatter follows the [Hugo standard format](https://gohugo.io/content-management/front-matter/). See `./contentlayer.config.ts` for detailed field definitions.
+
+#### Author Page (`./data/authors/**/*.mdx`)
+
+**Required fields:**
+
+```ts
+name: string
+language: string // Must match a language configured in `SiteConfig`
+```
+
+**Optional fields:**
+
+```ts
+occupation: string
+company: string
+mail: string
+twitter: string
+bluesky: string
+linkedin: string
+github: string
+```
+
+#### Article (`./data/blog/**/*.mdx`)
+
+**Required fields:**
+
+```ts
+title: string
+date: string // e.g., '2025-01-01T16:35:00+08:00'
+translationKey: string // Used to link articles across languages
+language: string // Must match a language configured in `SiteConfig`
+```
+
+**Optional fields:**
+
+```ts
+tags: string[]
+lastmod: string            // Last modified date
+draft: boolean             // If true, the article will not be built in production
+summary: string            // Article summary
+images: string[]           // List of image URLs for meta tags (like Open Graph and Twitter Card)
+authors: string[]          // Filenames under `./data/authors/`. Defaults to ['default']
+layout: string             // Page layout. Defaults to 'PostLayout'
+isCanonical: boolean       // If true, adds <link rel="alternate" hreflang="x-default" ...> tag. Defaults to false
+```
+
+---
+
+**Example: Article with all Frontmatter fields**
+
+```mdx
+---
+title: 'Introducing'
+translationKey: 'intro'
+date: '2025-01-01'
+lastmod: '2025-11-11'
+tags: ['next-js', 'tailwind', 'guide']
+draft: false
+language: 'en'
+summary: 'In this article...'
+images: ['/static/images/img1.jpg', '/static/images/img2.jpg']
+authors: ['default', 'test']
+layout: PostLayout
+isCanonical: true
+---
+
+# H1 Title
+
+Some content...
+
+{/* Built-in Table of Contents component */}
+
+<TOCInline toc={props.toc} exclude="section to be excluded" toHeading={2} />
+```
+
+> [!IMPORTANT]
+> The **`translationKey`** field is vital for **linking multilingual versions** of an article. Ensure all language versions of the same content use the **same value**.
+
+---
+
+## Deployment
+
+This project is built for SSG and deploys easily to any static hosting platform, such as GitHub Pages, Cloudflare Pages, AWS S3, or Firebase Hosting.
+
+### Manual Deployment
+
+- **Smaller bundle size**  
+  Build with Webpack:
+
+  ```sh
+  npm run export
+  ```
+
+- **Faster build speed**  
+  Build with Turbopack:
+
+  ```sh
+  npm run export:turbo
+  ```
+
+After building, upload the `out` directory to your static hosting service.
+
+### Preview Deployment Locally
+
+After building, you can preview the site locally using:
+
+```sh
+npx serve out
+```
+
+Then open the URL shown in the terminal (default: [http://localhost:3000](http://localhost:3000)) in your browser.
+
+### Automated Deployment to GitHub Pages
+
+A `.github/workflows/pages.yml` configuration file will be available soon. Once enabled, it will automatically build and deploy to GitHub Pages.
+
+### Automated Deployment to Cloudflare Pages
+
+1.  **Fork this repository**.
+2.  Log in to the [Cloudflare Dashboard](https://dash.cloudflare.com), and go to **Workers and Pages**.
+3.  Click **Create application → Pages → Import from Git**, connect your GitHub account, and select your forked repository.
+4.  Set up the build configuration:
+    - **Framework preset**: `Next.js (Static HTML Export)`
+    - **Build command**: `npm run export`
+    - **Build output directory**: `out`
+5.  Click **Save and Deploy**. Cloudflare will complete the first build and deployment automatically.
+
+Every subsequent code push will automatically trigger a new build on Cloudflare Pages.
+
+---
+
+## FAQ
+
+### `basePath` Configuration
+
+Set the `basePath` field in `./data/SiteConfig.mjs` if you're deploying to a subdirectory (e.g., `https://example.com/myblog/`).
+
+### Customizing the `kbar` Command Palette
+
+- [Add Command Palette with kbar - Modern Next.js Blog Series \#26 (Traditional Chinese page)](https://easonchang.com/zh-TW/posts/kbar-command-palette)
+- [How can I customize the `kbar` search?](https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/main/faq/customize-kbar-search.md)
+
+### Custom MDX Components
+
+- [How can I add a custom MDX component?](https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/main/faq/custom-mdx-component.md)
+
+---
+
+## Development Plan
+
+The following features are planned for future versions (no specific order):
+
+- **Features removed from the original template**: Comment block, site analytics, citation and bibliography support.
+- **New practical features**: Copyright notice component at the end of articles.
+
+---
+
+## Credits
+
+This project is derived from:
+
+- [Tailwind Next.js Starter Blog ](https://github.com/timlrx/tailwind-nextjs-starter-blog)
+- [Pliny](https://github.com/timlrx/pliny)
+
+Both created by [**Timothy Lin (timlrx)**](https://github.com/timlrx). Thank you for your invaluable contribution to the open-source community.
+
+---
+
+## License
+
+This project is licensed under the MIT License.
