@@ -13,7 +13,7 @@ import { Locale, supportedLocales } from '@/i18n'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import genPageMetadata from '@/lib/seo'
-import { SlugParams } from '@/app/types'
+import { PostSlugParams } from '@/app/types'
 import { getSlugByLocaleAndKey } from '@/lib/key-slug-utils'
 
 const defaultLayout = 'PostLayout' as const
@@ -34,7 +34,7 @@ export async function generateStaticParams() {
   )
 }
 
-export async function generateMetadata(props: { params: Promise<SlugParams> }) {
+export async function generateMetadata(props: { params: Promise<PostSlugParams> }) {
   const { locale, slug } = await props.params
   const decodedSlug = decodeURI(slug.join('/'))
 
@@ -59,10 +59,11 @@ export async function generateMetadata(props: { params: Promise<SlugParams> }) {
 
   const title = post.title
   const description = !post.summary ? title : post.summary
-  const fullUrl = (locale: Locale, slug: string) => `${SiteUrlWithBase}/${locale}/blog/${slug}`
+  const getFullURL = (locale: Locale, slug: string) =>
+    new URL(`${SiteUrlWithBase}/${locale}/blog/${slug}`).toString()
 
-  const altUrl: Record<string, string> = {}
-  if (post.isCanonical) altUrl['x-default'] = fullUrl(locale as Locale, decodedSlug)
+  const altLangURL: Record<string, string> = {}
+  if (post.isCanonical) altLangURL['x-default'] = getFullURL(locale as Locale, decodedSlug)
 
   const getAltLangSlug = (locale: Locale) => getSlugByLocaleAndKey(post.translationKey, locale)
 
@@ -73,7 +74,7 @@ export async function generateMetadata(props: { params: Promise<SlugParams> }) {
   for (const locale of supportedLocales) {
     const altLangSlug = getAltLangSlug(locale as Locale)
     if (altLangSlug) {
-      altUrl[locale] = fullUrl(locale as Locale, altLangSlug)
+      altLangURL[locale] = getFullURL(locale, altLangSlug)
     }
   }
 
@@ -84,17 +85,17 @@ export async function generateMetadata(props: { params: Promise<SlugParams> }) {
     description: description,
     locale: locale,
     type: 'article',
-    fullUrl: fullUrl(locale as Locale, decodedSlug),
+    fullUrl: getFullURL(locale as Locale, decodedSlug),
     publishedTime: publishedAt,
     modifiedTime: modifiedAt,
     authors: authors.length > 0 ? authors : [SiteConfig.defaultAuthorName],
     alternates: {
-      languages: altUrl,
+      languages: altLangURL,
     },
   })
 }
 
-export default function Page(props: { params: Promise<SlugParams> }) {
+export default function Page(props: { params: Promise<PostSlugParams> }) {
   const params = use(props.params)
   const { locale, slug } = params
   setRequestLocale(locale)

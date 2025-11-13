@@ -7,12 +7,8 @@ export const SiteConfig = {
     ja: '日本語',
   },
   defaultTheme: 'system', //'system' | 'dark' | 'light'
-  siteUrl: process.env.SITE_URL?.replace(/\/+$/, '') || 'http://192.168.1.150:3000',
+  siteUrl: process.env.SITE_URL?.replace(/\/+$/, '') || 'http://127.0.0.1:3000',
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
-  // 默认社交分享图片的路径（用于 Open Graph 和 Twitter 卡片）
-  // Path to the default social sharing image (used in Open Graph and Twitter cards)
-  // デフォルトのソーシャル共有画像のパス（Open Graph と Twitter カードで使用されます）
-  socialBanner: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/static/images/twitter-card.png`,
 
   // 导航栏是否在滚动时固定在顶部
   // Whether the navbar remains fixed at the top while scrolling
@@ -22,7 +18,7 @@ export const SiteConfig = {
   // robots.txt 是否允许爬虫（`true` = 允许，`false` = 不允许）
   // Whether robots.txt permits crawlers (`true` = allowed, `false` = disallowed)
   // robots.txt がクローラーを許可するかどうか（`true` = 許可, `false` = 不許可）
-  isAllowRobots: false,
+  isAllowRobots: true,
 
   // 构建后是否生成 RSS Feed
   // Whether to generate RSS feed after the build process
@@ -93,7 +89,6 @@ export const SiteConfig = {
  * @property {'system' | 'dark' | 'light'} defaultTheme
  * @property {string} siteUrl
  * @property {string} basePath
- * @property {string} socialBanner
  * @property {boolean} isStickyNav
  * @property {boolean} isAllowRobots
  * @property {boolean} isGenRSS
@@ -102,6 +97,8 @@ export const SiteConfig = {
  * @property {number} homepageMaxPosts
  * @property {SocialConfig} social
  */
+
+export const SocialBannerPath = `${SiteConfig.basePath.replace(/\/+$/, '')}/static/images/twitter-card.png`
 
 export const SiteUrlWithBase = new URL(
   `${SiteConfig.siteUrl.replace(/\/+$/, '')}${SiteConfig.basePath}`

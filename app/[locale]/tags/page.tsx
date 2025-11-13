@@ -11,7 +11,7 @@ import { useTranslations } from 'next-intl'
 import { LocaleParams } from '@/app/types'
 
 // create static pages for each language
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return supportedLocales.map((locale: Locale) => ({ locale }))
 }
 
@@ -22,18 +22,18 @@ export async function generateMetadata(props: { params: Promise<LocaleParams> })
 
   const t = await getTranslations({ locale, namespace: 'common' })
 
-  const altUrl: Partial<Record<Locale, string>> = {}
+  const altLangURL: Partial<Record<Locale, string>> = {}
   for (const locale of supportedLocales) {
-    altUrl[locale as Locale] = `${SiteUrlWithBase}/${locale}/tags`
+    altLangURL[locale] = new URL(`${SiteUrlWithBase}/${locale}/tags`).toString()
   }
 
   return genPageMetadata({
     title: `${t('tags')} | ${t('site_title')}`,
     description: `${t('tags')} | ${t('site_title')}`,
-    fullUrl: `${SiteUrlWithBase}/${locale}/tags`,
+    fullUrl: altLangURL[locale as Locale],
     locale: locale,
     alternates: {
-      languages: altUrl,
+      languages: altLangURL,
     },
   })
 }

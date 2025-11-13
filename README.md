@@ -248,6 +248,7 @@ npx serve out
 ```
 
 Then open the URL shown in the terminal (default: [http://localhost:3000](http://localhost:3000)) in your browser.
+**If `basePath` is configured (e.g., '/blog'), the files in `./out` need to be copied to `./out/blog`**
 
 ### Automated Deployment to GitHub Pages
 

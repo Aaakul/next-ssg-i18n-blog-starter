@@ -7,15 +7,15 @@ import genPageMetadata from '@/lib/seo'
 import { BlogPageParams } from '@/app/types'
 import { RenderBlogListPage } from '@/components/RenderPages'
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return supportedLocales.flatMap((locale: Locale) => {
     const totalPages = Math.ceil(
-      allBlogs.filter((post) => post.language === locale).length / SiteConfig.postsPerPage || 1
+      allBlogs.filter((post) => post.language === locale).length / SiteConfig.postsPerPage
     )
 
     return Array.from({ length: totalPages }, (_, i) => ({
       locale,
-      page: (i + 1).toString(),
+      page: i === 0 ? undefined : ['page', (i + 1).toString()], // skip `/page/1`
     }))
   })
 }
@@ -25,19 +25,22 @@ export async function generateMetadata(props: { params: Promise<BlogPageParams> 
   const { locale, page } = params
 
   const t = await getTranslations({ locale, namespace: 'common' })
-  const altUrl: Record<string, string> = {}
+
+  const path = !page ? '' : page.join('/')
+
+  const altLangURL: Record<string, string> = {}
 
   for (const locale of supportedLocales) {
-    altUrl[locale] = `${SiteUrlWithBase}/${locale}/blog/page/${page}`
+    altLangURL[locale] = new URL(`${SiteUrlWithBase}/${locale}/blog/list/${path}`).toString()
   }
 
   return genPageMetadata({
     locale: locale,
     title: `${t('all_posts')} | ${t('site_title')}`,
     description: `${t('all_posts')} | ${t('site_title')}`,
-    fullUrl: altUrl[locale],
+    fullUrl: altLangURL[locale],
     alternates: {
-      languages: altUrl,
+      languages: altLangURL,
     },
   })
 }
@@ -46,6 +49,6 @@ export default function Page(props: { params: Promise<BlogPageParams> }) {
   const params = use(props.params)
   const { locale, page } = params
   setRequestLocale(locale)
-
-  return RenderBlogListPage({ locale: locale, page: page, type: 'posts' })
+  const pageNum = page?.[0] === 'page' && page?.[1] ? parseInt(page[1], 10) : 1
+  return RenderBlogListPage({ locale: locale as Locale, pageNum: pageNum, type: 'posts' })
 }

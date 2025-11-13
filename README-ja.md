@@ -249,6 +249,7 @@ npx serve out
 ```
 
 その後、ターミナルに表示される URL（デフォルト: [http://localhost:3000](http://localhost:3000)）をブラウザで開いてください。
+**`basePath`（例えば '/blog'）を設定した場合、`./out` 内のファイルを `./out/blog` にコピーする必要があります**
 
 ### GitHub Pages の自動デプロイ
 

@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { SiteConfig, SiteUrlWithBase } from '@/data/siteConfig.mjs'
+import { SiteConfig, SiteUrlWithBase, SocialBannerPath } from '@/data/siteConfig.mjs'
 import { defaultLocale } from '@/i18n'
 
 export interface PageSEOProps {
@@ -43,7 +43,7 @@ export default function genPageMetadata({
       type: type || 'website',
       publishedTime: publishedTime,
       modifiedTime: modifiedTime,
-      images: image ? [image] : `${SiteUrlWithBase}${SiteConfig.socialBanner}`,
+      images: image ? [image] : `${SiteUrlWithBase}${SocialBannerPath}`,
     },
     alternates: {
       ...rest,

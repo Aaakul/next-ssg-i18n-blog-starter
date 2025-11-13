@@ -16,7 +16,11 @@ export default function Footer({ copyrightText }: { copyrightText: string }) {
               <SocialIcon key={key} kind={key as keyof typeof components} href={url} />
             ))}
           {SiteConfig.isGenRSS && (
-            <SocialIcon key={'rss'} kind={'rss'} href={`/${locale}/atom.xml`} />
+            <SocialIcon
+              key={'rss'}
+              kind={'rss'}
+              href={`${SiteConfig.basePath}/${locale}/atom.xml`}
+            />
           )}
         </div>
         <div className="flex space-x-2 text-center text-sm text-gray-500 dark:text-gray-400">

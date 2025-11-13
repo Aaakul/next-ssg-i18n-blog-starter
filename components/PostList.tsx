@@ -16,10 +16,10 @@ export function PostList({ posts, locale, maxDisplay }: PostListProps) {
   return (
     <ul className="space-y-4">
       {displayPosts.map((post) => {
-        const { slug, path, date, title, summary, tags, toc } = post
-        const href = path ? `/${locale}/${path}` : `/${locale}/blog/${slug}`
+        const { slug, date, title, summary, tags, toc } = post
+        const href = `/${locale}/blog/${slug}`
         return (
-          <li key={slug || path} className="py-4">
+          <li key={slug} className="py-4">
             <article>
               <div className="space-y-2 xl:grid xl:grid-cols-4">
                 <dl className="text-sm text-gray-500 dark:text-gray-400">

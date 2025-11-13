@@ -11,7 +11,7 @@ export default function Header({ locale }: { locale: Locale }) {
   const t = useTranslations('common')
   const links = [
     { href: '/', title: t('home') || 'Home' },
-    { href: '/blog', title: t('blog') || 'Blog' },
+    { href: '/blog/list', title: t('blog') || 'Blog' },
     { href: '/tags', title: t('tags') || 'Tags' },
     { href: '/projects', title: t('projects') || 'Projects' },
     { href: '/about', title: t('about') || 'About' },

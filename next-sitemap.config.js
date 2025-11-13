@@ -1,15 +1,15 @@
 /** @type {import('next-sitemap').IConfig} */
-const SiteUrlWithBase = require('./data/siteConfig.mjs').SiteUrlWithBase
-const isAllowRobots = require('./data/siteConfig.mjs').SiteConfig.isAllowRobots
-const robotsPolicies = isAllowRobots
+const SITE_URL_WITH_BASE = require('./data/siteConfig.mjs').SiteUrlWithBase
+const IS_ALLOW_ROBOTS = require('./data/siteConfig.mjs').SiteConfig.isAllowRobots
+const ROBOTS_POLICES = IS_ALLOW_ROBOTS
   ? [{ userAgent: '*', allow: '/' }]
   : [{ userAgent: '*', disallow: '/' }]
 
 module.exports = {
-  siteUrl: `${SiteUrlWithBase}`,
+  siteUrl: `${SITE_URL_WITH_BASE}`,
   generateRobotsTxt: true,
   robotsTxtOptions: {
-    policies: robotsPolicies,
+    policies: ROBOTS_POLICES,
   },
   outDir: './out',
 }

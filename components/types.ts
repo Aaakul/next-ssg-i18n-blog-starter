@@ -32,10 +32,16 @@ export interface MobileNavProps {
   links: { href: string; title: string }[]
 }
 
+export type BlogListPageParams = {
+  locale: Locale
+  pageNum: number
+  type: 'posts' | 'tags'
+  decodedTag?: string
+}
+
 export interface PostListProps {
   posts: Array<{
     slug: string
-    path?: string
     date: string
     title: string
     summary?: string

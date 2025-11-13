@@ -15,7 +15,7 @@ import rehypeKatex from 'rehype-katex'
 import rehypeKatexNoTranslate from 'rehype-katex-notranslate'
 import rehypePresetMinify from 'rehype-preset-minify'
 import rehypePrettyCode from 'rehype-pretty-code'
-import { SiteConfig, SiteUrlWithBase } from './data/siteConfig.mjs'
+import { SocialBannerPath, SiteUrlWithBase } from './data/siteConfig.mjs'
 import { generateSearchIndex, MDXBlog, sortPosts } from './lib/contentlayer-utils'
 import { Locale, defaultLocale, supportedLocales } from './i18n'
 import { KeySlugMappingData } from '@/app/types'
@@ -179,7 +179,7 @@ export const Blog = defineDocumentType(() => ({
         dateModified: doc.lastmod || doc.date,
         description: doc.summary || doc.title,
         inLanguage: doc.language as Locale,
-        image: doc.images ? doc.images[0] : SiteConfig.socialBanner,
+        image: doc.images ? doc.images[0] : SocialBannerPath,
         url: `${SiteUrlWithBase}/${doc.language}/${doc._raw.flattenedPath}`,
       }),
     },

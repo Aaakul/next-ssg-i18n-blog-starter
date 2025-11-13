@@ -235,6 +235,7 @@ npx serve out
 ```
 
 然后在浏览器中打开剪贴板中的链接查看效果。 默认为 [http://localhost:3000](http://localhost:3000)
+**如果配置了 `basePath` (假设为'/blog') ，需要将 `./out` 中的文件复制到 `./out/blog`**
 
 ### GitHub Pages 自动化部署
 

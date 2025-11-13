@@ -13,7 +13,7 @@ import { LocaleParams } from '@/app/types'
 
 const MAX_DISPLAY = SiteConfig.homepageMaxPosts
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return supportedLocales.map((locale: Locale) => ({ locale }))
 }
 
@@ -24,18 +24,18 @@ export async function generateMetadata(props: { params: Promise<LocaleParams> })
 
   const t = await getTranslations({ locale, namespace: 'common' })
 
-  const altUrl: Record<string, string> = {}
+  const altLangURL: Record<string, string> = {}
   for (const locale of supportedLocales) {
-    altUrl[locale] = `${SiteUrlWithBase}/${locale}`
+    altLangURL[locale] = new URL(`${SiteUrlWithBase}/${locale}`).toString()
   }
 
   return genPageMetadata({
     title: `${t('latest_posts')} | ${t('site_title')}`,
     description: `${t('site_description')} | ${t('site_title')}`,
     locale: locale,
-    fullUrl: `${SiteUrlWithBase}/${locale}`,
+    fullUrl: altLangURL[locale],
     alternates: {
-      languages: altUrl,
+      languages: altLangURL,
     },
   })
 }
@@ -67,7 +67,7 @@ export default function Home(props: { params: Promise<LocaleParams> }) {
       {posts.length > MAX_DISPLAY && (
         <div className="mr-4 flex justify-end text-base font-medium">
           <Link
-            href={`/${locale}/blog`}
+            href={`/${locale}/blog/list`}
             className="text-primary-400 hover:text-primary-400 flex text-xl"
             aria-label={t('all_posts')}
           >

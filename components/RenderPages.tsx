@@ -8,7 +8,7 @@ import ListLayout from '@/layouts/ListLayoutWithTags'
 import { useTranslations } from 'next-intl'
 import { allCoreContent, sortPosts } from '@/lib/contentlayer-utils'
 import { allBlogs } from 'contentlayer/generated'
-import { BlogPageParams } from '@/app/types'
+import { BlogListPageParams } from './types'
 import tagDataRaw from '@/app/tag-data.json' with { type: 'json' }
 import { SiteConfig } from '@/data/siteConfig.mjs'
 import { slug } from 'github-slugger'
@@ -17,8 +17,6 @@ const POSTS_PER_PAGE = SiteConfig.postsPerPage
 const tagData = tagDataRaw as unknown as {
   [_ in Locale]: Record<string, number>
 }
-
-export type BlogListPageParams = BlogPageParams & { type: 'posts' | 'tags'; decodedTag?: string }
 
 export function RenderAuthorPage({ locale, slug }: { locale: Locale; slug: string }) {
   const author = allAuthors.find((a) => a.slug.endsWith(`/${slug}`) && a.language === locale) as
@@ -38,8 +36,7 @@ export function RenderAuthorPage({ locale, slug }: { locale: Locale; slug: strin
   )
 }
 
-export function getBlogListData({ locale, page, type, decodedTag }: BlogListPageParams) {
-  const pageNumber = parseInt(page, 10)
+export function getBlogListData({ locale, pageNum, type, decodedTag }: BlogListPageParams) {
   const filteredPosts =
     type === 'tags'
       ? allCoreContent(
@@ -52,14 +49,14 @@ export function getBlogListData({ locale, page, type, decodedTag }: BlogListPage
       : allCoreContent(sortPosts(allBlogs)).filter((post) => post.language === locale)
 
   const initialDisplayPosts = filteredPosts.slice(
-    POSTS_PER_PAGE * (pageNumber - 1),
-    POSTS_PER_PAGE * pageNumber
+    POSTS_PER_PAGE * (pageNum - 1),
+    POSTS_PER_PAGE * pageNum
   )
 
   const pagination = {
-    currentPage: pageNumber,
+    currentPage: pageNum,
     totalPages: Math.ceil(filteredPosts.length / POSTS_PER_PAGE),
-    basePath: type === 'tags' ? `/${locale}/tags/${decodedTag}` : `/${locale}/blog`,
+    basePath: type === 'tags' ? `/${locale}/tags/${decodedTag}` : `/${locale}/blog/list`,
   }
 
   return {
@@ -68,9 +65,9 @@ export function getBlogListData({ locale, page, type, decodedTag }: BlogListPage
   }
 }
 
-export function RenderBlogListPage({ locale, page, type, decodedTag }: BlogListPageParams) {
+export function RenderBlogListPage({ locale, pageNum, type, decodedTag }: BlogListPageParams) {
   const t = useTranslations('common')
-  const listData = getBlogListData({ locale, page, type, decodedTag })
+  const listData = getBlogListData({ locale, pageNum, type, decodedTag })
   const title =
     type === 'tags'
       ? decodedTag![0].toUpperCase() + decodedTag!.slice(1).replace(/\s+/g, '-')

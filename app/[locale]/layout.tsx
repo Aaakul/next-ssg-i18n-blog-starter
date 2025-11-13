@@ -7,9 +7,10 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { RootLayoutProps } from '@/app/types'
 import { redirect } from 'next/navigation'
+import { SiteConfig } from '@/data/siteConfig.mjs'
 
 // create static pages for each language
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return supportedLocales.map((locale: Locale) => ({ locale }))
 }
 
@@ -30,9 +31,21 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
 
   return (
     <>
-      <link rel="alternate" type="application/rss+xml" href={`/${locale}/feed.xml`} />
-      <link rel="alternate" type="application/atom+xml" href={`/${locale}/atom.xml`} />
-      <link rel="alternate" type="application/json" href={`/${locale}/feed.json`} />
+      <link
+        rel="alternate"
+        type="application/rss+xml"
+        href={`${SiteConfig.basePath}/${locale}/feed.xml`}
+      />
+      <link
+        rel="alternate"
+        type="application/atom+xml"
+        href={`${SiteConfig.basePath}/${locale}/atom.xml`}
+      />
+      <link
+        rel="alternate"
+        type="application/json"
+        href={`${SiteConfig.basePath}/${locale}/feed.json`}
+      />
       <NextIntlClientProvider>
         <ThemeProviders>
           <DynamicSearchProvider>

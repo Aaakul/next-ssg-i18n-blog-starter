@@ -10,7 +10,7 @@ import { allAuthors, Authors } from '@/.contentlayer/generated'
 import { LocaleParams } from '@/app/types'
 import Balancer from 'react-wrap-balancer'
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return supportedLocales.map((locale: Locale) => ({ locale }))
 }
 
@@ -25,21 +25,21 @@ export async function generateMetadata(props: { params: Promise<LocaleParams> })
     (a) => a.slug.endsWith('/default') && a.language === locale
   ) as Authors
 
-  const altUrl: Record<string, string> = {}
+  const altLangURL: Record<string, string> = {}
 
   for (const locale of supportedLocales) {
-    altUrl[locale] = `${SiteUrlWithBase}/${locale}/projects`
+    altLangURL[locale] = new URL(`${SiteUrlWithBase}/${locale}/projects`).toString()
   }
 
   return genPageMetadata({
     title: `${t('projects')} | ${t('site_title')}`,
     description: `${t('projects_desc')} | ${t('site_title')}`,
     locale: locale,
-    fullUrl: `${SiteUrlWithBase}/${locale}/projects`,
+    fullUrl: altLangURL[locale],
     type: 'article',
     authors: author.name,
     alternates: {
-      languages: altUrl,
+      languages: altLangURL,
     },
   })
 }
