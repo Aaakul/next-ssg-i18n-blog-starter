@@ -1,46 +1,46 @@
 import { SiteConfig, SiteUrlWithBase } from '@/data/siteConfig.mjs'
-import tagsDataRaw from '@/.contentlayer/generated/tags-data.json' with { type: 'json' }
+import categoriesDataRaw from '@/.contentlayer/generated/categories-data.json' with { type: 'json' }
 import genPageMetadata from '@/lib/seo'
 import { Locale, supportedLocales } from '@/i18n'
 import { use } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { TagPageParams } from '@/app/types'
+import { CategoriesPageParams } from '@/app/types'
 import { RenderBlogListPage } from '@/components/RenderPages'
 
 const POSTS_PER_PAGE = SiteConfig.postsPerPage
 
-const tagsData = tagsDataRaw as unknown as {
+const categoriesData = categoriesDataRaw as unknown as {
   [_ in Locale]: Record<string, number>
 }
 
 export async function generateStaticParams() {
   return supportedLocales.flatMap((locale: Locale) => {
-    const tagCounts = tagsData[locale] || {}
-    const tags = Object.keys(tagCounts)
+    const categoryCounts = categoriesData[locale] || {}
+    const categories = Object.keys(categoryCounts)
 
-    return tags.flatMap((sluggedTag) => {
-      const count = tagCounts[sluggedTag]
+    return categories.flatMap((sluggedCategory) => {
+      const count = categoryCounts[sluggedCategory]
       const totalPages = Math.ceil(count / POSTS_PER_PAGE) || 1
 
       return Array.from({ length: totalPages }, (_, i) => ({
         locale,
-        tag: sluggedTag,
+        categories: sluggedCategory,
         page: i === 0 ? undefined : ['page', (i + 1).toString()], // skip `/page/1`
       }))
     })
   })
 }
 
-export async function generateMetadata(props: { params: Promise<TagPageParams> }) {
+export async function generateMetadata(props: { params: Promise<CategoriesPageParams> }) {
   const params = await props.params
-  const { locale, tag, page } = params
+  const { locale, categories, page } = params
 
   const t = await getTranslations({ locale, namespace: 'common' })
-  const decodedSlug = decodeURI(tag)
+  const decodedSlug = decodeURI(categories)
   const path = !page ? '' : page.join('/')
 
   const getFullURL = (locale: Locale, path: string) =>
-    new URL(`${SiteUrlWithBase}/${locale}/tags/${decodedSlug}/${path}`).toString()
+    new URL(`${SiteUrlWithBase}/${locale}/categories/${decodedSlug}/${path}`).toString()
 
   const altLangURL: Record<string, string> = {}
   for (const locale of supportedLocales) {
@@ -48,8 +48,8 @@ export async function generateMetadata(props: { params: Promise<TagPageParams> }
   }
 
   return genPageMetadata({
-    title: `${t('tags')}: ${decodedSlug} | ${t('site_title')}`,
-    description: `${t('tags')}: ${decodedSlug} | ${t('site_title')}`,
+    title: `${t('categories')}: ${decodedSlug} | ${t('site_title')}`,
+    description: `${t('categories')}: ${decodedSlug} | ${t('site_title')}`,
     fullUrl: altLangURL[locale],
     locale: locale,
     alternates: {
@@ -58,9 +58,9 @@ export async function generateMetadata(props: { params: Promise<TagPageParams> }
   })
 }
 
-export default function Page(props: { params: Promise<TagPageParams> }) {
+export default function Page(props: { params: Promise<CategoriesPageParams> }) {
   const params = use(props.params)
-  const { locale, tag, page } = params
+  const { locale, categories, page } = params
   setRequestLocale(locale)
 
   const pageNum = page?.[0] === 'page' && page?.[1] ? parseInt(page[1], 10) : 1
@@ -68,7 +68,7 @@ export default function Page(props: { params: Promise<TagPageParams> }) {
   return RenderBlogListPage({
     locale: locale as Locale,
     pageNum: pageNum,
-    type: 'tags',
-    decodedSlug: decodeURI(tag),
+    type: 'categories',
+    decodedSlug: decodeURI(categories),
   })
 }

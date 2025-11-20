@@ -18,15 +18,15 @@ Next.js の**静的サイト生成 (SSG)** 機能に興味を持って、人気�
 
 本テンプレートは Tailwind Next.js Starter Blog の[主要機能](https://github.com/timlrx/tailwind-nextjs-starter-blog#features)を引き継ぎつつ、i18n を統合し、開発体験をさらに向上させています。主な特長は以下の通りです:
 
-- **優れたユーザー体験**: Lighthouse スコアがほぼ満点。
+- **優れたユーザー体験**: [Lighthouse スコアがほぼ満点。](https://pagespeed.web.dev/analysis/https-next-ssg-i18n-blog-starter-pages-dev-zh/nqb9usvegl?form_factor=desktop)
 - **すぐに使える国際化**: [next-intl](https://next-intl.dev/) を統合し、SSG に対応。
   - ユーザーのブラウザ言語設定を自動検出します。
   - Cookie によりユーザーの言語設定を保存（有効期限設定が可能で、GDPR などの規制対応が容易。デフォルトはセッション Cookie）
   - 日本語、英語、簡体字中国語の翻訳を内蔵。
 - **国際化 SEO 最適化**:
   - `<link rel="alternate" hreflang="...">` タグや `Metadata`、`Open Graph` タグを自動生成します。
-  - [next-sitemap](https://github.com/iamvishnusankar/next-sitemap) を使用し、ビルド時に多言語対応の `sitemap` と `robots.txt` を生成します。
-- **多言語対応 RSS / Atom フィード**: [feed](https://github.com/jpmonette/feed) を使用し、ビルド時に言語ごとの静的フィードファイルを生成します。
+  - [next-sitemap](https://github.com/iamvishnusankar/next-sitemap) を使用し、 `robots.txt`と 多言語対応の`sitemap` を生成します。
+- **多言語対応 RSS / Atom フィード**: [feed](https://github.com/jpmonette/feed) を使用し、静的フィードファイルを生成します。
 - **モダンなスタイルシステム**: [**Tailwind CSS v4.1**](https://tailwindcss.com/) を採用し、簡単にカスタマイズ可能。
 - **設定不要のサイト内検索**: [`pliny/search`](https://github.com/timlrx/pliny/tree/main/packages/pliny/src/search) をカスタマイズし、[`KBar`](https://github.com/timc1/kbar) で動作します。
 - **モダンな Markdown 執筆体験**:
@@ -35,6 +35,8 @@ Next.js の**静的サイト生成 (SSG)** 機能に興味を持って、人気�
   - コードハイライトは [`rehype-pretty-code`](https://rehype-pretty.pages.dev) を利用し、行番号とハイライト機能を提供。コードコピー機能は [`pliny/ui/Pre`](https://github.com/timlrx/pliny/blob/main/packages/pliny/src/ui/Pre.tsx) をベースにカスタマイズ。
   - 数学式は [KaTeX](https://katex.org/) を使用してレンダリング。
   - [GitHub 風のアラートボックス](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts) を [remark-github-blockquote-alert](https://github.com/jaywcjlove/remark-github-blockquote-alert) により実現。
+
+  **元のテンプレートから削除された機能**: コメントシステム(**DisqusJS を通じて実現する予定です**)、サイト分析機能、引用および参考文献のサポート
 
 ---
 
@@ -107,27 +109,21 @@ npm run contentlayer
 
 ### 国際化
 
-このプロジェクトには、簡体字中国語 (`zh`)、英語 (`en`)、日本語 (`ja`) の翻訳が内蔵されています。翻訳ファイルは `./i18n/messages/` にあります。既存の翻訳を改善したり、新しい言語を追加したりできます。
+このプロジェクトには、簡体字中国語 (`zh`)、英語 (`en`)、日本語 (`ja`) の翻訳が内蔵されています。翻訳ファイルは `./i18n/messages/` にあります。既存の翻訳を改善したり、新しい言語を追加したりできます。  
+翻訳ファイルに関する情報は、[next-intl のドキュメント](https://next-intl.dev/docs/usage/translations)を参照してください
 
 ### その他のカスタマイズ設定
 
-- **スタイルのカスタマイズ**
-  `tailwind.config.js` や `styles/*.css` を使用して Tailwind の設定や CSS スタイルを調整することで、全体的な見た目を簡単に変更できます。
+- **スタイルのカスタマイズ**  
+  `./tailwind.config.mjs` や `./styles/*.css` を使用して [Tailwind v4 の設定](https://tailwindcss.com/docs/upgrade-guide) や CSS スタイルを調整することで、全体的な見た目を簡単に変更できます。  
+  テーマカラー（Primary color）を変更するには、`./styles/global.css` の `--color-primary-*: var(--color-sky-*);` を編集し、`sky` を他の色に置き換えてください。
 
-- **MDX コンポーネント**
+- **MDX コンポーネント**  
   `components/MDXComponents.tsx` にカスタム React コンポーネントを登録することで、`.mdx` または `.md` ファイル内で使用可能になります。
   **注意: Next.js の** [**既知の問題**](https://github.com/vercel/next.js/issues/51593)を避けるため、コンポーネントは**デフォルトエクスポート**を使用してください。
 
-- **ナビゲーションバー**
+- **ナビゲーションバー**  
   `./components/Header.tsx` を編集して、ヘッダーのナビゲーションリンクをカスタマイズします。
-
-- **記事レイアウト**
-  記事ページには以下の3つのレイアウトがサポートされています（`./layouts/` にあります）:
-  - `PostLayout`(デフォルト): サイドバーに目次 (TOC) を表示する2カラムレイアウト。
-  - `PostSimple`: `PostLayout` の簡易版（サイドバー TOC なし）。
-  - `PostBanner`: ヘッダー部分にバナー画像を表示するレイアウト（サイドバー TOC なし）。
-
-  使用するレイアウトは、記事の Frontmatter で `layout` フィールドを指定して選択できます。
 
 ---
 
@@ -178,10 +174,11 @@ tags: string[]
 lastmod: string            // 最終更新日
 draft: boolean             // true の場合、記事はビルドされません
 summary: string            // 記事の要約
-images: string[]           // Open Graph などメタタグ用の画像 URL リスト
+images: string[]           // 画像URLのリスト。最初の画像は記事のヘッダーバナーとして使用されます。すべての画像はOpen Graphタグに使用します
 authors: string[]          // `./data/authors/` 以下のファイル名。指定がない場合は ['default']
 layout: string             // ページレイアウト。指定がない場合は 'PostLayout'
 isCanonical: boolean       // true の場合、<link rel="alternate" hreflang="x-default" ...> タグが追加されます。デフォルトは false
+categories: string[]       // 記事の分類
 ```
 
 ---
@@ -190,18 +187,18 @@ isCanonical: boolean       // true の場合、<link rel="alternate" hreflang
 
 ```mdx
 ---
-title: 'Introducing'
+title: 'Next SSG i18n Blog Starter v0.4 のご紹介'
+summary: 'この記事では、すぐに使える、静的サイト生成と多言語対応に対応したNext.jsブログテンプレート Next SSG i18n Blog Starter を紹介します。'
 translationKey: 'intro'
-date: '2025-01-01'
-lastmod: '2025-11-11'
-tags: ['next-js', 'tailwind', 'guide']
-draft: false
-language: 'en'
-summary: 'In this article...'
-images: ['/static/images/img1.jpg', '/static/images/img2.jpg']
+date: '2025-11-11T15:45:00+08:00'
+lastmod: '2025-11-19T15:30:00+08:00'
+categories: ['サンプル']
+tags: ['next', 'コーディング', 'ガイド']
+language: 'ja'
 authors: ['default', 'test']
+images: ['/static/images/twitter-card.png']
 layout: PostLayout
-isCanonical: true
+isCanonical: false
 ---
 
 # H1 タイトル
@@ -224,14 +221,14 @@ isCanonical: true
 
 ### 手動デプロイ
 
-- **より小さいビルドサイズ**
+- **より小さいビルドサイズ**  
   Webpack を使用してビルド:
 
   ```sh
   npm run export
   ```
 
-- **より高速なビルド**
+- **より高速なビルド**  
   Turbopack を使用してビルド:
 
   ```sh
@@ -249,6 +246,7 @@ npx serve out
 ```
 
 その後、ターミナルに表示される URL（デフォルト: [http://localhost:3000](http://localhost:3000)）をブラウザで開いてください。
+
 **`basePath`（例えば '/blog'）を設定した場合、`./out` 内のファイルを `./out/blog` にコピーする必要があります**
 
 ### GitHub Pages の自動デプロイ
@@ -261,9 +259,9 @@ npx serve out
 2.  [Cloudflare ダッシュボード](https://dash.cloudflare.com) にログインし、**Workers と Pages** を開きます。
 3.  **アプリケーションを作成 → Pages → 既存の Git リポジトリをインポート** をクリックし、GitHub アカウントを Cloudflare にリンクして、Fork したリポジトリを選択します。
 4.  ビルド設定を以下のように行います:
-    - **フレームワークプリセット**: `Next.js (Static HTML Export)`
     - **ビルドコマンド**: `npm run export`
     - **ビルド出力ディレクトリ**: `out`
+    - **環境変数 (アドバンスド) → 変数を追加する**: 変数名: `SITE_URL`, 値: `https://(ドメイン)`
 5.  **保存してデプロイ** をクリックすると、Cloudflare は初回のビルドとデプロイを自動的に完了します。
 
 以降、コードをプッシュするたびに Cloudflare Pages が自動的に新しいビルドをトリガーします。
@@ -284,15 +282,6 @@ npx serve out
 ### MDX コンポーネントのカスタマイズ
 
 - [How can I add a custom MDX component?](https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/main/faq/custom-mdx-component.md)
-
----
-
-## 開発計画
-
-今後のバージョンで以下の機能を段階的に追加する予定です（順不同）:
-
-- **元のテンプレートから削除された機能**: コメントシステム、サイト分析機能、引用および参考文献のサポート
-- **新しい便利機能**: 記事の下部に著作権表示コンポーネントを追加
 
 ---
 

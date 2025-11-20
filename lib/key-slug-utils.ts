@@ -1,6 +1,6 @@
 import { Locale } from '@/i18n'
 import { KeySlugMappingData } from '@/app/types'
-import keySlugMappingData from '@/app/key-slug-mapping.json' with { type: 'json' }
+import keySlugMappingData from '@/.contentlayer/generated/key-slug-mapping.json' with { type: 'json' }
 
 export function getSlugByLocaleAndKey(postKey: string, targetLocale: Locale): string | undefined {
   const mapping = keySlugMappingData as KeySlugMappingData

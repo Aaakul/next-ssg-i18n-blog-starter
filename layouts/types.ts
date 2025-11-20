@@ -2,6 +2,7 @@ import type { CoreContent } from '@/lib/contentlayer-utils'
 import type { Authors, Blog } from 'contentlayer/generated'
 import type React from 'react'
 import { Locale } from '@/i18n'
+import { RelatedPostsData } from '@/components/types'
 
 export interface PostLayoutProps {
   content: CoreContent<Blog>
@@ -11,6 +12,7 @@ export interface PostLayoutProps {
   children: React.ReactNode
   toc?: [{ value: string; url: string; depth: number }]
   lastmod?: string | undefined
+  relatedPosts: RelatedPostsData[]
 }
 
 export interface PaginationProps {
@@ -20,22 +22,15 @@ export interface PaginationProps {
 }
 
 export interface ListLayoutProps {
-  headerTitle: string
+  headerTitle?: string
   initialDisplayPosts?: CoreContent<Blog>[]
   pagination?: PaginationProps
   locale: Locale
-  tagCounts: Record<string, number>
+  tagCount: Record<string, number>
+  categoryCount: Record<string, number>
 }
 
 export interface AuthorLayoutProps {
   children: React.ReactNode
   content: CoreContent<Authors>
-}
-
-export interface PaginationButtonProps {
-  isEnabled: boolean
-  label: string
-  href?: string
-  onClick?: () => void
-  icon: React.ComponentType<React.ComponentProps<'svg'>>
 }

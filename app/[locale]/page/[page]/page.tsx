@@ -6,16 +6,20 @@ import { SiteConfig, SiteUrlWithBase } from '@/data/siteConfig.mjs'
 import genPageMetadata from '@/lib/seo'
 import { BlogPageParams } from '@/app/types'
 import { RenderBlogListPage } from '@/components/RenderPages'
+import { redirect } from 'next/navigation'
+
+const POSTS_PER_PAGE = SiteConfig.postsPerPage
+
+export const dynamicParams = false
 
 export async function generateStaticParams() {
   return supportedLocales.flatMap((locale: Locale) => {
-    const totalPages = Math.ceil(
-      allBlogs.filter((post) => post.language === locale).length / SiteConfig.postsPerPage
-    )
+    const totalPages =
+      Math.ceil(allBlogs.filter((post) => post.language === locale).length / POSTS_PER_PAGE) || 1
 
     return Array.from({ length: totalPages }, (_, i) => ({
       locale,
-      page: i === 0 ? undefined : ['page', (i + 1).toString()], // skip `/page/1`
+      page: (i + 1).toString(),
     }))
   })
 }
@@ -26,13 +30,13 @@ export async function generateMetadata(props: { params: Promise<BlogPageParams> 
 
   const t = await getTranslations({ locale, namespace: 'common' })
 
-  const path = !page ? '' : page.join('/')
-
   const altLangURL: Record<string, string> = {}
 
   for (const locale of supportedLocales) {
-    altLangURL[locale] = new URL(`${SiteUrlWithBase}/${locale}/blog/list/${path}`).toString()
+    altLangURL[locale] = new URL(`${SiteUrlWithBase}/${locale}/page/${page}`).toString()
   }
+
+  const isAllowRobots = parseInt(page, 10) === 1 ? false : SiteConfig.isAllowRobots
 
   return genPageMetadata({
     locale: locale,
@@ -42,6 +46,14 @@ export async function generateMetadata(props: { params: Promise<BlogPageParams> 
     alternates: {
       languages: altLangURL,
     },
+    robots: {
+      index: isAllowRobots,
+      follow: isAllowRobots,
+      googleBot: {
+        index: isAllowRobots,
+        follow: isAllowRobots,
+      },
+    },
   })
 }
 
@@ -49,6 +61,9 @@ export default function Page(props: { params: Promise<BlogPageParams> }) {
   const params = use(props.params)
   const { locale, page } = params
   setRequestLocale(locale)
-  const pageNum = page?.[0] === 'page' && page?.[1] ? parseInt(page[1], 10) : 1
+  const pageNum = parseInt(page, 10)
+
+  if (pageNum === 1) redirect(`/${locale}`)
+
   return RenderBlogListPage({ locale: locale as Locale, pageNum: pageNum, type: 'posts' })
 }

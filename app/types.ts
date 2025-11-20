@@ -14,7 +14,8 @@ export type PostSlugParams = {
 
 export type AuthorSlugParams = LocaleParams & WithOptionalParams<'slug'>
 export type TagPageParams = TagParams & WithOptionalParams<'page'>
-export type BlogPageParams = LocaleParams & WithOptionalParams<'page'>
+export type CategoriesPageParams = WithLocale<'categories'> & WithOptionalParams<'page'>
+export type BlogPageParams = WithLocale<'page'>
 
 export type RootLayoutProps = {
   children: React.ReactNode

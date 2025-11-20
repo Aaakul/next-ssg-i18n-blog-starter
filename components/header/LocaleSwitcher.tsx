@@ -18,6 +18,7 @@ import { InformationCircleIcon, LanguageIcon } from '@heroicons/react/24/outline
 import { notFound } from 'next/navigation'
 import { getKeyByLocaleAndSlug, getSlugByLocaleAndKey } from '@/lib/key-slug-utils'
 import { LocaleFallbackModalProps } from '../types'
+import clsx from 'clsx'
 
 function LocaleFallbackModal({
   isOpen,
@@ -49,13 +50,13 @@ function LocaleFallbackModal({
           leaveTo="opacity-0"
         >
           <DialogBackdrop
-            className="fixed inset-0 bg-black/30 backdrop-blur backdrop-grayscale"
+            className="fixed inset-0 bg-black/30 backdrop-blur backdrop-grayscale backdrop-filter"
             style={{ WebkitBackdropFilter: 'blur(8px) grayscale(100%)' }}
           />
         </TransitionChild>
 
         {/* Panel Wrapper */}
-        <div className="fixed inset-0 flex items-center justify-center p-4 sm:p-6">
+        <div className="flex-center fixed inset-0 p-4 sm:p-6">
           <TransitionChild
             as={Fragment}
             enter="ease-out duration-300"
@@ -65,29 +66,36 @@ function LocaleFallbackModal({
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <DialogPanel className="w-full max-w-md transform rounded-2xl bg-gray-50 p-5 text-left align-middle shadow-lg sm:p-6 dark:bg-gray-800">
+            <DialogPanel
+              className={clsx(
+                'w-full max-w-md rounded-2xl p-6',
+                'bg-default transform text-left align-middle shadow-lg'
+              )}
+            >
               {/* Icon + Title + Message */}
               <div className="flex items-start gap-3 sm:gap-4">
                 {/* Icon Circle */}
-                <div className="bg-primary-100 dark:bg-primary-900/50 mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full sm:h-12 sm:w-12">
+                <div
+                  className={clsx(
+                    'bg-primary-100 rounded-full dark:bg-gray-900/50',
+                    'h-10 w-10 sm:h-12 sm:w-12',
+                    'flex-center mt-1 flex shrink-0'
+                  )}
+                >
                   <InformationCircleIcon
-                    className="text-primary-600 dark:text-primary-400 h-6 w-6"
+                    className="text-primary-600 icon-size"
                     aria-hidden="true"
                   />
                 </div>
 
                 {/* Text Content */}
                 <div className="flex-1">
-                  <DialogTitle className="text-lg leading-6 font-semibold text-gray-900 dark:text-gray-100">
+                  <DialogTitle className="text-lg leading-6 font-semibold">
                     {t('title')}
                   </DialogTitle>
-                  <div className="mt-1 space-y-1">
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      {t('no_translation', { targetLocaleName })}
-                    </p>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      {t('switch_to_available')}
-                    </p>
+                  <div className="text-muted mt-1 space-y-1 text-sm">
+                    <p>{t('no_translation', { targetLocaleName })}</p>
+                    <p>{t('switch_to_available')}</p>
                   </div>
                 </div>
               </div>
@@ -98,7 +106,10 @@ function LocaleFallbackModal({
                   <button
                     key={option.locale}
                     type="button"
-                    className="hover:bg-primary-600 w-full rounded-lg bg-white px-4 py-2.5 text-left text-sm font-medium text-gray-900 shadow-xs dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600"
+                    className={clsx(
+                      'hover:bg-primary-500 bg-white/95 dark:bg-gray-700 dark:hover:bg-gray-600',
+                      'w-full rounded-lg px-4 py-3 text-left text-sm font-medium shadow-xs'
+                    )}
                     onClick={() => handleFallback(option.locale, option.slug)}
                   >
                     {option.displayName}
@@ -108,11 +119,7 @@ function LocaleFallbackModal({
 
               {/* Close Button */}
               <div className="mt-6">
-                <button
-                  type="button"
-                  className="bg-primary-600 hover:bg-primary-500 active:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-400 dark:active:bg-primary-600 inline-flex w-full justify-center rounded-lg px-4 py-2.5 text-sm font-semibold text-gray-100 shadow-sm"
-                  onClick={onClose}
-                >
+                <button type="button" className="button-primary w-full px-4 py-3" onClick={onClose}>
                   {t('close')}
                 </button>
               </div>
@@ -211,11 +218,8 @@ export default function LocaleSwitcher() {
       <Popover className="relative inline-block text-left">
         {({ close: closePopover }) => (
           <>
-            <PopoverButton
-              className="header-button flex items-center"
-              aria-label={t('locale_switcher')}
-            >
-              <LanguageIcon className="h-6" />
+            <PopoverButton className="header-button flex-center" aria-label={t('locale_switcher')}>
+              <LanguageIcon className="icon-size" />
             </PopoverButton>
 
             <Transition
@@ -227,13 +231,23 @@ export default function LocaleSwitcher() {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <PopoverPanel className="absolute -right-2 z-8 mt-2 w-24 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg transition duration-100 ease-in-out focus:outline-none dark:bg-gray-800">
+              <PopoverPanel
+                className={clsx(
+                  'absolute z-80 mt-2 w-24 origin-top-left',
+                  'bg-default shadow-lg',
+                  'rounded-lg focus:outline-none'
+                )}
+              >
                 <div className="p-1">
                   {supportedLocales.map((locale: Locale) => (
                     <button
                       key={locale}
                       onClick={() => changeLocale(locale, closePopover)}
-                      className="group hover:bg-primary-600 space-x relative flex w-full items-center rounded-lg px-2 py-2 text-sm leading-6 hover:text-white focus:outline-none dark:text-gray-100"
+                      className={clsx(
+                        'hover:bg-primary-500 rounded-lg hover:text-gray-100',
+                        'text-left text-sm',
+                        'group space-x relative w-full px-2 py-2'
+                      )}
                     >
                       {localeDisplayNames[locale as Locale]}
                     </button>

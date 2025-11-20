@@ -14,7 +14,7 @@ export function PostList({ posts, locale, maxDisplay }: PostListProps) {
   }
 
   return (
-    <ul className="space-y-4">
+    <ul>
       {displayPosts.map((post) => {
         const { slug, date, title, summary, tags, toc } = post
         const href = `/${locale}/blog/${slug}`
@@ -22,7 +22,7 @@ export function PostList({ posts, locale, maxDisplay }: PostListProps) {
           <li key={slug} className="py-4">
             <article>
               <div className="space-y-2 xl:grid xl:grid-cols-4">
-                <dl className="text-sm text-gray-500 dark:text-gray-400">
+                <dl className="text-muted text-sm">
                   <dt className="sr-only">{t('published_on') || 'Published on: '}</dt>
                   <dd>
                     <time dateTime={date}>
@@ -32,10 +32,7 @@ export function PostList({ posts, locale, maxDisplay }: PostListProps) {
                 </dl>
                 <div className="xl:col-span-3">
                   <h2 className="text-2xl leading-8 font-bold">
-                    <Link
-                      href={href}
-                      className="hover:text-primary-600 dark:hover:text-primary-400 flex items-center text-gray-900 dark:text-gray-100"
-                    >
+                    <Link href={href} className="link-hover">
                       <Balancer>{title}</Balancer>
                     </Link>
                   </h2>
@@ -51,7 +48,7 @@ export function PostList({ posts, locale, maxDisplay }: PostListProps) {
                     </div>
                   )}
 
-                  <div className="prose prose-sm max-w-none text-gray-500 dark:text-gray-400">
+                  <div className="text-muted max-w-none text-sm leading-6">
                     {summary ? (
                       <p>{summary}</p>
                     ) : toc?.length ? (

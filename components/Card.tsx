@@ -17,7 +17,7 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => {
           title
         )}
       </h2>
-      <p className="prose mb-3 max-w-none text-gray-500 dark:text-gray-400">{description}</p>
+      <p className="text-muted mb-3 max-w-none">{description}</p>
     </div>
   )
 
@@ -46,7 +46,8 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => {
       <div
         className={clsx(
           imgSrc && 'h-full',
-          'border-opacity-50 overflow-hidden rounded-md border border-gray-500/50 shadow-lg dark:bg-gray-900/50'
+          'rounded-md bg-gray-100/50 dark:bg-gray-900/50',
+          'border-opacity-50 overflow-hidden border border-gray-500/50 shadow-lg'
         )}
       >
         {renderImage()}

@@ -36,10 +36,7 @@ feed.json
 atom.xml
 
 # post data
-key-slug-mapping.json
 search.json
-tag-data.json
-
 
 # misc
 .DS_Store

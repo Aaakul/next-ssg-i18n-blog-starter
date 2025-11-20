@@ -7,7 +7,7 @@ import { MDXLayoutRenderer } from '@/lib/pliny/mdx-components'
 import { sortPosts, coreContent, allCoreContent } from '@/lib/contentlayer-utils'
 import { allBlogs, allAuthors } from 'contentlayer/generated'
 import type { Authors, Blog } from 'contentlayer/generated'
-import { PostSimple, PostLayout, PostBanner } from '@/layouts'
+import { PostLayout } from '@/layouts'
 import { SiteConfig, SiteUrlWithBase } from '@/data/siteConfig.mjs'
 import { Locale, supportedLocales } from '@/i18n'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
@@ -15,12 +15,11 @@ import { notFound } from 'next/navigation'
 import genPageMetadata from '@/lib/seo'
 import { PostSlugParams } from '@/app/types'
 import { getSlugByLocaleAndKey } from '@/lib/key-slug-utils'
+import { findRelatedPosts } from '@/lib/posts-filter-utils'
 
 const defaultLayout = 'PostLayout' as const
 const layouts = {
-  PostSimple,
   PostLayout,
-  PostBanner,
 } as const
 
 export async function generateStaticParams() {
@@ -112,6 +111,7 @@ export default function Page(props: { params: Promise<PostSlugParams> }) {
   }
 
   const post = allBlogs.find((post) => post.slug === decodedSlug) as Blog
+  const relatedPosts = findRelatedPosts(sortPosts(allBlogs), post)
   const mainContent = coreContent(post)
   const prev = sortedCoreContents[postIndex + 1]
   const next = sortedCoreContents[postIndex - 1]
@@ -145,6 +145,7 @@ export default function Page(props: { params: Promise<PostSlugParams> }) {
         next={next}
         prev={prev}
         toc={post.toc}
+        relatedPosts={relatedPosts}
       >
         <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
       </Layout>

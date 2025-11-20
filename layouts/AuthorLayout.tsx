@@ -7,9 +7,9 @@ export default function AuthorLayout({ children, content }: AuthorLayoutProps) {
   const t = useTranslations('common')
   const { name, avatar, occupation, company, mail, twitter, bluesky, linkedin, github } = content
   return (
-    <article className="m-auto divide-y divide-gray-200 dark:divide-gray-700">
+    <article className="divide-y-gray m-auto">
       <header className="space-y-2 pt-6 pb-4 md:space-y-4">
-        <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
+        <h1 className="text-3xl font-bold sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
           {t('about') || 'About'}
         </h1>
       </header>
@@ -22,11 +22,11 @@ export default function AuthorLayout({ children, content }: AuthorLayoutProps) {
               alt={name ? `Avatar of ${name}` : 'User profile image'}
               width={128}
               height={128}
-              className="rounded-full object-cover shadow-md"
+              className="rounded-full object-cover shadow-sm"
             />
           )}
           <h2 className="pt-4 pb-2 text-2xl leading-8 font-bold">{name}</h2>
-          <dl className="text-gray-500 dark:text-gray-400">
+          <dl className="text-muted">
             <div>
               <dt className="sr-only">{t('occupation')}</dt>
               <dd>{occupation}</dd>

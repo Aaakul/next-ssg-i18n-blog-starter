@@ -1,42 +1,62 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
+import clsx from 'clsx'
+
+const SCROLL_THRESHOLD = 50
 
 const ScrollTop = () => {
   const t = useTranslations('common')
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState<boolean>(false)
 
-  useEffect(() => {
-    const handleWindowScroll = () => {
-      if (window.scrollY > 50) setShow(true)
-      else setShow(false)
+  const handleWindowScroll = useCallback(() => {
+    if (window.scrollY > SCROLL_THRESHOLD) {
+      setShow(true)
+    } else {
+      setShow(false)
     }
-
-    window.addEventListener('scroll', handleWindowScroll)
-    return () => window.removeEventListener('scroll', handleWindowScroll)
   }, [])
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleWindowScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleWindowScroll)
+    }
+  }, [handleWindowScroll])
+
   const handleScrollTop = () => {
-    window.scrollTo({ top: 0 })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+
+  const UpArrowIcon = (
+    <svg className="icon-size" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path
+        fillRule="evenodd"
+        d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z"
+        clipRule="evenodd"
+      />
+    </svg>
+  )
 
   return (
     <div
-      className={`fixed right-12 bottom-12 hidden flex-col gap-3 ${show ? 'md:flex' : 'md:hidden'}`}
+      className={clsx(
+        'fixed right-5 bottom-18 z-30 flex flex-col md:pr-4 md:pb-4 lg:pr-30',
+        show ? 'flex' : 'invisible'
+      )}
     >
       <button
+        type="button"
         aria-label={t('scroll_to_top')}
         onClick={handleScrollTop}
-        className="rounded-full bg-gray-200 p-2 text-gray-500 transition-all hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600"
+        className={clsx(
+          'rounded-full p-2 shadow-sm transition-all duration-300 ease-in-out',
+          'bg-default focus:outline-non link-hover hover:scale-125 focus:ring-2'
+        )}
       >
-        <svg className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-          <path
-            fillRule="evenodd"
-            d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z"
-            clipRule="evenodd"
-          />
-        </svg>
+        {UpArrowIcon}
       </button>
     </div>
   )

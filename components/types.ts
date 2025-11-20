@@ -3,6 +3,7 @@ import { Locale } from '@/i18n'
 import { ReadTimeResults } from 'reading-time'
 import { Authors } from '@/.contentlayer/generated/types'
 import type { Action } from 'kbar'
+import type React from 'react'
 
 export interface CardProps {
   title: string
@@ -35,8 +36,8 @@ export interface MobileNavProps {
 export type BlogListPageParams = {
   locale: Locale
   pageNum: number
-  type: 'posts' | 'tags'
-  decodedTag?: string
+  type: 'posts' | 'tags' | 'categories'
+  decodedSlug?: string
 }
 
 export interface PostListProps {
@@ -91,4 +92,31 @@ export interface LocaleFallbackModalProps {
 export interface KBarSearchProps {
   defaultActions?: Action[]
   onSearchDocumentsLoad?: (json: any) => Action[]
+}
+
+export interface LinksPanelProps {
+  fieldCount: Record<string, number>
+  field: 'tags' | 'categories'
+  basePath?: string
+  locale: string
+  linksPanelClass?: string
+}
+
+export interface PaginationButtonProps {
+  isEnabled: boolean
+  label?: string
+  pageLabel?: string | number
+  href?: string
+  icon?: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean }>
+  className?: string
+  isCurrentPage?: boolean
+}
+
+export type RelatedPostsData = {
+  path: string
+  title: string
+}
+
+export interface RelatedPostsProps {
+  relatedPosts: RelatedPostsData[]
 }

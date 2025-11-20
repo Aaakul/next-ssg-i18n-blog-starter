@@ -9,7 +9,7 @@ import { FooterNavigationProps, PostHeaderProps } from './types'
 
 export function PageTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h1 className="text-3xl leading-10 font-bold text-gray-900 sm:text-4xl md:text-5xl md:leading-14 dark:text-gray-100">
+    <h1 className="text-3xl leading-10 font-bold sm:text-4xl md:text-5xl md:leading-14">
       <Balancer>{children}</Balancer>
     </h1>
   )
@@ -23,11 +23,14 @@ export function PostHeader({
   authorDetails,
 }: PostHeaderProps) {
   const t = useTranslations('common')
+
+  // hide author details if author is default author
+  const shouldShowAuthor = authorDetails.length > 1 || !authorDetails[0].slug.endsWith('/default')
   return (
     <div className="space-y-1 border-b border-gray-200 pb-4 md:space-y-2 dark:border-gray-700">
-      <div className="flex flex-col items-center justify-center gap-1 md:flex-row md:gap-2">
+      <div className="flex-center text-muted flex-col gap-1 text-sm md:flex-row md:gap-2">
         {/* Published Date */}
-        <div className="text-sm text-gray-500 dark:text-gray-400">
+        <div>
           <dl className="sr-only">
             <dt>{t('published_on') || 'Published on: '}</dt>
             <dd>{date}</dd>
@@ -36,23 +39,25 @@ export function PostHeader({
         </div>
 
         {/* Authors */}
-        <div className="text-sm text-gray-500 dark:text-gray-400">
-          <span>{t('author_prefix')}</span>
-          {authorDetails.map((author, index) => (
-            <span key={author.slug} className="hover:text-primary-600 dark:hover:text-primary-400">
-              <Link
-                href={
-                  author.slug?.endsWith('/default')
-                    ? `/${locale}/about`
-                    : `/${locale}/about/${author.slug?.split('/')[1]}`
-                }
-              >
-                {author.name}
-              </Link>
-              {index < authorDetails.length - 1 && ', '}
-            </span>
-          ))}
-        </div>
+        {shouldShowAuthor && (
+          <div>
+            <span>{t('author_prefix')}</span>
+            {authorDetails.map((author, index) => (
+              <span key={author.slug} className="link-hover">
+                <Link
+                  href={
+                    author.slug?.endsWith('/default')
+                      ? `/${locale}/about`
+                      : `/${locale}/about/${author.slug?.split('/')[1]}`
+                  }
+                >
+                  {author.name}
+                </Link>
+                {index < authorDetails.length - 1 && ', '}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Title */}
@@ -61,14 +66,14 @@ export function PostHeader({
       </div>
 
       {/* Reading Time & Word Count */}
-      <div className="flex items-center justify-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-        <div className="flex items-center space-x-1">
+      <div className="flex-center text-muted gap-4 text-sm">
+        <div className="flex-center">
           <ClockIcon className="w-4" aria-hidden="true" />
           <span>
             {Math.ceil(readingTime.minutes)} {t('minutes')}
           </span>
         </div>
-        <div className="flex items-center space-x-1">
+        <div className="flex-center">
           <LanguageIcon className="w-4" aria-hidden="true" />
           <span>
             {readingTime.words} {t('words')}
@@ -78,7 +83,7 @@ export function PostHeader({
 
       {/* Tags */}
       {tags && (
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className="flex-center flex-wrap gap-2">
           {tags.map((tag: string) => (
             <Tag key={tag} text={tag} locale={locale} />
           ))}
@@ -98,6 +103,7 @@ export function FooterNavigation({ prev, next, locale }: FooterNavigationProps) 
     t('prev_post', { title: prev?.title ?? '' }) || `Previous post: ${prev?.title ?? ''}`
   const next_title =
     t('next_post', { title: next?.title ?? '' }) || `Next post: ${next?.title ?? ''}`
+  const linkClass = 'text-primary-400 link-hover flex focus:ring-2 focus:outline-none'
 
   return (
     <nav aria-label={t('pagination')} className="mt-8 self-start text-ellipsis sm:self-auto">
@@ -106,11 +112,11 @@ export function FooterNavigation({ prev, next, locale }: FooterNavigationProps) 
           <li>
             <Link
               href={`/${locale}/${prev.path}`}
-              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 inline-flex items-center focus:rounded focus:ring-2 focus:outline-none"
+              className={linkClass}
               aria-label={previous_title}
               title={previous_title}
             >
-              &larr; <span className="ml-1">{prev.title}</span>
+              &larr; <span className="ml-1">{previous_title}</span>
             </Link>
           </li>
         )}
@@ -118,11 +124,11 @@ export function FooterNavigation({ prev, next, locale }: FooterNavigationProps) 
           <li className="sm:ml-auto">
             <Link
               href={`/${locale}/${next.path}`}
-              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 inline-flex items-center focus:rounded focus:ring-2 focus:outline-none"
+              className={linkClass}
               aria-label={next_title}
               title={next_title}
             >
-              <span className="mr-1">{next.title}</span> &rarr;
+              <span className="mr-1">{next_title}</span> &rarr;
             </Link>
           </li>
         )}

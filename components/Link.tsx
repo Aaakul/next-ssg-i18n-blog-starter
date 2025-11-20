@@ -15,7 +15,7 @@ const CustomLink = ({
     return (
       <Link
         href={href}
-        className={className ? `wrap-break-word ${className}` : 'wrap-break-word'}
+        className={`link-hover wrap-break-word ${className}`}
         prefetch={false} // https://github.com/vercel/next.js/issues/85374
         {...rest}
       />
@@ -26,7 +26,7 @@ const CustomLink = ({
     return (
       <a
         href={href}
-        className={className ? `wrap-break-word ${className}` : 'wrap-break-word'}
+        className={`link-hover text-primary-500 dark:text-primary-600 wrap-break-word ${className}`}
         {...rest}
       />
     )
@@ -37,7 +37,7 @@ const CustomLink = ({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={className ? `wrap-break-word ${className}` : 'wrap-break-word'}
+      className={`link-hover wrap-break-word ${className}`}
       {...rest}
     />
   )

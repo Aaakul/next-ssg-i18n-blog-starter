@@ -2,13 +2,14 @@ import { use } from 'react'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import { slug } from 'github-slugger'
-import tagDataRaw from '@/app/tag-data.json' with { type: 'json' }
+import tagsDataRaw from '@/.contentlayer/generated/tags-data.json' with { type: 'json' }
 import genPageMetadata from '@/lib/seo'
 import { supportedLocales, Locale } from '@/i18n'
 import { SiteUrlWithBase } from '@/data/siteConfig.mjs'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { useTranslations } from 'next-intl'
 import { LocaleParams } from '@/app/types'
+import clsx from 'clsx'
 
 // create static pages for each language
 export async function generateStaticParams() {
@@ -44,32 +45,40 @@ export default function Page(props: { params: Promise<LocaleParams> }) {
   setRequestLocale(locale)
   const t = useTranslations('common')
 
-  const tagData = tagDataRaw as unknown as {
+  const tagsData = tagsDataRaw as unknown as {
     [_ in Locale]: Record<string, number>
   }
-  const tagCounts = tagData[locale as Locale] || {}
+  const tagCounts = tagsData[locale as Locale] || {}
   const tagKeys = Object.keys(tagCounts)
-  const sortedTags = tagKeys.sort((a: string, b: string) => {
-    return (tagCounts[b] || 0) - (tagCounts[a] || 0)
-  })
 
   return (
-    <section className="mb-4 flex flex-col items-start justify-start md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6">
-      <div className="space-y-5 pt-6 pb-8 md:space-y-5">
-        <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl sm:leading-10 md:border-r-2 md:px-6 md:text-6xl md:leading-14 dark:text-gray-100">
+    <section
+      className={clsx(
+        'mb-4 flex flex-col items-start justify-start pt-6 pb-8',
+        'md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6'
+      )}
+    >
+      <div className="space-y-5 md:border-r-2 md:px-6">
+        <h2
+          className={clsx(
+            'text-3xl font-bold',
+            'sm:text-4xl sm:leading-10',
+            'md:text-6xl md:leading-14'
+          )}
+        >
           {t('tags')}
         </h2>
       </div>
       {tagKeys.length === 0 ? (
-        <p className="text-gray-600 dark:text-gray-400">{t('no_tags_found')}</p>
+        <p className="text-muted">{t('no_tags_found')}</p>
       ) : (
         <div className="flex max-w-lg flex-wrap gap-4">
-          {sortedTags.map((tag) => (
-            <div key={tag} className="flex items-center">
+          {tagKeys.map((tag) => (
+            <div key={tag} className="flex-center font-bold">
               <Tag text={tag} locale={locale as Locale} />
               <Link
                 href={`/${locale}/tags/${slug(tag)}`}
-                className="text-sm font-semibold text-gray-600 uppercase dark:text-gray-300"
+                className="text-muted uppercase"
                 aria-label={t('view_posts_tagged', { tag: tag })}
               >
                 ({tagCounts[tag]})

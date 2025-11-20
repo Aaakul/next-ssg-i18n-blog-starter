@@ -15,7 +15,10 @@ export async function generateStaticParams() {
 }
 
 const DynamicSearchProvider = dynamic(() => import('@/components/custom-KBar/SearchProvider'), {
-  ssr: true,
+  loading: () => null,
+})
+
+const DynamicScrollTop = dynamic(() => import('@/components/ScrollTop'), {
   loading: () => null,
 })
 
@@ -48,9 +51,10 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
       />
       <NextIntlClientProvider>
         <ThemeProviders>
+          <DynamicScrollTop />
           <DynamicSearchProvider>
             <Header locale={locale as Locale} />
-            <main className="m-auto max-w-5xl">{children}</main>
+            <main className="m-auto max-w-6xl">{children}</main>
           </DynamicSearchProvider>
           <Footer copyrightText={t('site_title')} />
         </ThemeProviders>

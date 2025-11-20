@@ -18,15 +18,15 @@ After trying several approaches, I finally achieved stable and efficient i18n su
 
 Building on the core [features](https://github.com/timlrx/tailwind-nextjs-starter-blog#features) of the Tailwind Next.js Starter Blog, this project integrates i18n and improves the development process. Key features include:
 
-- **Excellent User Experience**: Near-perfect Lighthouse scores.
+- **Excellent User Experience**: [Near-perfect Lighthouse scores](https://pagespeed.web.dev/analysis/https-next-ssg-i18n-blog-starter-pages-dev-zh/nqb9usvegl?form_factor=desktop)
 - **Out-of-the-Box i18n**: Integrated with [next-intl](https://next-intl.dev/), supporting SSG.
   - Automatically detects the user's browser language.
   - Saves the user's language preference via a **Cookie** (supports configurable expiration for compliance; defaults to a session cookie).
   - Includes translations for Simplified Chinese, English, and Japanese.
 - **i18n SEO Optimization**:
   - Automatically generates `<link rel="alternate" hreflang="...">` tags, `Metadata`, and `Open Graph` tags.
-  - Uses [next-sitemap](https://github.com/iamvishnusankar/next-sitemap) to generate multilingual `sitemap` and `robots.txt` files during the build.
-- **Multilingual RSS/Atom Feed Support**: Uses [feed](https://github.com/jpmonette/feed) to generate separate static feed files for each language during the build process.
+  - Uses [next-sitemap](https://github.com/iamvishnusankar/next-sitemap) to generate `robots.txt` and multilingual `sitemap` files.
+- **Multilingual RSS/Atom Feed Support**: Uses [feed](https://github.com/jpmonette/feed) to generate separate static feed files for each language.
 - **Modern Styling**: Based on [**Tailwind CSS v4.1**](https://tailwindcss.com/) for easy customization.
 - **Zero-Config In-Site Search**: Modified from [`pliny/search`](https://github.com/timlrx/pliny/tree/main/packages/pliny/src/search), powered by [`KBar`](https://github.com/timc1/kbar).
 - **Modern Markdown Authoring**:
@@ -35,6 +35,8 @@ Building on the core [features](https://github.com/timlrx/tailwind-nextjs-starte
   - Syntax highlighting powered by [`rehype-pretty-code`](https://rehype-pretty.pages.dev), including line numbers and highlighting. Code copying is adapted from [`pliny/ui/Pre`](https://github.com/timlrx/pliny/blob/main/packages/pliny/src/ui/Pre.tsx).
   - Math formula rendering with [KaTeX](https://katex.org/).
   - Supports [GitHub-style alerts](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts), implemented via [remark-github-blockquote-alert](https://github.com/jaywcjlove/remark-github-blockquote-alert).
+
+  **Features removed from the original template**:Comment (**planned to be implemented via DisqusJS**), website analytics, citation and reference.
 
 ---
 
@@ -107,12 +109,14 @@ npm run contentlayer
 
 ### i18n
 
-The project includes built-in support for Simplified Chinese (`zh`), English (`en`), and Japanese (`ja`). Translation files are in `./i18n/messages/`. You can improve these or add more languages.
+The project includes built-in support for Simplified Chinese (`zh`), English (`en`), and Japanese (`ja`). Translation files are in `./i18n/messages/`. You can improve these or add more languages.  
+For information about Translation files, please refer to the [next-intl documentation](https://next-intl.dev/docs/usage/translations)
 
 ### Other Customizations
 
 - **Styling**  
-  Adjust the overall style easily via `tailwind.config.js` and `styles/*.css` to change Tailwind configuration and CSS styles.
+  Adjust the overall style easily via `./tailwind.config.mjs` and `./styles/*.css` to change [Tailwind v4 configuration](https://tailwindcss.com/docs/upgrade-guide) and CSS styles.  
+  To change the theme color (Primary colour), please modify `--color-primary-*: var(--color-sky-*);` in `./styles/global.css` and replace `sky` with another color.
 
 - **MDX Components**  
   Register custom React components in `components/MDXComponents.tsx` to use them in `.mdx` or `.md` files.
@@ -120,13 +124,6 @@ The project includes built-in support for Simplified Chinese (`zh`), English (`e
 
 - **Navigation Bar**  
   Modify `./components/Header.tsx` to customize the top navigation links.
-
-- **Post Layouts**  
-  The post page supports three layouts (located in `./layouts/`):
-  - `PostLayout` (default): Two-column layout with a sidebar table of contents (TOC).
-  - `PostSimple`: A simplified version of `PostLayout`, without the sidebar TOC.
-  - `PostBanner`: Full-width banner image at the top, no sidebar TOC.
-    Specify the desired layout in the post's Frontmatter using the `layout` field.
 
 ---
 
@@ -177,10 +174,11 @@ tags: string[]
 lastmod: string            // Last modified date
 draft: boolean             // If true, the article will not be built in production
 summary: string            // Article summary
-images: string[]           // List of image URLs for meta tags (like Open Graph and Twitter Card)
+images: string[]           // A list of image URLs, where the first image will be used as the article's header banner. All images will be used for OpenGraph
 authors: string[]          // Filenames under `./data/authors/`. Defaults to ['default']
 layout: string             // Page layout. Defaults to 'PostLayout'
 isCanonical: boolean       // If true, adds <link rel="alternate" hreflang="x-default" ...> tag. Defaults to false
+categories: string[]       // Article categories
 ```
 
 ---
@@ -189,18 +187,18 @@ isCanonical: boolean       // If true, adds <link rel="alternate" hreflang="x
 
 ```mdx
 ---
-title: 'Introducing'
+title: 'Introducing Next SSG i18n Blog Starter v0.4'
+summary: 'This article introduces the Next SSG i18n Blog Starter, a ready-to-use Next.js blog template that supports static site generation and multiple languages'
 translationKey: 'intro'
-date: '2025-01-01'
-lastmod: '2025-11-11'
-tags: ['next-js', 'tailwind', 'guide']
-draft: false
+date: '2025-11-11T15:45:00+08:00'
+lastmod: '2025-11-19T15:30:00+08:00'
+tags: ['next', 'coding', 'guide']
+categories: ['sample']
 language: 'en'
-summary: 'In this article...'
-images: ['/static/images/img1.jpg', '/static/images/img2.jpg']
 authors: ['default', 'test']
-layout: PostLayout
-isCanonical: true
+images: ['/static/images/twitter-card.png']
+isCanonical: false
+layout: 'PostLayout'
 ---
 
 # H1 Title
@@ -248,6 +246,7 @@ npx serve out
 ```
 
 Then open the URL shown in the terminal (default: [http://localhost:3000](http://localhost:3000)) in your browser.
+
 **If `basePath` is configured (e.g., '/blog'), the files in `./out` need to be copied to `./out/blog`**
 
 ### Automated Deployment to GitHub Pages
@@ -260,9 +259,9 @@ A `.github/workflows/pages.yml` configuration file will be available soon. Once 
 2.  Log in to the [Cloudflare Dashboard](https://dash.cloudflare.com), and go to **Workers and Pages**.
 3.  Click **Create application → Pages → Import from Git**, connect your GitHub account, and select your forked repository.
 4.  Set up the build configuration:
-    - **Framework preset**: `Next.js (Static HTML Export)`
     - **Build command**: `npm run export`
     - **Build output directory**: `out`
+    - **Environment variables (advanced) → Add variable**: Variable name: `SITE_URL`, Value: `https://(yourdomain)`
 5.  Click **Save and Deploy**. Cloudflare will complete the first build and deployment automatically.
 
 Every subsequent code push will automatically trigger a new build on Cloudflare Pages.
@@ -283,15 +282,6 @@ Set the `basePath` field in `./data/SiteConfig.mjs` if you're deploying to a sub
 ### Custom MDX Components
 
 - [How can I add a custom MDX component?](https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/main/faq/custom-mdx-component.md)
-
----
-
-## Development Plan
-
-The following features are planned for future versions (no specific order):
-
-- **Features removed from the original template**: Comment block, site analytics, citation and bibliography support.
-- **New practical features**: Copyright notice component at the end of articles.
 
 ---
 

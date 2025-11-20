@@ -1,0 +1,26 @@
+import Link from './Link'
+import { RelatedPostsProps } from './types'
+import { useTranslations } from 'next-intl'
+
+export default function RelatedPosts({ relatedPosts }: RelatedPostsProps) {
+  const t = useTranslations('common')
+  return (
+    <nav className="pt-8 opacity-90">
+      <h3 className="text-md mb-4 font-bold">{t('related_post')}</h3>
+      <ul className="max-w-3xl flex-1">
+        {relatedPosts.map((post) => {
+          return (
+            <li key={post.title}>
+              <Link
+                href={`/${post.path}`}
+                className="link-hover block truncate p-2 text-sm font-semibold underline"
+              >
+                {post.title}
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
+    </nav>
+  )
+}

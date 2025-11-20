@@ -5,14 +5,39 @@ import {
   KBarAnimator,
   KBarPositioner,
   KBarResults,
+  useKBar,
   useMatches,
   Action,
   useRegisterActions,
 } from 'kbar'
 import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
+import { useEffect } from 'react'
 
 const KBarModal = ({ actions, isLoading }: { actions: Action[]; isLoading: boolean }) => {
+  const { visualState } = useKBar((state) => ({
+    visualState: state.visualState,
+  }))
+
+  useEffect(() => {
+    const isOpen = visualState === 'showing' || visualState === 'animating-in'
+
+    if (isOpen) {
+      document.body.style.overflow = ''
+      document.body.style.marginRight = ''
+    } else {
+      document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.marginRight = ''
+    }
+
+    return () => {
+      document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.marginRight = ''
+    }
+  }, [visualState])
+
   const t = useTranslations('kbar_search')
   useRegisterActions(actions, [actions])
   return (
@@ -22,11 +47,11 @@ const KBarModal = ({ actions, isLoading }: { actions: Action[]; isLoading: boole
         style={{ WebkitBackdropFilter: 'blur(8px) grayscale(100%)' }}
       >
         <KBarAnimator className="w-full max-w-xl">
-          <div className="overflow-hidden rounded-2xl bg-gray-50 shadow-lg dark:bg-gray-800">
-            <div className="flex items-center space-x-4 p-4">
+          <div className="bg-default rounded-2xl shadow-lg">
+            <div className="flex-center space-x-4 p-4">
               <span className="block w-5">
                 <svg
-                  className="text-gray-500 dark:text-gray-300"
+                  className="text-muted"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -44,19 +69,31 @@ const KBarModal = ({ actions, isLoading }: { actions: Action[]; isLoading: boole
               <KBarSearch
                 id="kbar-search-input"
                 aria-label={t('site_search')}
-                className="h-8 w-full bg-transparent text-gray-700 placeholder-gray-500 focus:outline-none dark:text-gray-200 dark:placeholder-gray-400"
+                className={clsx(
+                  'h-8 w-full focus:outline-none',
+                  'bg-transparent placeholder-gray-500 dark:placeholder-gray-400'
+                )}
                 defaultPlaceholder={t('site_search')}
               />
               <kbd
                 aria-label={t('close_search')}
-                className="inline-flex h-6 items-center justify-center rounded border border-gray-400 px-1.5 text-xs leading-none font-medium text-gray-500 dark:border-gray-500 dark:text-gray-400"
+                className={clsx(
+                  'icon-size flex-center rounded px-1.5',
+                  'text-muted text-xs leading-none font-medium',
+                  'border border-gray-400 dark:border-gray-500'
+                )}
               >
                 ESC
               </kbd>
             </div>
             {!isLoading && <RenderResults />}
             {isLoading && (
-              <div className="block border-t border-gray-200 px-4 py-8 text-center text-gray-500 dark:border-gray-700 dark:text-gray-400">
+              <div
+                className={clsx(
+                  'text-muted text-center',
+                  'block border-t border-gray-200 px-4 py-8 dark:border-gray-700'
+                )}
+              >
                 {t('loading')}
               </div>
             )}
@@ -72,7 +109,7 @@ const RenderResults = () => {
   const { results } = useMatches()
   if (!results.length) {
     return (
-      <div className="border-t border-gray-200 px-4 py-8 text-center text-gray-500 dark:border-gray-700 dark:text-gray-400">
+      <div className="text-muted border-t border-gray-200 px-4 py-8 text-center dark:border-gray-700">
         {t('no_result')}
       </div>
     )
@@ -82,7 +119,12 @@ const RenderResults = () => {
       items={results}
       onRender={({ item, active, ...itemProps }) =>
         typeof item === 'string' ? (
-          <div className="text-primary-600 border-t border-gray-100 px-4 pt-6 pb-2 text-xs font-semibold uppercase dark:border-gray-800">
+          <div
+            className={clsx(
+              'text-primary-600 text-xs font-semibold uppercase',
+              'border-t border-gray-100 px-4 pt-6 pb-2 dark:border-gray-800'
+            )}
+          >
             {item}
           </div>
         ) : (
@@ -90,12 +132,10 @@ const RenderResults = () => {
             {...itemProps}
             className={clsx(
               'flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 transition-colors',
-              active
-                ? 'bg-primary-600 text-gray-200'
-                : 'bg-transparent text-gray-700 dark:text-gray-100'
+              active ? 'bg-primary-600 text-gray-200' : 'bg-transparent'
             )}
           >
-            <div className="flex items-center space-x-2">
+            <div className="space-x-2">
               {item.icon && <span className="self-center">{item.icon}</span>}
               <div>
                 {item.subtitle && (
@@ -107,12 +147,12 @@ const RenderResults = () => {
               </div>
             </div>
             {item.shortcut?.length ? (
-              <div aria-hidden className="flex items-center gap-x-2">
+              <div aria-hidden className="gap-x-2">
                 {item.shortcut.map((sc) => (
                   <kbd
                     key={sc}
                     className={clsx(
-                      'flex h-6 w-6 items-center justify-center rounded border text-xs font-medium',
+                      'icon-size rounded border text-xs font-medium',
                       active ? 'border-gray-200 text-gray-200' : 'border-gray-400 text-gray-400'
                     )}
                   >

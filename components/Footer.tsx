@@ -8,8 +8,8 @@ export default function Footer({ copyrightText }: { copyrightText: string }) {
   const locale = useLocale() as Locale
   return (
     <footer>
-      <div className="bottom-0 mt-auto flex flex-col items-center space-y-1 pt-6 align-middle">
-        <div className="flex h-6 items-center space-x-6">
+      <div className="flex-center bottom-0 mt-auto flex-col space-y-1 pt-6 align-middle">
+        <div className="flex-center h-6 space-x-6">
           {Object.entries(SiteConfig.social)
             .filter(([_, url]) => url && typeof url === 'string' && url.trim() !== '')
             .map(([key, url]) => (
@@ -23,15 +23,15 @@ export default function Footer({ copyrightText }: { copyrightText: string }) {
             />
           )}
         </div>
-        <div className="flex space-x-2 text-center text-sm text-gray-500 dark:text-gray-400">
-          <div>{`©`}</div>
-          <Link href="/" className="hover:text-primary-500 hover:drop-shadow-xl">
+        <div className="text-muted flex space-x-2 text-sm opacity-80">
+          <Link href="/" className="link-hover">
+            {`© `}
             {copyrightText}
           </Link>
         </div>
-        <div className="hover:text-primary-500 mt-0 mb-2 text-sm text-gray-500 hover:drop-shadow-xl dark:text-gray-400">
-          <Link href="https://github.com/Aaakul/next-ssg-i18n-blog-starter">
-            Made with Next SSG i18n Blog Starter
+        <div className="text-muted mt-0 mb-2 text-sm opacity-80">
+          <Link href="https://github.com/Aaakul/next-ssg-i18n-blog-starter" className="link-hover">
+            Made with <strong>Next SSG i18n Blog Starter</strong>
           </Link>
         </div>
       </div>

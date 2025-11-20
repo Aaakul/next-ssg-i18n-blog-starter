@@ -44,7 +44,7 @@ const MobileNav = ({ locale, links }: MobileNavProps) => {
 
   const closeButton = (
     <button
-      className="hover:text-primary-500 dark:hover:text-primary-400 absolute top-4 right-4 z-80 h-16 w-16 p-4 text-gray-900 dark:text-gray-100"
+      className="link-hover absolute top-4 right-4 z-80 h-16 w-16 p-4"
       aria-label={t('close_nav')}
       onClick={(e) => {
         e.preventDefault()
@@ -61,7 +61,7 @@ const MobileNav = ({ locale, links }: MobileNavProps) => {
         onClick={onToggleNav}
         className="header-button block sm:hidden"
       >
-        <Bars4Icon className="h-6" />
+        <Bars4Icon className="icon-size" />
       </button>
     </div>
   )
@@ -82,14 +82,14 @@ const MobileNav = ({ locale, links }: MobileNavProps) => {
             className="fixed inset-0 z-80"
           >
             <div className="fixed inset-0 flex h-full w-full items-start justify-center">
-              <DialogPanel className="h-full w-full overflow-hidden bg-gray-50 shadow-lg dark:bg-gray-800">
+              <DialogPanel className="bg-default h-full w-full overflow-hidden shadow-lg">
                 <div className="absolute -top-2 right-0 z-90">{closeButton}</div>
                 <nav ref={navRef} className="max-h-screen overflow-y-auto p-6 pt-18">
                   <HeaderNavLinks
                     locale={locale}
                     links={links}
                     onLinkClick={handleLinkClick}
-                    linkClassName="block py-3 pr-4 text-2xl font-medium text-gray-800 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400"
+                    linkClassName="block py-3 pr-4 text-2xl link-hover font-medium"
                   />
                 </nav>
               </DialogPanel>

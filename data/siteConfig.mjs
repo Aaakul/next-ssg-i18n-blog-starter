@@ -15,9 +15,9 @@ export const SiteConfig = {
   // ナビゲーションバーがスクロール中にトップに固定されるかどうか
   isStickyNav: true,
 
-  // robots.txt 是否允许爬虫（`true` = 允许，`false` = 不允许）
-  // Whether robots.txt permits crawlers (`true` = allowed, `false` = disallowed)
-  // robots.txt がクローラーを許可するかどうか（`true` = 許可, `false` = 不許可）
+  // 是否允许爬虫（true：允许，false：禁止）。注：AI 爬虫始终不允许
+  // Crawler access policies (true: allowed, false: disallow). Note: AI crawlers are never allowed.
+  // クローラーを許可するかどうか（`true` = 許可, `false` = 不許可）。注：AIクローラーは常に許可されていません
   isAllowRobots: true,
 
   // 构建后是否生成 RSS Feed
@@ -34,11 +34,6 @@ export const SiteConfig = {
   // Number of blog posts displayed per page in list views
   // リストビューで 1 ページに表示されるブログ記事の数
   postsPerPage: 6,
-
-  // 首页显示的文章的最大数量
-  // Maximum number of posts displayed on the homepage
-  // ホームページに表示される記事の最大数
-  homepageMaxPosts: 3,
 
   social: {
     // 页脚会显示对应社交平台的图标及链接
@@ -94,7 +89,6 @@ export const SiteConfig = {
  * @property {boolean} isGenRSS
  * @property {'session' | 'none' | number} cookieMaxAgeDays
  * @property {number} postsPerPage
- * @property {number} homepageMaxPosts
  * @property {SocialConfig} social
  */
 

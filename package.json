@@ -1,6 +1,6 @@
 {
   "name": "next-ssg-i18n-blog-starter",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -59,7 +59,6 @@
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.39.0",
     "@svgr/webpack": "^8.1.0",
-    "@tailwindcss/line-clamp": "^0.4.4",
     "@types/body-scroll-lock": "^3.1.2",
     "@types/js-cookie": "^3.0.6",
     "@types/mdx": "^2.0.13",

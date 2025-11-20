@@ -23,7 +23,7 @@ const KBarSearchProvider = ({
   children,
   kbarConfig,
 }: {
-  children: ReactNode
+  children: React.ReactNode
   kbarConfig: KBarSearchProps
 }) => {
   const { defaultActions, onSearchDocumentsLoad } = kbarConfig

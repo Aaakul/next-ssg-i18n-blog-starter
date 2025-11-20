@@ -1,10 +1,22 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
-import { MoonIcon, SunIcon } from '@heroicons/react/24/outline'
 import { useTranslations, useLocale } from 'next-intl'
-import { IconPlaceholder } from './HeaderButtons'
 import { Locale } from '@/i18n'
+
+// From Material Icons `contrast`
+const ThemeSwitcherIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill="currentColor"
+    className="icon-size"
+  >
+    <path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm40-83q119-15 199.5-104.5T800-480q0-123-80.5-212.5T520-797v634Z" />
+  </svg>
+)
 
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false)
@@ -18,24 +30,16 @@ const ThemeSwitcher = () => {
     document.documentElement.lang = locale
   }, [locale])
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     if (mounted) {
       setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
     }
-  }
+  }, [mounted, setTheme, resolvedTheme])
 
   return (
-    <div className="flex items-center">
+    <div className="flex-center">
       <button className="header-button" onClick={toggleTheme} aria-label={t('toggle_theme')}>
-        {mounted ? (
-          resolvedTheme === 'dark' ? (
-            <MoonIcon className="h-6" />
-          ) : (
-            <SunIcon className="h-6" />
-          )
-        ) : (
-          <IconPlaceholder />
-        )}
+        <ThemeSwitcherIcon />
       </button>
     </div>
   )

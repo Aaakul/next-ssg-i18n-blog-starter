@@ -33,7 +33,7 @@ export async function generateMetadata(props: { params: Promise<LocaleParams> })
 
   return genPageMetadata({
     title: `${t('projects')} | ${t('site_title')}`,
-    description: `${t('projects_desc')} | ${t('site_title')}`,
+    description: `${t('projects_description')} | ${t('site_title')}`,
     locale: locale,
     fullUrl: altLangURL[locale],
     type: 'article',
@@ -51,17 +51,17 @@ export default function Projects(props: { params: Promise<LocaleParams> }) {
   const t = useTranslations('common')
 
   return (
-    <main className="divide-y divide-gray-200 dark:divide-gray-700">
-      <header className="space-y-2 pt-6 pb-4 md:space-y-4">
-        <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
+    <main className="divide-y-gray">
+      <header className="space-y-2 pt-6 pb-4">
+        <h1 className="text-3xl font-bold sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
           <Balancer>{t('projects')}</Balancer>
         </h1>
-        <h2 className="text-lg text-gray-500 dark:text-gray-400">
-          <Balancer> {t('projects_desc')}</Balancer>
+        <h2 className="text-muted text-lg">
+          <Balancer> {t('projects_description')}</Balancer>
         </h2>
       </header>
       <section className="py-4">
-        <div className="m-0 flex flex-wrap">
+        <div className="flex-center m-0 flex-wrap">
           {projectsData.map((d) => (
             <Card
               key={d.href}

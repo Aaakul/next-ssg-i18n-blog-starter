@@ -1,12 +1,15 @@
 ---
-title: 'Next SSG i18n Blog Starter v0.2'
+title: 'Next SSG i18n Blog Starter v0.4'
 summary: '本文介绍了开箱即用，支持静态站点生成和多语言的Next.js博客模板 Next SSG i18n Blog Starter'
 translationKey: 'intro'
 date: '2025-11-11T15:45:00+08:00'
+lastmod: '2025-11-19T15:30:00+08:00'
 tags: ['next', '编程', '指南']
+categories: ['示例']
 language: 'zh'
 authors: ['default', 'test']
 isCanonical: true
+images: ['/static/images/twitter-card.png']
 ---
 
 ## 动机
@@ -19,15 +22,15 @@ isCanonical: true
 
 本模板在保留 Tailwind Next.js Starter Blog [核心功能](https://github.com/timlrx/tailwind-nextjs-starter-blog#features)的基础上, 集成了国际化, 并进一步增强了开发体验。主要特性包括:
 
-- **良好的用户体验**: Lighthouse 评分接近满分。
+- **良好的用户体验**: [Lighthouse 评分接近满分](https://pagespeed.web.dev/analysis/https-next-ssg-i18n-blog-starter-pages-dev-zh/nqb9usvegl?form_factor=desktop)
 - **开箱即用的国际化**: 集成 [next-intl](https://next-intl.dev/), 支持SSG。
   - 自动检测浏览器语言环境
   - 通过 Cookie 持久化用户语言偏好(支持配置过期时间, 便于满足 GDPR 等合规要求。默认为 Session Cookie)
   - 内置简体中文、英文和日文翻译
 - **国际化 SEO 优化**:
   - 自动生成 `<link rel="alternate" hreflang="...">` `Metadata` 与 `Open Graph` 标签
-  - 通过 [next-sitemap](https://github.com/iamvishnusankar/next-sitemap) 在构建时生成多语言 `sitemap` 与 `robots.txt`
-- **多语言 RSS/Atom 订阅支持**: 使用 [feed](https://github.com/jpmonette/feed) 在构建阶段为每种语言生成独立的静态 Feed 文件
+  - 通过 [next-sitemap](https://github.com/iamvishnusankar/next-sitemap) 生成 `robots.txt`与多语言 `sitemap`
+- **多语言 RSS/Atom 订阅支持**: 使用 [feed](https://github.com/jpmonette/feed) 为每种语言生成独立的静态 Feed 文件
 - **现代化样式系统**: 基于 [Tailwind CSS v4.1](https://tailwindcss.com/), 轻松定制样式。
 - **零配置站内搜索**: 修改自 [`pliny/search`](https://github.com/timlrx/pliny/tree/main/packages/pliny/src/search), 基于 [`KBar`](https://github.com/timc1/kbar)提供。
 - **现代化的Markdown写作**:
@@ -36,6 +39,8 @@ isCanonical: true
   - 代码高亮由 [`rehype-pretty-code`](https://rehype-pretty.pages.dev) 实现, 支持行号与高亮。代码复制修改自[`pliny/ui/Pre`](https://github.com/timlrx/pliny/blob/main/packages/pliny/src/ui/Pre.tsx)
   - 数学公式渲染采用 [KaTeX](https://katex.org/)
   - 支持 [GitHub 风格提示框](https://docs.github.com/zh/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax), 通过 [remark-github-blockquote-alert](https://github.com/jaywcjlove/remark-github-blockquote-alert) 实现
+
+  **从原模板中移除的功能**: 评论系统(**计划通过 DisqusJS 实现**)、网站分析、引用与参考文献支持
 
 ---
 
@@ -106,25 +111,21 @@ npm run contentlayer
 
 ### 国际化(i18n)
 
-项目已内置简体中文(`zh`)、英文(`en`)和日文(`ja`)支持, 翻译文件位于 `./i18n/messages/` 。
-你可以优化现有翻译, 或添加更多语言。
+项目已内置简体中文(`zh`)、英文(`en`)和日文(`ja`)支持, 翻译文件位于 `./i18n/messages/` 。你可以优化现有翻译, 或添加更多语言。  
+关于翻译文件的相关信息，请参考[next-intl 文档](https://next-intl.dev/docs/usage/translations)
 
 ### 其他个性化配置
 
 - **样式定制**  
-  通过 `tailwind.config.js` 和 `styles/*.css` 调整 Tailwind 配置与CSS样式, 轻松修改整体外观。
+  通过 `./tailwind.config.mjs` `./styles/*.css` 调整 [Tailwind v4 配置](https://tailwindcss.com/docs/upgrade-guide) 与CSS样式, 轻松修改整体外观。  
+  如需更改主题色（Primary color）, 请修改 `./styles/global.css`中的 `--color-primary-*: var(--color-sky-*);` ，将 `sky` 替换为其他颜色。
+
 - **MDX 组件**  
   在 `components/MDXComponents.tsx` 中注册可在 `.mdx` 或 `.md` 文件中使用的自定义 React 组件。
   **注意: 组件请使用默认导出, 以避免 Next.js 的** [**已知问题**](https://github.com/vercel/next.js/issues/51593)
+
 - **导航栏**  
   修改 `./components/Header.tsx` 以自定义顶部导航链接。
-- **文章布局**  
-  文章页面支持三种布局(位于 `./layouts/`):
-  - `PostLayout`(默认): 两栏布局, 含侧边目录
-  - `PostSimple`: `PostLayout` 精简版 , 无侧边目录
-  - `PostBanner`: 顶部带横幅图的布局, 无侧边目录 [示例页面](/zh/blog/sample/MDX%E7%A4%BA%E4%BE%8B)
-
-  可在文章 Frontmatter 中通过 `layout` 字段指定使用哪种布局。
 
 ## Markdown / MDX
 
@@ -173,10 +174,11 @@ tags: string[]
 lastmod: string            // 最后修改日期
 draft: boolean             // 设为 true 时文章不会被构建
 summary: string            // 文章摘要
-images: string[]           // 用于 Open Graph 等 meta 标签的图片 URL 列表
+images: string[]           // 包含图片URL的列表，其中第一张图片将用作文章顶部横幅。所有图片将用于Open Graph标签
 authors: string[]          // 对应 `./data/authors/` 下的文件名, 默认为 ['default']
 layout: string             // 页面布局, 如未指定则使用 'PostLayout'
 isCanonical: boolean       // 设为 true 时会添加 <link rel="alternate" hreflang="x-default" ...> 标签, 默认 false
+categories: string[]       // 文章分类
 ```
 
 ---
@@ -185,18 +187,18 @@ isCanonical: boolean       // 设为 true 时会添加 <link rel="alternate" hre
 
 ```mdx
 ---
-title: 'Introducing'
+title: 'Next SSG i18n Blog Starter v0.4'
+summary: '本文介绍了开箱即用，支持静态站点生成和多语言的Next.js博客模板 Next SSG i18n Blog Starter'
 translationKey: 'intro'
-date: '2025-01-01'
-lastmod: '2025-11-11'
-tags: ['next-js', 'tailwind', 'guide']
-draft: false
-language: 'en'
-summary: 'In this article...'
-images: ['/static/images/img1.jpg', '/static/images/img2.jpg']
+date: '2025-11-11T15:45:00+08:00'
+lastmod: '2025-11-19T15:30:00+08:00'
+tags: ['next', '编程', '指南']
+categories: ['示例']
+language: 'zh'
 authors: ['default', 'test']
-layout: PostLayout
 isCanonical: true
+images: ['/static/images/twitter-card.png']
+layout: 'PostLayout'
 ---
 
 # H1 Title
@@ -242,6 +244,7 @@ npx serve out
 ```
 
 然后在浏览器中打开剪贴板中的链接查看效果。 默认为 [http://localhost:3000](http://localhost:3000)
+
 **如果配置了 `basePath` (假设为'/blog') ，需要将 `./out` 中的文件复制到 `./out/blog`**
 
 ### GitHub Pages 自动化部署
@@ -252,11 +255,11 @@ npx serve out
 
 1. **Fork 本仓库**
 2. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com), 进入 **Workers 和 Pages**。
-3. 点击 **创建应用程序 - Pages - 导入现有 Git 存储库**, 将你的Github账户与Cloudflare账户关联后, 选择你 Fork 的仓库。
+3. 点击 **创建应用程序 → Pages → 导入现有 Git 存储库**, 将你的Github账户与Cloudflare账户关联后, 选择你 Fork 的仓库。
 4. 构建设置如下:
-   - **框架预设**: `Next.js(Static HTML Export)`
    - **构建命令**: `npm run export`
    - **构建输出目录**: `out`
+   - **环境变量（高级）→ 添加变量**: 变量名称: `SITE_URL`, 值: `https://(你的域名)`
 5. 点击 **保存并部署**, Cloudflare 将自动完成首次构建与部署。
 
 后续每次推送代码, Cloudflare Pages 都会自动触发新构建。
@@ -275,13 +278,6 @@ npx serve out
 ### 自定义 MDX 组件
 
 - [How can I add a custom MDX component?](https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/main/faq/custom-mdx-component.md)
-
-## 开发计划
-
-计划在未来版本中逐步完善以下功能(顺序不分先后):
-
-- **从原模板中移除的功能**: 评论系统、网站分析、引用与参考文献支持
-- **新增实用功能**: 文章底部版权声明组件
 
 ## 致谢
 

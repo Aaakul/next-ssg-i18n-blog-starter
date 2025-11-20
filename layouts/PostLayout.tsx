@@ -1,12 +1,13 @@
 // Default post layout
 
 import { FooterNavigation, PostHeader } from '@/components/PostLayoutComponents'
-import ScrollTop from '@/components/ScrollTop'
 import type { PostLayoutProps } from './types'
 import { useLocale, useTranslations } from 'next-intl'
 import TableOfContents from '@/components/TableOfContents'
 import PostDateLocalized from '@/components/PostDateLocalized'
 import { Locale } from '@/i18n'
+import Image from '@/components/Image'
+import RelatedPosts from '@/components/RelatedPosts'
 
 export default function PostLayout({
   authorDetails,
@@ -16,15 +17,32 @@ export default function PostLayout({
   next,
   toc,
   lastmod,
+  relatedPosts,
 }: PostLayoutProps) {
-  const { date, title, tags, readingTime } = content
+  const { date, title, tags, readingTime, images } = content
   const locale = useLocale() as Locale
   const t = useTranslations('common')
   const lastMod = t('last_modified')
+  const displayImage = images && images.length > 0 ? images[0] : undefined
+
   return (
-    <article className="DefaultPostLayout">
-      <ScrollTop />
+    <article className="post-layout">
       <header className="pt-6">
+        {displayImage && (
+          <div className="space-y-2 pb-4 text-center">
+            <div className="Banner z-10 w-full">
+              <div className="relative aspect-5/2 w-full">
+                <Image
+                  src={displayImage}
+                  alt={t('image_of', { title })}
+                  fill
+                  className="rounded-lg object-cover"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        )}
         <PostHeader
           authorDetails={authorDetails}
           date={date}
@@ -34,28 +52,24 @@ export default function PostLayout({
           locale={locale}
         />
       </header>
-      <div className="max-w-full grid-rows-[auto_1fr] xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0 dark:divide-gray-700">
-        <div className="xl:col-span-3 xl:row-span-2 xl:pb-0 dark:divide-gray-700">
+      <div className="w-full lg:grid lg:grid-cols-4 lg:gap-x-6">
+        <div className="divide-y-gray lg:col-span-3 lg:row-span-2">
           {/* Main Content */}
-          <div className="prose dark:prose-invert pt-6 xl:max-w-none">{children}</div>
+          <div className="prose dark:prose-invert max-w-none pt-6">{children}</div>
           <div className="flex justify-end">
             {lastmod && (
-              <span
-                aria-label={`${lastMod}`}
-                className="my-2 text-sm text-gray-500 dark:text-gray-400"
-              >
+              <span aria-label={`${lastMod}`} className="text-muted my-2 text-sm">
                 {lastMod}
                 <PostDateLocalized date={lastmod} />
               </span>
             )}
           </div>
         </div>
-        <aside className="mt-6 hidden md:sticky md:top-20 md:col-span-1 md:block">
-          {toc && toc.length > 0 && <TableOfContents toc={toc} />}
-        </aside>
+        {toc && toc.length > 0 && <TableOfContents toc={toc} />}
       </div>
+      {relatedPosts && relatedPosts.length > 0 && <RelatedPosts relatedPosts={relatedPosts} />}
       <footer>
-        <div className="flex flex-col text-sm font-medium sm:text-base">
+        <div className="flex flex-col text-base font-semibold">
           <FooterNavigation prev={prev} next={next} locale={locale} />
         </div>
       </footer>

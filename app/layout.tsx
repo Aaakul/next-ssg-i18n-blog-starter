@@ -2,6 +2,7 @@ import type React from 'react'
 import '@/styles/global.css'
 import 'remark-github-blockquote-alert/alert.css'
 import { SiteConfig } from '@/data/siteConfig.mjs'
+import clsx from 'clsx'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -45,7 +46,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
       </head>
-      <body className="no-scrollbar to-primary-300/30 flex min-h-screen flex-col bg-linear-to-b from-neutral-100/95 pl-[calc(100vw-100%)] text-gray-900 dark:bg-linear-to-b dark:from-gray-950 dark:to-gray-900 dark:text-gray-100">
+      <body
+        className={clsx(
+          'bg-neutral-100 dark:bg-gray-950',
+          'no-scrollbar text-default flex min-h-screen flex-col pl-[calc(100vw-100%)] duration-300'
+        )}
+      >
         <div className="w-full px-2">{children}</div>
       </body>
     </html>

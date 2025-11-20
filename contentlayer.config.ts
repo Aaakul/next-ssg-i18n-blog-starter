@@ -41,44 +41,43 @@ const computedFields: ComputedFields = {
   },
 }
 
-/**
- * Count the occurrences of all tags across blog posts by language
- */
-function createTagCount(allBlogs: MDXBlog[]) {
-  const tagCountByLang: Record<string, Record<string, number>> = {}
+function createItemCount(allBlogs: MDXBlog[], field: string): void {
+  const itemCountByLang: Partial<Record<Locale, Record<string, number>>> = {}
 
   allBlogs.forEach((file) => {
     if (isProduction && file.draft === true) return
 
     const language: Locale = file.language || defaultLocale
-    const tags = file.tags || []
+    const items = (file[field] as string[] | undefined) || []
 
-    if (!tagCountByLang[language]) {
-      tagCountByLang[language] = {}
+    if (!itemCountByLang[language]) {
+      itemCountByLang[language] = {}
     }
 
-    tags.forEach((tag: string) => {
-      const formattedTag = slug(tag)
-      tagCountByLang[language][formattedTag] = (tagCountByLang[language][formattedTag] || 0) + 1
+    items.forEach((item: string) => {
+      const formattedItem = slug(item)
+      itemCountByLang[language]![formattedItem] =
+        (itemCountByLang[language]![formattedItem] || 0) + 1
     })
   })
 
-  const sortedTagData: Record<string, Record<string, number>> = {}
-  Object.keys(tagCountByLang).forEach((language) => {
-    const tagCounts = tagCountByLang[language]
+  const sortedData: Partial<Record<Locale, Record<string, number>>> = {}
 
-    const sortedEntries = Object.entries(tagCounts).sort(
-      ([, countA], [, countB]) => Number(countB) - Number(countA)
+  for (const [lang, itemCounts] of Object.entries(itemCountByLang)) {
+    const sortedEntries = Object.entries(itemCounts!).sort(([keyA], [keyB]) =>
+      keyA.localeCompare(keyB)
     )
 
-    sortedTagData[language] = {}
-    sortedEntries.forEach(([tag, count]) => {
-      sortedTagData[language][tag] = count
-    })
-  })
+    sortedData[lang as Locale] = Object.fromEntries(sortedEntries)
+  }
 
-  writeFileSync('./app/tag-data.json', JSON.stringify(sortedTagData, null, 2))
-  console.log(' ✓ Tag data file generated: ./app/tag-data.json')
+  const outputPath = `./.contentlayer/generated/${field}-data.json`
+  try {
+    writeFileSync(outputPath, JSON.stringify(sortedData, null, 2))
+    console.log(` ✓ ${field} data file generated: ${outputPath}`)
+  } catch (error) {
+    console.error(` ✗ Failed to write ${field} data file:`, error)
+  }
 }
 
 function createSearchIndex(allBlogs: MDXBlog[]) {
@@ -119,12 +118,15 @@ function createArticleKeySlugMapping(allBlogs: MDXBlog[]) {
     }
   })
 
-  writeFileSync('./app/key-slug-mapping.json', JSON.stringify(articleMap, null, 2))
+  writeFileSync(
+    './.contentlayer/generated/key-slug-mapping.json',
+    JSON.stringify(articleMap, null, 2)
+  )
 
   if (hasDuplicates) {
     console.warn(' ⚠️ key-slug mapping generated, but duplicate detected')
   } else {
-    console.log(' ✓ key-slug mapping generated: ./app/key-slug-mapping.json')
+    console.log(' ✓ key-slug mapping generated: ./.contentlayer/generated/key-slug-mapping.json')
   }
 }
 
@@ -161,9 +163,10 @@ export const Blog = defineDocumentType(() => ({
     summary: { type: 'string' },
     images: { type: 'json' },
     authors: { type: 'list', of: { type: 'string' }, default: ['default'] },
-    layout: { type: 'string' },
+    layout: { type: 'string', default: 'PostLayout' },
     language: { type: 'string', default: defaultLocale, enum: supportedLocales },
     isCanonical: { type: 'boolean', default: false },
+    categories: { type: 'list', of: { type: 'string' }, default: [] },
   },
   computedFields: {
     readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
@@ -187,6 +190,7 @@ export const Blog = defineDocumentType(() => ({
 }))
 
 export default makeSource({
+  disableImportAliasWarning: true,
   contentDirPath: 'data',
   documentTypes: [Authors, Blog],
   mdx: {
@@ -217,8 +221,9 @@ export default makeSource({
   },
   onSuccess: async (importData) => {
     const { allBlogs } = await importData()
-    createTagCount(allBlogs)
-    createSearchIndex(allBlogs)
+    createItemCount(allBlogs, 'categories')
+    createItemCount(allBlogs, 'tags')
     createArticleKeySlugMapping(allBlogs)
+    createSearchIndex(allBlogs)
   },
 })

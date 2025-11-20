@@ -67,7 +67,7 @@ export default function CodeBlockWithCopyButton({ children }: { children: ReactN
       {hovered && (
         <button
           aria-label={t('copy_code')}
-          className={`absolute top-2 right-2 h-8 w-8 rounded border-2 bg-gray-700 p-1 dark:bg-gray-800 ${
+          className={`absolute top-2 right-2 h-8 w-8 rounded border-2 bg-gray-700 opacity-90 p-1${
             copied
               ? 'border-green-400 focus:border-green-400 focus:outline-none'
               : 'border-gray-300'

@@ -1,17 +1,12 @@
 import { use } from 'react'
-import Link from '@/components/Link'
-import { SiteConfig, SiteUrlWithBase } from '@/data/siteConfig.mjs'
+import { SiteUrlWithBase } from '@/data/siteConfig.mjs'
 import Balancer from 'react-wrap-balancer'
 import { supportedLocales, Locale } from '@/i18n'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { sortPosts, allCoreContent } from '@/lib/contentlayer-utils'
-import { allBlogs } from 'contentlayer/generated'
 import { useTranslations } from 'next-intl'
 import genPageMetadata from '@/lib/seo'
-import { PostList } from '@/components/PostList'
 import { LocaleParams } from '@/app/types'
-
-const MAX_DISPLAY = SiteConfig.homepageMaxPosts
+import { RenderBlogListPage } from '@/components/RenderPages'
 
 export async function generateStaticParams() {
   return supportedLocales.map((locale: Locale) => ({ locale }))
@@ -46,35 +41,19 @@ export default function Home(props: { params: Promise<LocaleParams> }) {
   setRequestLocale(locale)
   const t = useTranslations('common')
 
-  // Filter posts
-  const sortedPosts = sortPosts(allBlogs)
-  const posts = allCoreContent(sortedPosts).filter((post) => post.language === locale)
-
   return (
     <section>
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        <div className="space-y-2 pt-6 pb-4 md:space-y-4">
-          <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
+      <div className="divide-y-gray">
+        <div className="space-y-2 pt-6 pb-4">
+          <h1 className="text-3xl font-bold sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             <Balancer>{t('latest_posts')}</Balancer>
           </h1>
-          <h2 className="text-lg text-gray-500 dark:text-gray-400">
-            <Balancer> {t('site_description')}</Balancer>
+          <h2 className="text-muted text-lg">
+            <Balancer dangerouslySetInnerHTML={{ __html: t.raw('site_description_html') }} />
           </h2>
         </div>
-        <PostList posts={posts} locale={locale as Locale} maxDisplay={MAX_DISPLAY} />
+        {RenderBlogListPage({ locale: locale as Locale, pageNum: 1, type: 'posts' })}
       </div>
-
-      {posts.length > MAX_DISPLAY && (
-        <div className="mr-4 flex justify-end text-base font-medium">
-          <Link
-            href={`/${locale}/blog/list`}
-            className="text-primary-400 hover:text-primary-400 flex text-xl"
-            aria-label={t('all_posts')}
-          >
-            &rarr; {t('all_posts')}
-          </Link>
-        </div>
-      )}
     </section>
   )
 }
