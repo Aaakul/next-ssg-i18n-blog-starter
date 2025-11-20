@@ -9,7 +9,7 @@ import { FooterNavigationProps, PostHeaderProps } from './types'
 
 export function PageTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h1 className="text-3xl leading-10 font-bold sm:text-4xl md:text-5xl md:leading-14">
+    <h1 className="h1-heading">
       <Balancer>{children}</Balancer>
     </h1>
   )
@@ -28,7 +28,7 @@ export function PostHeader({
   const shouldShowAuthor = authorDetails.length > 1 || !authorDetails[0].slug.endsWith('/default')
   return (
     <div className="space-y-1 border-b border-gray-200 pb-4 md:space-y-2 dark:border-gray-700">
-      <div className="flex-center text-muted flex-col gap-1 text-sm md:flex-row md:gap-2">
+      <div className="flex-center text-muted flex-col gap-2 text-sm md:flex-row lg:gap-4">
         {/* Published Date */}
         <div>
           <dl className="sr-only">
@@ -85,7 +85,7 @@ export function PostHeader({
       {tags && (
         <div className="flex-center flex-wrap gap-2">
           {tags.map((tag: string) => (
-            <Tag key={tag} text={tag} locale={locale} />
+            <Tag key={tag} text={tag} locale={locale} className="text-sm" />
           ))}
         </div>
       )}

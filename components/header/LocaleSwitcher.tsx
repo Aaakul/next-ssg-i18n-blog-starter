@@ -90,9 +90,7 @@ function LocaleFallbackModal({
 
                 {/* Text Content */}
                 <div className="flex-1">
-                  <DialogTitle className="text-lg leading-6 font-semibold">
-                    {t('title')}
-                  </DialogTitle>
+                  <DialogTitle className="text-lg font-semibold">{t('title')}</DialogTitle>
                   <div className="text-muted mt-1 space-y-1 text-sm">
                     <p>{t('no_translation', { targetLocaleName })}</p>
                     <p>{t('switch_to_available')}</p>

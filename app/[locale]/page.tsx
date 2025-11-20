@@ -40,20 +40,19 @@ export default function Home(props: { params: Promise<LocaleParams> }) {
   const { locale } = params
   setRequestLocale(locale)
   const t = useTranslations('common')
-
-  return (
-    <section>
-      <div className="divide-y-gray">
-        <div className="space-y-2 pt-6 pb-4">
-          <h1 className="text-3xl font-bold sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            <Balancer>{t('latest_posts')}</Balancer>
-          </h1>
-          <h2 className="text-muted text-lg">
-            <Balancer dangerouslySetInnerHTML={{ __html: t.raw('site_description_html') }} />
-          </h2>
-        </div>
-        {RenderBlogListPage({ locale: locale as Locale, pageNum: 1, type: 'posts' })}
-      </div>
-    </section>
+  const header = (
+    <>
+      <h1 className="h1-heading">{t('latest_posts')}</h1>
+      <h2 className="text-muted text-lg">
+        <Balancer dangerouslySetInnerHTML={{ __html: t.raw('site_description_html') }} />
+      </h2>
+    </>
   )
+
+  return RenderBlogListPage({
+    locale: locale as Locale,
+    pageNum: 1,
+    type: 'posts',
+    header: header,
+  })
 }

@@ -34,6 +34,7 @@ export interface MobileNavProps {
 }
 
 export type BlogListPageParams = {
+  header?: React.ReactNode
   locale: Locale
   pageNum: number
   type: 'posts' | 'tags' | 'categories'
@@ -60,6 +61,8 @@ export interface TableOfContentsProps {
 export interface TagProps {
   text: string
   locale: Locale
+  rest?: React.AnchorHTMLAttributes<HTMLAnchorElement>
+  className?: string
 }
 
 export interface FooterNavigationProps {

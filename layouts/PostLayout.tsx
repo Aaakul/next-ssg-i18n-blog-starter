@@ -26,21 +26,17 @@ export default function PostLayout({
   const displayImage = images && images.length > 0 ? images[0] : undefined
 
   return (
-    <article className="post-layout">
-      <header className="pt-6">
+    <article className="post-layout pt-6">
+      <header>
         {displayImage && (
-          <div className="space-y-2 pb-4 text-center">
-            <div className="Banner z-10 w-full">
-              <div className="relative aspect-5/2 w-full">
-                <Image
-                  src={displayImage}
-                  alt={t('image_of', { title })}
-                  fill
-                  className="rounded-lg object-cover"
-                  loading="lazy"
-                />
-              </div>
-            </div>
+          <div className="banner relative z-10 mb-2 aspect-5/2">
+            <Image
+              src={displayImage}
+              alt={t('image_of', { title })}
+              fill
+              className="rounded-xl object-cover"
+              loading="lazy"
+            />
           </div>
         )}
         <PostHeader

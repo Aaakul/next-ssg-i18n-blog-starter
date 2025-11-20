@@ -7,6 +7,7 @@ import genPageMetadata from '@/lib/seo'
 import { BlogPageParams } from '@/app/types'
 import { RenderBlogListPage } from '@/components/RenderPages'
 import { redirect } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 const POSTS_PER_PAGE = SiteConfig.postsPerPage
 
@@ -64,6 +65,18 @@ export default function Page(props: { params: Promise<BlogPageParams> }) {
   const pageNum = parseInt(page, 10)
 
   if (pageNum === 1) redirect(`/${locale}`)
+  const t = useTranslations('common')
 
-  return RenderBlogListPage({ locale: locale as Locale, pageNum: pageNum, type: 'posts' })
+  const header = (
+    <>
+      <h1 className="h1-heading">{t('all_posts')}</h1>
+    </>
+  )
+
+  return RenderBlogListPage({
+    locale: locale as Locale,
+    pageNum: pageNum,
+    type: 'posts',
+    header: header,
+  })
 }

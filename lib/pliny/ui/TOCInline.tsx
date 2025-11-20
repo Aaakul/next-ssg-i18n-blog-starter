@@ -69,8 +69,8 @@ const TOCInline = ({
   asDisclosure = false,
   exclude = '',
   collapse = false,
-  ulClassName = '',
-  liClassName = 'leading-5',
+  ulClassName = 'toc-inline',
+  liClassName = 'leading-tight',
 }: TOCInlineProps) => {
   const re = Array.isArray(exclude)
     ? new RegExp('^(' + exclude.join('|') + ')$', 'i')

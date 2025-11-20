@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import Balancer from 'react-wrap-balancer'
 import { PostListProps } from './types'
 
-export function PostList({ posts, locale, maxDisplay }: PostListProps) {
+export default function PostList({ posts, locale, maxDisplay }: PostListProps) {
   const displayPosts = maxDisplay ? posts.slice(0, maxDisplay) : posts
   const t = useTranslations('common')
 
@@ -21,7 +21,7 @@ export function PostList({ posts, locale, maxDisplay }: PostListProps) {
         return (
           <li key={slug} className="py-4">
             <article>
-              <div className="space-y-2 xl:grid xl:grid-cols-4">
+              <div className="xl:grid xl:grid-cols-4">
                 <dl className="text-muted text-sm">
                   <dt className="sr-only">{t('published_on') || 'Published on: '}</dt>
                   <dd>
@@ -31,7 +31,7 @@ export function PostList({ posts, locale, maxDisplay }: PostListProps) {
                   </dd>
                 </dl>
                 <div className="xl:col-span-3">
-                  <h2 className="text-2xl leading-8 font-bold">
+                  <h2 className="text-2xl font-bold">
                     <Link href={href} className="link-hover">
                       <Balancer>{title}</Balancer>
                     </Link>
@@ -39,16 +39,16 @@ export function PostList({ posts, locale, maxDisplay }: PostListProps) {
 
                   {tags && tags.length > 0 && (
                     <div
-                      className="my-1 flex flex-wrap gap-2"
+                      className="flex flex-wrap gap-2 py-1"
                       aria-label={`${t('tags')}: ${title}`}
                     >
                       {tags.map((tag) => (
-                        <Tag key={tag} text={tag} locale={locale} />
+                        <Tag key={tag} text={tag} locale={locale} className="text-sm" />
                       ))}
                     </div>
                   )}
 
-                  <div className="text-muted max-w-none text-sm leading-6">
+                  <div className="text-muted max-w-none py-1 text-sm">
                     {summary ? (
                       <p>{summary}</p>
                     ) : toc?.length ? (

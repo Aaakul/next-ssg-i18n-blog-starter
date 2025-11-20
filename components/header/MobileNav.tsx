@@ -89,7 +89,7 @@ const MobileNav = ({ locale, links }: MobileNavProps) => {
                     locale={locale}
                     links={links}
                     onLinkClick={handleLinkClick}
-                    linkClassName="block py-3 pr-4 text-2xl link-hover font-medium"
+                    linkClassName="block py-3 pr-4 text-2xl link-hover font-bold"
                   />
                 </nav>
               </DialogPanel>

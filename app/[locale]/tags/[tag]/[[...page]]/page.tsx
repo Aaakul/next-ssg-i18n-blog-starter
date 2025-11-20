@@ -6,6 +6,7 @@ import { use } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { TagPageParams } from '@/app/types'
 import { RenderBlogListPage } from '@/components/RenderPages'
+import { useTranslations } from 'next-intl'
 
 const POSTS_PER_PAGE = SiteConfig.postsPerPage
 
@@ -62,13 +63,19 @@ export default function Page(props: { params: Promise<TagPageParams> }) {
   const params = use(props.params)
   const { locale, tag, page } = params
   setRequestLocale(locale)
+  const t = useTranslations('common')
 
   const pageNum = page?.[0] === 'page' && page?.[1] ? parseInt(page[1], 10) : 1
+  const decodedSlug = decodeURI(tag)
+  const title =
+    t('tags') + ': ' + decodedSlug![0].toUpperCase() + decodedSlug!.slice(1).replace(/\s+/g, '-')
 
+  const header = <h1 className="h1-heading">{title}</h1>
   return RenderBlogListPage({
     locale: locale as Locale,
     pageNum: pageNum,
     type: 'tags',
-    decodedSlug: decodeURI(tag),
+    decodedSlug: decodedSlug,
+    header: header,
   })
 }

@@ -75,7 +75,7 @@ export default function TOCWithToggleButton({ toc }: TableOfContentsProps) {
           onClick={toggleTOC}
           className={clsx(
             'rounded-full p-2 shadow-lg transition-all duration-300 ease-in-out',
-            'bg-default focus:outline-non link-hover hover:scale-110 focus:ring-2',
+            'bg-default focus:outline-non link-hover hover:scale-125 focus:ring-2',
             showTOC ? 'hidden' : 'block'
           )}
         >

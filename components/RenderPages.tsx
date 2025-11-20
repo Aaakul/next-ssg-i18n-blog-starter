@@ -12,7 +12,6 @@ import tagsDataRaw from '@/.contentlayer/generated/tags-data.json' with { type: 
 import categoriesDataRaw from '@/.contentlayer/generated/categories-data.json' with { type: 'json' }
 import { SiteConfig } from '@/data/siteConfig.mjs'
 import { slug } from 'github-slugger'
-import { useTranslations } from 'next-intl'
 
 const POSTS_PER_PAGE = SiteConfig.postsPerPage
 const tagsData = tagsDataRaw as unknown as {
@@ -76,13 +75,14 @@ export function getBlogListData({ locale, pageNum, type, decodedSlug }: BlogList
   }
 }
 
-export function RenderBlogListPage({ locale, pageNum, type, decodedSlug }: BlogListPageParams) {
+export function RenderBlogListPage({
+  locale,
+  pageNum,
+  type,
+  decodedSlug,
+  header,
+}: BlogListPageParams) {
   const listData = getBlogListData({ locale, pageNum, type, decodedSlug })
-  const t = useTranslations('common')
-  const title =
-    type === 'tags' || type === 'categories'
-      ? t(type) + ': ' + decodedSlug![0].toUpperCase() + decodedSlug!.slice(1).replace(/\s+/g, '-')
-      : undefined // todo
 
   const tagsForThisLocaleEntries = Object.entries(tagsData[locale as Locale]) || []
   const filteredTagsEntries =
@@ -94,7 +94,7 @@ export function RenderBlogListPage({ locale, pageNum, type, decodedSlug }: BlogL
     <ListLayout
       initialDisplayPosts={listData.initialDisplayPosts}
       pagination={listData.pagination}
-      headerTitle={title}
+      header={header}
       locale={locale as Locale}
       categoryCount={categoriesData[locale as Locale]}
       tagCount={Object.fromEntries(filteredTagsEntries)}

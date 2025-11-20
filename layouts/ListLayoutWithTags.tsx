@@ -1,10 +1,10 @@
 import Pagination from '@/components/Pagination'
 import type { ListLayoutProps } from './types'
-import { PostList } from '@/components/PostList'
+import PostList from '@/components/PostList'
 import LinksPanel from '@/components/LinksPanel'
 
 export default function ListLayoutWithTags({
-  headerTitle,
+  header,
   initialDisplayPosts = [],
   pagination,
   locale,
@@ -12,11 +12,9 @@ export default function ListLayoutWithTags({
   categoryCount,
 }: ListLayoutProps) {
   return (
-    <main className="PostsListWithTagsPanel pt-6">
-      <header>
-        {headerTitle && <h1 className="text-center text-3xl font-bold">{headerTitle}</h1>}
-      </header>
-      <div className="flex flex-col lg:flex-row lg:space-x-12">
+    <div className="divide-y-gray">
+      <header className="space-y-2 py-6">{header}</header>
+      <div className="flex flex-col lg:flex-row lg:space-x-12 lg:pt-6">
         {/* Sider */}
         <div className="hidden lg:flex lg:w-72 lg:flex-col lg:space-y-6">
           <div className="lg:sticky lg:top-20">
@@ -67,6 +65,6 @@ export default function ListLayoutWithTags({
           />
         </section>
       </div>
-    </main>
+    </div>
   )
 }

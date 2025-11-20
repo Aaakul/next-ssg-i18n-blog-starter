@@ -22,7 +22,7 @@ export interface PaginationProps {
 }
 
 export interface ListLayoutProps {
-  headerTitle?: string
+  header?: React.ReactNode
   initialDisplayPosts?: CoreContent<Blog>[]
   pagination?: PaginationProps
   locale: Locale

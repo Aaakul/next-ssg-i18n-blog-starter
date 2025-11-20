@@ -79,7 +79,7 @@ const KBarModal = ({ actions, isLoading }: { actions: Action[]; isLoading: boole
                 aria-label={t('close_search')}
                 className={clsx(
                   'icon-size flex-center rounded px-1.5',
-                  'text-muted text-xs leading-none font-medium',
+                  'text-muted text-xs font-medium',
                   'border border-gray-400 dark:border-gray-500'
                 )}
               >

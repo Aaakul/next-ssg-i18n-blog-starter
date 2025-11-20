@@ -52,15 +52,13 @@ export default function Projects(props: { params: Promise<LocaleParams> }) {
 
   return (
     <main className="divide-y-gray">
-      <header className="space-y-2 pt-6 pb-4">
-        <h1 className="text-3xl font-bold sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-          <Balancer>{t('projects')}</Balancer>
-        </h1>
+      <header className="space-y-2 py-6">
+        <h1 className="h1-heading">{t('projects')}</h1>
         <h2 className="text-muted text-lg">
           <Balancer> {t('projects_description')}</Balancer>
         </h2>
       </header>
-      <section className="py-4">
+      <section className="lg:py-6">
         <div className="flex-center m-0 flex-wrap">
           {projectsData.map((d) => (
             <Card

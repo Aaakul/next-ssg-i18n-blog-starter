@@ -23,13 +23,7 @@ const CustomLink = ({
   }
 
   if (isAnchorLink) {
-    return (
-      <a
-        href={href}
-        className={`link-hover text-primary-500 dark:text-primary-600 wrap-break-word ${className}`}
-        {...rest}
-      />
-    )
+    return <a href={href} className={`link-hover wrap-break-word ${className}`} {...rest} />
   }
 
   return (

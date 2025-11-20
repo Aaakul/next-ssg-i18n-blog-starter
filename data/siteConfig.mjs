@@ -33,7 +33,7 @@ export const SiteConfig = {
   // 列表视图每页显示的博客文章数量
   // Number of blog posts displayed per page in list views
   // リストビューで 1 ページに表示されるブログ記事の数
-  postsPerPage: 6,
+  postsPerPage: 2,
 
   social: {
     // 页脚会显示对应社交平台的图标及链接

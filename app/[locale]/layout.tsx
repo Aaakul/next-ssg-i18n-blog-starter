@@ -54,7 +54,7 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
           <DynamicScrollTop />
           <DynamicSearchProvider>
             <Header locale={locale as Locale} />
-            <main className="m-auto max-w-6xl">{children}</main>
+            <main className="m-auto w-full max-w-6xl flex-1 px-2 xl:px-0">{children}</main>
           </DynamicSearchProvider>
           <Footer copyrightText={t('site_title')} />
         </ThemeProviders>

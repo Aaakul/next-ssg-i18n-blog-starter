@@ -1,7 +1,5 @@
 import { use } from 'react'
-import Link from '@/components/Link'
 import Tag from '@/components/Tag'
-import { slug } from 'github-slugger'
 import tagsDataRaw from '@/.contentlayer/generated/tags-data.json' with { type: 'json' }
 import genPageMetadata from '@/lib/seo'
 import { supportedLocales, Locale } from '@/i18n'
@@ -54,35 +52,28 @@ export default function Page(props: { params: Promise<LocaleParams> }) {
   return (
     <section
       className={clsx(
-        'mb-4 flex flex-col items-start justify-start pt-6 pb-8',
-        'md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6'
+        'mb-4 flex flex-col gap-y-6 py-6',
+        'md:mt-24 md:flex-row md:items-center md:justify-center md:gap-x-6'
       )}
     >
-      <div className="space-y-5 md:border-r-2 md:px-6">
-        <h2
-          className={clsx(
-            'text-3xl font-bold',
-            'sm:text-4xl sm:leading-10',
-            'md:text-6xl md:leading-14'
-          )}
-        >
-          {t('tags')}
-        </h2>
-      </div>
+      <header className={clsx('shrink-0', 'md:border-r-2 md:pr-6 md:pl-0')}>
+        <h1 className="h1-heading">{t('tags')}</h1>
+      </header>
       {tagKeys.length === 0 ? (
-        <p className="text-muted">{t('no_tags_found')}</p>
+        <p className="text-muted text-large">{t('no_tags_found')}</p>
       ) : (
-        <div className="flex max-w-lg flex-wrap gap-4">
+        <div className={clsx('flex flex-wrap items-center gap-4 md:max-w-lg')}>
           {tagKeys.map((tag) => (
-            <div key={tag} className="flex-center font-bold">
-              <Tag text={tag} locale={locale as Locale} />
-              <Link
-                href={`/${locale}/tags/${slug(tag)}`}
-                className="text-muted uppercase"
-                aria-label={t('view_posts_tagged', { tag: tag })}
-              >
-                ({tagCounts[tag]})
-              </Link>
+            <div
+              key={tag}
+              className="text-muted text-muted text-base font-bold md:text-lg lg:text-xl"
+            >
+              <Tag
+                text={tag}
+                locale={locale as Locale}
+                className="text-base md:text-lg lg:text-xl"
+              />
+              ({tagCounts[tag]})
             </div>
           ))}
         </div>

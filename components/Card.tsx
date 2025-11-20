@@ -8,7 +8,7 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => {
   const t = useTranslations('common')
   const renderContent = () => (
     <div className="p-6">
-      <h2 className="mb-3 text-2xl leading-8 font-bold">
+      <h2 className="mb-3 text-2xl font-bold">
         {href ? (
           <Link href={href} aria-label={t('link_to', { title })}>
             {title}
@@ -46,8 +46,8 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => {
       <div
         className={clsx(
           imgSrc && 'h-full',
-          'rounded-md bg-gray-100/50 dark:bg-gray-900/50',
-          'border-opacity-50 overflow-hidden border border-gray-500/50 shadow-lg'
+          'bg-gray-100/50 dark:bg-gray-900/50',
+          'overflow-hidden rounded-md shadow-lg'
         )}
       >
         {renderImage()}

@@ -52,7 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           'no-scrollbar text-default flex min-h-screen flex-col pl-[calc(100vw-100%)] duration-300'
         )}
       >
-        <div className="w-full px-2">{children}</div>
+        {children}
       </body>
     </html>
   )

@@ -18,7 +18,7 @@ export default function Header({ locale }: { locale: Locale }) {
   return (
     <header
       className={clsx(
-        'z-50 m-auto flex h-16 w-[98%] max-w-7xl rounded-2xl focus:outline-none',
+        'z-30 m-auto flex h-16 w-[98%] max-w-7xl rounded-2xl focus:outline-none',
         'bg-default shadow-lg',
         SiteConfig.isStickyNav && 'sticky top-2'
       )}
@@ -43,9 +43,9 @@ export default function Header({ locale }: { locale: Locale }) {
               </div>
               <div
                 className={clsx(
-                  'link-hover truncate bg-clip-text text-xl leading-10 font-semibold text-transparent xl:text-2xl',
+                  'link-hover truncate bg-clip-text text-lg font-semibold text-transparent xl:text-2xl',
                   'to-primary-500 bg-linear-to-bl from-neutral-100 via-blue-300',
-                  'ml-1 hidden lg:block'
+                  'hidden lg:block'
                 )}
               >
                 {t('header_title')}
@@ -63,7 +63,7 @@ export default function Header({ locale }: { locale: Locale }) {
           <HeaderNavLinks
             locale={locale}
             links={links}
-            linkClassName="text-base lg:text-lg link-hover font-semibold whitespace-nowrap"
+            linkClassName="text-lg lg:text-xl link-hover font-semibold whitespace-nowrap"
           />
         </div>
 

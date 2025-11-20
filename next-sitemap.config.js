@@ -131,6 +131,6 @@ module.exports = {
   robotsTxtOptions: {
     policies: ROBOTS_POLICES,
   },
-  exclude: ['/*/page/1'],
+  exclude: ['/*/page/1', '/*/test'],
   outDir: './out',
 }

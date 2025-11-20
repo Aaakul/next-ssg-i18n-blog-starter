@@ -13,7 +13,7 @@ const projectsData: Project[] = [
       zh: '请编辑 `./data/projectsData.ts`',
       ja: '`./data/projectsData.ts` を編集してください',
     },
-    href: '/',
+    href: '/#',
     imgSrc: '/static/images/canada/mountains.jpg',
   },
   {
