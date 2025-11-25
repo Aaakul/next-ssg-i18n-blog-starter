@@ -6,7 +6,7 @@ const Tag = ({ text, locale, rest, className }: TagProps) => {
   return (
     <Link
       href={`/${locale}/tags/${slug(text)}`}
-      className={`text-primary-500 dark:text-primary-600 link-hover mr-2 uppercase ${className}`}
+      className={`text-muted link-hover underline-2 mr-2 rounded-xl uppercase ${className}`}
       {...rest}
     >
       {`# ${text.split(' ').join('-')}`}

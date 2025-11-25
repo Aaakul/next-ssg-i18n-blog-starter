@@ -18,7 +18,7 @@ After trying several approaches, I finally achieved stable and efficient i18n su
 
 Building on the core [features](https://github.com/timlrx/tailwind-nextjs-starter-blog#features) of the Tailwind Next.js Starter Blog, this project integrates i18n and improves the development process. Key features include:
 
-- **Excellent User Experience**: [Near-perfect Lighthouse scores](https://pagespeed.web.dev/analysis/https-next-ssg-i18n-blog-starter-pages-dev-zh/nqb9usvegl?form_factor=desktop)
+- **Excellent User Experience**: [Near-perfect Lighthouse scores](https://pagespeed.web.dev/analysis/https-next-ssg-i18n-blog-starter-pages-dev-zh-blog-sample-%E4%BB%8B%E7%BB%8D/4w99em84tv?form_factor=mobile)
 - **Out-of-the-Box i18n**: Integrated with [next-intl](https://next-intl.dev/), supporting SSG.
   - Automatically detects the user's browser language.
   - Saves the user's language preference via a **Cookie** (supports configurable expiration for compliance; defaults to a session cookie).
@@ -35,8 +35,9 @@ Building on the core [features](https://github.com/timlrx/tailwind-nextjs-starte
   - Syntax highlighting powered by [`rehype-pretty-code`](https://rehype-pretty.pages.dev), including line numbers and highlighting. Code copying is adapted from [`pliny/ui/Pre`](https://github.com/timlrx/pliny/blob/main/packages/pliny/src/ui/Pre.tsx).
   - Math formula rendering with [KaTeX](https://katex.org/).
   - Supports [GitHub-style alerts](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts), implemented via [remark-github-blockquote-alert](https://github.com/jaywcjlove/remark-github-blockquote-alert).
+- Support **Disqus** through [DisqusJS](https://github.com/SukkaW/DisqusJS). It can render Disqus comments in regions with internet censorship.
 
-  **Features removed from the original template**:Comment (**planned to be implemented via DisqusJS**), website analytics, citation and reference.
+_Features removed from the original template: Newsletter、 website analytics, citation and reference._
 
 ---
 
@@ -68,7 +69,7 @@ Building on the core [features](https://github.com/timlrx/tailwind-nextjs-starte
     Update the following files:
     - Site icons: `./app/favicon.ico`, `./app/apple-touch.png`, `./public/favicon.svg`
     - Default author avatar: `./public/static/images/avatar.svg`
-    - Open Graph and Twitter cards image: `./public/static/images/twitter-card.png`
+    - Open Graph and Twitter cards image: `./public/static/images/twitter-card.jpg`
 
 6.  **Customize the projects page**
     Edit `./data/projectsData.ts` to update the projects descriptions.
@@ -106,6 +107,10 @@ npm run contentlayer
 ---
 
 ## Customization
+
+### Disqus
+
+To enable Disqus, please refer to `./.env.example` to create a `.env` file containing the Disqus configuration, and make sure that `isEnableDisqusJS` in `SiteConfig.mjs` is set to `true`.
 
 ### i18n
 
@@ -147,12 +152,21 @@ language: string // Must match a language configured in `SiteConfig`
 **Optional fields:**
 
 ```ts
+avatar: string
 occupation: string
 company: string
 mail: string
+bilibili: string
+youtube: string
+mastodon: string
+x: string
 twitter: string
-bluesky: string
+facebook: string
 linkedin: string
+threads: string
+instagram: string
+medium: string
+bluesky: string
 github: string
 ```
 
@@ -179,6 +193,7 @@ authors: string[]          // Filenames under `./data/authors/`. Defaults t
 layout: string             // Page layout. Defaults to 'PostLayout'
 isCanonical: boolean       // If true, adds <link rel="alternate" hreflang="x-default" ...> tag. Defaults to false
 categories: string[]       // Article categories
+enableComments: boolean    // Default to `true`
 ```
 
 ---
@@ -187,7 +202,7 @@ categories: string[]       // Article categories
 
 ```mdx
 ---
-title: 'Introducing Next SSG i18n Blog Starter v0.4'
+title: 'Introducing Next SSG i18n Blog Starter'
 summary: 'This article introduces the Next SSG i18n Blog Starter, a ready-to-use Next.js blog template that supports static site generation and multiple languages'
 translationKey: 'intro'
 date: '2025-11-11T15:45:00+08:00'
@@ -196,9 +211,10 @@ tags: ['next', 'coding', 'guide']
 categories: ['sample']
 language: 'en'
 authors: ['default', 'test']
-images: ['/static/images/twitter-card.png']
+images: ['/static/images/twitter-card.jpg']
 isCanonical: false
 layout: 'PostLayout'
+enableComments: true
 ---
 
 # H1 Title
@@ -221,19 +237,11 @@ This project is built for SSG and deploys easily to any static hosting platform,
 
 ### Manual Deployment
 
-- **Smaller bundle size**  
-  Build with Webpack:
+Build with Turbopack:
 
-  ```sh
-  npm run export
-  ```
-
-- **Faster build speed**  
-  Build with Turbopack:
-
-  ```sh
-  npm run export:turbo
-  ```
+```sh
+npm run export
+```
 
 After building, upload the `out` directory to your static hosting service.
 

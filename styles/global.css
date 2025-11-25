@@ -9,16 +9,20 @@
   --color-primary-600: var(--color-sky-600);
 }
 
-.h1-heading {
-  @apply text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl;
-}
-
 .bg-default {
   @apply bg-neutral-50 dark:bg-gray-800;
 }
 
+.underline-2 {
+  @apply underline underline-offset-2;
+}
+
 a {
   @apply dark:decoration-primary-600 decoration-primary-500;
+}
+
+.h1-heading {
+  @apply text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl;
 }
 
 .text-default {
@@ -45,6 +49,7 @@ a {
 .divide-y-gray {
   @apply divide-y divide-gray-300 dark:divide-gray-700;
 }
+
 .icon-size {
   @apply h-6 w-6;
 }

@@ -2,6 +2,22 @@
 @config '../tailwind.config.mjs';
 @plugin '@tailwindcss/typography';
 
+@theme {
+  /* 
+  * Disqus Embed.js does not support OKLCH
+  * https://jamesauble.com/blog/oklch-colors-workaround-for-disqus-embed-js/
+  */
+  --color-neutral-50: #fafafa;
+  --color-gray-100: #f3f4f6;
+  --color-gray-800: #1e2939;
+  --color-gray-900: #101828;
+  --color-gray-950: #030712;
+}
+
+.comment .dsqjs {
+  @apply rounded-2xl bg-white p-4 shadow-sm dark:bg-gray-900;
+}
+
 .task-list-item::before {
   @apply hidden;
 }
@@ -41,7 +57,7 @@
 
 /* inline code */
 .prose span[data-rehype-pretty-code-figure] code {
-  @apply rounded-lg border border-gray-400 px-1 dark:border-gray-500;
+  @apply rounded-lg border border-gray-400 px-1 opacity-90 dark:border-gray-500;
 }
 
 /* remove `` */

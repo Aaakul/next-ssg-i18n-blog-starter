@@ -33,7 +33,7 @@ const nextConfig = plugins.reduce((acc, next) => next(acc), {
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     })
-
+    config.cache = true
     return config
   },
 })

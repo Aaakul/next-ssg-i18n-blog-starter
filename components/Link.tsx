@@ -4,7 +4,7 @@ import { AnchorHTMLAttributes } from 'react'
 
 const CustomLink = ({
   href,
-  className,
+  className = '',
   ...rest
 }: LinkProps & AnchorHTMLAttributes<HTMLAnchorElement>) => {
   const isAnchorLink = href ? href.startsWith('#') : false

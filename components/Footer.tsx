@@ -24,13 +24,13 @@ export default function Footer({ copyrightText }: { copyrightText: string }) {
               />
             )}
           </div>
-          <div className="text-muted flex space-x-2 text-sm opacity-80">
+          <div className="text-muted flex space-x-2 text-sm">
             <Link href="/" className="link-hover">
               {`© `}
               {copyrightText}
             </Link>
           </div>
-          <div className="text-muted my-0 text-sm opacity-80">
+          <div className="text-muted my-0 text-sm">
             <Link
               href="https://github.com/Aaakul/next-ssg-i18n-blog-starter"
               className="link-hover"

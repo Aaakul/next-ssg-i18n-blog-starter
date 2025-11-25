@@ -8,6 +8,7 @@ import PostDateLocalized from '@/components/PostDateLocalized'
 import { Locale } from '@/i18n'
 import Image from '@/components/Image'
 import RelatedPosts from '@/components/RelatedPosts'
+import Comment from '@/components/Comment'
 
 export default function PostLayout({
   authorDetails,
@@ -18,6 +19,7 @@ export default function PostLayout({
   toc,
   lastmod,
   relatedPosts,
+  showComments,
 }: PostLayoutProps) {
   const { date, title, tags, readingTime, images } = content
   const locale = useLocale() as Locale
@@ -35,7 +37,8 @@ export default function PostLayout({
               alt={t('image_of', { title })}
               fill
               className="rounded-xl object-cover"
-              loading="lazy"
+              preload={true}
+              fetchPriority="high"
             />
           </div>
         )}
@@ -68,6 +71,18 @@ export default function PostLayout({
         <div className="flex flex-col text-base font-semibold">
           <FooterNavigation prev={prev} next={next} locale={locale} />
         </div>
+        {showComments && (
+          <div className="comment my-12">
+            <Comment
+              shortname={process.env.DISQUS_SHORT_NAME as string}
+              siteName={process.env.DISQUS_SITE_NAME}
+              api={process.env.DISQUS_API_URL}
+              apikey={process.env.DISQUS_API_KEY as string}
+              admin={process.env.DISQUS_ADMIN_NAME}
+              adminLabel={process.env.DISQUS_ADMIN_LABEL}
+            />
+          </div>
+        )}
       </footer>
     </article>
   )

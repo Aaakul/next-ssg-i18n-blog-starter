@@ -18,7 +18,7 @@ Next.js の**静的サイト生成 (SSG)** 機能に興味を持って、人気�
 
 本テンプレートは Tailwind Next.js Starter Blog の[主要機能](https://github.com/timlrx/tailwind-nextjs-starter-blog#features)を引き継ぎつつ、i18n を統合し、開発体験をさらに向上させています。主な特長は以下の通りです:
 
-- **優れたユーザー体験**: [Lighthouse スコアがほぼ満点。](https://pagespeed.web.dev/analysis/https-next-ssg-i18n-blog-starter-pages-dev-zh/nqb9usvegl?form_factor=desktop)
+- **優れたユーザー体験**: [Lighthouse スコアがほぼ満点。](https://pagespeed.web.dev/analysis/https-next-ssg-i18n-blog-starter-pages-dev-zh-blog-sample-%E4%BB%8B%E7%BB%8D/4w99em84tv?form_factor=mobile)
 - **すぐに使える国際化**: [next-intl](https://next-intl.dev/) を統合し、SSG に対応。
   - ユーザーのブラウザ言語設定を自動検出します。
   - Cookie によりユーザーの言語設定を保存（有効期限設定が可能で、GDPR などの規制対応が容易。デフォルトはセッション Cookie）
@@ -35,8 +35,9 @@ Next.js の**静的サイト生成 (SSG)** 機能に興味を持って、人気�
   - コードハイライトは [`rehype-pretty-code`](https://rehype-pretty.pages.dev) を利用し、行番号とハイライト機能を提供。コードコピー機能は [`pliny/ui/Pre`](https://github.com/timlrx/pliny/blob/main/packages/pliny/src/ui/Pre.tsx) をベースにカスタマイズ。
   - 数学式は [KaTeX](https://katex.org/) を使用してレンダリング。
   - [GitHub 風のアラートボックス](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts) を [remark-github-blockquote-alert](https://github.com/jaywcjlove/remark-github-blockquote-alert) により実現。
+- [DisqusJS](https://github.com/SukkaW/DisqusJS) を使って **Disqus** をサポート。ネット検閲のある地域でも Disqus コメントを表示可能
 
-  **元のテンプレートから削除された機能**: コメントシステム(**DisqusJS を通じて実現する予定です**)、サイト分析機能、引用および参考文献のサポート
+_元のテンプレートから削除された機能: ニュースレター、サイト分析機能、引用および参考文献のサポート_
 
 ---
 
@@ -68,7 +69,7 @@ Next.js の**静的サイト生成 (SSG)** 機能に興味を持って、人気�
    以下のファイルを更新します:
    - サイトアイコン: `./app/favicon.ico`、`./app/apple-touch.png`、`./public/favicon.svg`
    - デフォルトのアバター: `./public/static/images/avatar.svg`
-   - Open Graph と Twitter カード画像: `./public/static/images/twitter-card.png`
+   - Open Graph と Twitter カード画像: `./public/static/images/twitter-card.jpg`
 
 6. **プロジェクトページをカスタマイズ**
    `./data/projectsData.ts` を編集し、プロジェクトの紹介を更新します。
@@ -106,6 +107,10 @@ npm run contentlayer
 ---
 
 ## カスタマイズ
+
+### Disqus
+
+Disqus を有効にするには、`./.env.example` を参考にして Disqus 設定を含む `.env` ファイルを作成し、`SiteConfig.mjs` 内の `isEnableDisqusJS` が `true` に設定されていることを確認してください。
 
 ### 国際化
 
@@ -147,12 +152,21 @@ language: string // `SiteConfig` の言語設定と一致させる必要があ�
 **任意フィールド:**
 
 ```ts
+avatar: string
 occupation: string
 company: string
 mail: string
+bilibili: string
+youtube: string
+mastodon: string
+x: string
 twitter: string
-bluesky: string
+facebook: string
 linkedin: string
+threads: string
+instagram: string
+medium: string
+bluesky: string
 github: string
 ```
 
@@ -179,6 +193,7 @@ authors: string[]          // `./data/authors/` 以下のファイル名。
 layout: string             // ページレイアウト。指定がない場合は 'PostLayout'
 isCanonical: boolean       // true の場合、<link rel="alternate" hreflang="x-default" ...> タグが追加されます。デフォルトは false
 categories: string[]       // 記事の分類
+enableComments: boolean    // コメント欄を有効にするかどうか、デフォルトは `true`
 ```
 
 ---
@@ -187,7 +202,7 @@ categories: string[]       // 記事の分類
 
 ```mdx
 ---
-title: 'Next SSG i18n Blog Starter v0.4 のご紹介'
+title: 'Next SSG i18n Blog Starter のご紹介'
 summary: 'この記事では、すぐに使える、静的サイト生成と多言語対応に対応したNext.jsブログテンプレート Next SSG i18n Blog Starter を紹介します。'
 translationKey: 'intro'
 date: '2025-11-11T15:45:00+08:00'
@@ -196,9 +211,10 @@ categories: ['サンプル']
 tags: ['next', 'コーディング', 'ガイド']
 language: 'ja'
 authors: ['default', 'test']
-images: ['/static/images/twitter-card.png']
+images: ['/static/images/twitter-card.jpg']
 layout: PostLayout
 isCanonical: false
+enableComments: true
 ---
 
 # H1 タイトル
@@ -221,19 +237,11 @@ isCanonical: false
 
 ### 手動デプロイ
 
-- **より小さいビルドサイズ**  
-  Webpack を使用してビルド:
+Turbopack を使用してビルド:
 
-  ```sh
-  npm run export
-  ```
-
-- **より高速なビルド**  
-  Turbopack を使用してビルド:
-
-  ```sh
-  npm run export:turbo
-  ```
+```sh
+npm run export
+```
 
 ビルド後、生成された `out` ディレクトリを静的ホスティングサービスにアップロードしてください。
 

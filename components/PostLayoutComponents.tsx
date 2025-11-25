@@ -103,21 +103,24 @@ export function FooterNavigation({ prev, next, locale }: FooterNavigationProps) 
     t('prev_post', { title: prev?.title ?? '' }) || `Previous post: ${prev?.title ?? ''}`
   const next_title =
     t('next_post', { title: next?.title ?? '' }) || `Next post: ${next?.title ?? ''}`
-  const linkClass = 'text-primary-400 link-hover flex focus:ring-2 focus:outline-none'
+  const linkClass = 'text-muted underline-2 link-hover flex focus:ring-2 focus:outline-none'
 
   return (
     <nav aria-label={t('pagination')} className="mt-8 self-start text-ellipsis sm:self-auto">
       <ul className="flex flex-col gap-y-4 sm:flex-row sm:gap-x-8 xl:gap-y-8">
         {showPrev && (
           <li>
-            <Link
-              href={`/${locale}/${prev.path}`}
-              className={linkClass}
-              aria-label={previous_title}
-              title={previous_title}
-            >
-              &larr; <span className="ml-1">{previous_title}</span>
-            </Link>
+            <span className="flex gap-x-1">
+              &larr;
+              <Link
+                href={`/${locale}/${prev.path}`}
+                className={linkClass}
+                aria-label={previous_title}
+                title={previous_title}
+              >
+                {previous_title}
+              </Link>
+            </span>
           </li>
         )}
         {showNext && (

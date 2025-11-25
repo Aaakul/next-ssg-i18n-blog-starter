@@ -35,6 +35,11 @@ export const SiteConfig = {
   // リストビューで 1 ページに表示されるブログ記事の数
   postsPerPage: 2,
 
+  // 是否启用 Disqus
+  // Whether to enable DisqusJS
+  // Disqus を有効にするかどうか
+  isEnableDisqusJS: true,
+
   social: {
     // 页脚会显示对应社交平台的图标及链接
     // The footer will display the corresponding social platform icons with links
@@ -89,10 +94,11 @@ export const SiteConfig = {
  * @property {boolean} isGenRSS
  * @property {'session' | 'none' | number} cookieMaxAgeDays
  * @property {number} postsPerPage
+ * @property {boolean} isEnableDisqusJS
  * @property {SocialConfig} social
  */
 
-export const SocialBannerPath = `${SiteConfig.basePath.replace(/\/+$/, '')}/static/images/twitter-card.png`
+export const SocialBannerPath = `${SiteConfig.basePath.replace(/\/+$/, '')}/static/images/twitter-card.jpg`
 
 export const SiteUrlWithBase = new URL(
   `${SiteConfig.siteUrl.replace(/\/+$/, '')}${SiteConfig.basePath}`

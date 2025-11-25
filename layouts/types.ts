@@ -13,6 +13,7 @@ export interface PostLayoutProps {
   toc?: [{ value: string; url: string; depth: number }]
   lastmod?: string | undefined
   relatedPosts: RelatedPostsData[]
+  showComments: boolean
 }
 
 export interface PaginationProps {

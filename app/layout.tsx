@@ -48,8 +48,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body
         className={clsx(
-          'bg-neutral-100 dark:bg-gray-950',
-          'no-scrollbar text-default flex min-h-screen flex-col pl-[calc(100vw-100%)] duration-300'
+          'bg-neutral-50 dark:bg-gray-950',
+          'no-scrollbar flex min-h-screen flex-col pl-[calc(100vw-100%)] duration-300'
         )}
       >
         {children}

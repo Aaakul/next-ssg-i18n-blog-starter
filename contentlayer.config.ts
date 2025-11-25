@@ -143,6 +143,7 @@ export const Authors = defineDocumentType(() => ({
     bilibili: { type: 'string' },
     youtube: { type: 'string' },
     mastodon: { type: 'string' },
+    x: { type: 'string' },
     twitter: { type: 'string' },
     facebook: { type: 'string' },
     linkedin: { type: 'string' },
@@ -174,6 +175,7 @@ export const Blog = defineDocumentType(() => ({
     language: { type: 'string', default: defaultLocale, enum: supportedLocales },
     isCanonical: { type: 'boolean', default: false },
     categories: { type: 'list', of: { type: 'string' }, default: [] },
+    enableComments: { type: 'boolean', default: true },
   },
   computedFields: {
     readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
@@ -220,7 +222,8 @@ export default makeSource({
       [
         rehypePrettyCode,
         {
-          defaultLang: 'javascript',
+          defaultLang: { block: 'javascript', inline: 'ansi' },
+          theme: 'github-dark-default',
         },
       ],
       rehypePresetMinify,

@@ -43,7 +43,15 @@ const eslintConfig = [
   },
   eslintConfigPrettier,
   {
-    ignores: ['node_modules/', '.next/', 'out/', 'build/', 'next-env.d.ts', '.contentlayer/'],
+    ignores: [
+      'node_modules/',
+      '.next/',
+      'out/',
+      'build/',
+      'next-env.d.ts',
+      '.contentlayer/',
+      'lib/dist',
+    ],
   },
 ]
 

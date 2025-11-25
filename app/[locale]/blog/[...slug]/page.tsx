@@ -132,6 +132,8 @@ export default function Page(props: { params: Promise<PostSlugParams> }) {
   const layoutKey: LayoutKey =
     post.layout && post.layout in layouts ? (post.layout as LayoutKey) : defaultLayout
   const Layout = layouts[layoutKey]
+
+  const showComments = SiteConfig.isEnableDisqusJS && post.enableComments
   return (
     <>
       <script
@@ -146,6 +148,7 @@ export default function Page(props: { params: Promise<PostSlugParams> }) {
         prev={prev}
         toc={post.toc}
         relatedPosts={relatedPosts}
+        showComments={showComments}
       >
         <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
       </Layout>

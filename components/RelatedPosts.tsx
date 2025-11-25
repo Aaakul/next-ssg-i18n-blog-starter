@@ -13,7 +13,7 @@ export default function RelatedPosts({ relatedPosts }: RelatedPostsProps) {
             <li key={post.title}>
               <Link
                 href={`/${post.path}`}
-                className="link-hover block truncate p-2 text-sm font-semibold underline"
+                className="link-hover underline-2 block truncate p-2 text-sm font-semibold"
               >
                 {post.title}
               </Link>

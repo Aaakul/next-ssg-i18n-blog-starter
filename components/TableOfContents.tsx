@@ -46,7 +46,7 @@ export default function TOCWithToggleButton({ toc }: TableOfContentsProps) {
           'lg:hidden',
           'fixed top-0 right-0 z-80 h-full w-full p-6',
           'bg-default',
-          'shadow-xl',
+          'overflow-y-scroll',
           'transform transition-transform duration-300 ease-in-out',
           showTOC ? 'translate-x-0' : 'translate-x-full'
         )}
@@ -150,11 +150,7 @@ function TableOfContents({ toc }: TableOfContentsProps) {
                 'cursor-pointer',
                 'link-hover',
                 isActive ? 'text-primary-500 font-medium' : 'text-muted',
-                heading.depth === 2
-                  ? 'pl-4 opacity-90'
-                  : heading.depth === 3
-                    ? 'pl-8 opacity-80'
-                    : 'font-medium'
+                heading.depth === 2 ? 'pl-4' : heading.depth === 3 ? 'pl-8' : 'font-medium'
               )}
               onClick={(e) => {
                 e.preventDefault()

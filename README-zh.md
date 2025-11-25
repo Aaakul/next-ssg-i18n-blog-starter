@@ -13,7 +13,7 @@
 
 本模板在保留 Tailwind Next.js Starter Blog [核心功能](https://github.com/timlrx/tailwind-nextjs-starter-blog#features)的基础上, 集成了国际化, 并进一步增强了开发体验。主要特性包括:
 
-- **良好的用户体验**: [Lighthouse 评分接近满分](https://pagespeed.web.dev/analysis/https-next-ssg-i18n-blog-starter-pages-dev-zh/nqb9usvegl?form_factor=desktop)
+- **良好的用户体验**: [Lighthouse 评分接近满分](https://pagespeed.web.dev/analysis/https-next-ssg-i18n-blog-starter-pages-dev-zh-blog-sample-%E4%BB%8B%E7%BB%8D/4w99em84tv?form_factor=mobile)
 - **开箱即用的国际化**: 集成 [next-intl](https://next-intl.dev/), 支持SSG。
   - 自动检测浏览器语言环境
   - 通过 Cookie 持久化用户语言偏好(支持配置过期时间, 便于满足 GDPR 等合规要求。默认为 Session Cookie)
@@ -30,8 +30,9 @@
   - 代码高亮由 [`rehype-pretty-code`](https://rehype-pretty.pages.dev) 实现, 支持行号与高亮。代码复制修改自[`pliny/ui/Pre`](https://github.com/timlrx/pliny/blob/main/packages/pliny/src/ui/Pre.tsx)
   - 数学公式渲染采用 [KaTeX](https://katex.org/)
   - 支持 [GitHub 风格提示框](https://docs.github.com/zh/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax), 通过 [remark-github-blockquote-alert](https://github.com/jaywcjlove/remark-github-blockquote-alert) 实现
+- 通过 [DisqusJS](https://github.com/SukkaW/DisqusJS) 实现 **Disqus** 支持。可为网络审查地区渲染 Disqus 评论。
 
-  **从原模板中移除的功能**: 评论系统(**计划通过 DisqusJS 实现**)、网站分析、引用与参考文献支持
+_从原模板中移除的功能: 网站分析、引用与参考文献支持、Newsletter_
 
 ---
 
@@ -63,7 +64,7 @@
    更新以下文件:
    - 网站图标: `./app/favicon.ico`、`./app/apple-touch.png`、`./public/favicon.svg`
    - 默认作者头像: `./public/static/images/avatar.svg`
-   - Open Graph 和 Twitter 卡片图像: `./public/static/images/twitter-card.png`
+   - Open Graph 和 Twitter 卡片图像: `./public/static/images/twitter-card.jpg`
 
 6. **自定义项目页**
    编辑 `./data/projectsData.ts` 以更新项目列表。
@@ -99,6 +100,10 @@ npm run contentlayer
 ```
 
 ## 扩展与自定义
+
+### Disqus
+
+要启用 Disqus , 请参照 `./.env.example` 创建包含 Disqus 配置的 `.env` 文件，并确认 `SiteConfig.mjs` 中的`isEnableDisqusJS` 已设置为 `true` 。
 
 ### 国际化(i18n)
 
@@ -138,12 +143,21 @@ language: string // 必须与 `SiteConfig` 中配置的语言一致
 **可选字段:**
 
 ```ts
+avatar: string
 occupation: string
 company: string
 mail: string
+bilibili: string
+youtube: string
+mastodon: string
+x: string
 twitter: string
-bluesky: string
+facebook: string
 linkedin: string
+threads: string
+instagram: string
+medium: string
+bluesky: string
 github: string
 ```
 
@@ -170,6 +184,7 @@ authors: string[]          // 对应 `./data/authors/` 下的文件名, 默认�
 layout: string             // 页面布局, 如未指定则使用 'PostLayout'
 isCanonical: boolean       // 设为 true 时会添加 <link rel="alternate" hreflang="x-default" ...> 标签, 默认 false
 categories: string[]       // 文章分类
+enableComments: boolean    // 是否启用评论区，默认为 `true`
 ```
 
 ---
@@ -178,7 +193,7 @@ categories: string[]       // 文章分类
 
 ```mdx
 ---
-title: 'Next SSG i18n Blog Starter v0.4'
+title: 'Next SSG i18n Blog Starter'
 summary: '本文介绍了开箱即用，支持静态站点生成和多语言的Next.js博客模板 Next SSG i18n Blog Starter'
 translationKey: 'intro'
 date: '2025-11-11T15:45:00+08:00'
@@ -188,8 +203,9 @@ categories: ['示例']
 language: 'zh'
 authors: ['default', 'test']
 isCanonical: true
-images: ['/static/images/twitter-card.png']
+images: ['/static/images/twitter-card.jpg']
 layout: 'PostLayout'
+enableComments: true
 ---
 
 # H1 Title
@@ -210,19 +226,11 @@ Some content...
 
 ### 手动部署
 
-- **更小的打包体积**  
-  使用 Webpack 构建:
+使用 Turbopack 构建:
 
-  ```sh
-  npm run export
-  ```
-
-- **更快的构建速度**  
-  使用 Turbopack 构建:
-
-  ```sh
-  npm run export:turbo
-  ```
+```sh
+npm run export
+```
 
 构建完成后, 将生成的 `out` 目录上传至你的静态托管服务。
 
