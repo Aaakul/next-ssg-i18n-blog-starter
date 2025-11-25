@@ -133,7 +133,10 @@ export default function Page(props: { params: Promise<PostSlugParams> }) {
     post.layout && post.layout in layouts ? (post.layout as LayoutKey) : defaultLayout
   const Layout = layouts[layoutKey]
 
-  const showComments = SiteConfig.isEnableDisqusJS && post.enableComments
+  const isWrongDisqusJSConfig = !process.env.DISQUS_SHORT_NAME || !process.env.DISQUS_API_KEY
+
+  const showComments = SiteConfig.isEnableDisqusJS && post.enableComments && !isWrongDisqusJSConfig
+
   return (
     <>
       <script

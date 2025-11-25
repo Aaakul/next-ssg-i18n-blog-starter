@@ -72,7 +72,7 @@ export default function PostLayout({
           <FooterNavigation prev={prev} next={next} locale={locale} />
         </div>
         {showComments && (
-          <div className="comment my-12">
+          <div className="comment my-12 min-h-[45vh]">
             <Comment
               shortname={process.env.DISQUS_SHORT_NAME as string}
               siteName={process.env.DISQUS_SITE_NAME}
