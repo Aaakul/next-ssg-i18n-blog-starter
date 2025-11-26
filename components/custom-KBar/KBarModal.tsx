@@ -70,7 +70,7 @@ const KBarModal = ({ actions, isLoading }: { actions: Action[]; isLoading: boole
                 id="kbar-search-input"
                 aria-label={t('site_search')}
                 className={clsx(
-                  'h-8 w-full focus:outline-none',
+                  'h-8 w-full rounded border border-gray-400 px-1.5 focus:outline-none dark:border-gray-500',
                   'bg-transparent placeholder-gray-500 dark:placeholder-gray-400'
                 )}
                 defaultPlaceholder={t('site_search')}
@@ -132,16 +132,14 @@ const RenderResults = () => {
             {...itemProps}
             className={clsx(
               'flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 transition-colors',
-              active ? 'bg-primary-600 text-gray-200' : 'bg-transparent'
+              active ? 'bg-primary-600 text-gray-100' : 'bg-transparent'
             )}
           >
             <div className="space-x-2">
               {item.icon && <span className="self-center">{item.icon}</span>}
               <div>
                 {item.subtitle && (
-                  <div className={clsx('text-xs', active ? 'text-gray-200' : 'text-gray-400')}>
-                    {item.subtitle}
-                  </div>
+                  <div className={clsx('text-xs', active && 'text-gray-100')}>{item.subtitle}</div>
                 )}
                 <div>{item.name}</div>
               </div>

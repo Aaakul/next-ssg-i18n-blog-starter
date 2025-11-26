@@ -1,12 +1,21 @@
 @import 'tailwindcss';
 @config '../tailwind.config.mjs';
-@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
 
 @theme {
   --color-primary-100: var(--color-sky-100);
   --color-primary-400: var(--color-sky-400);
   --color-primary-500: var(--color-sky-500);
   --color-primary-600: var(--color-sky-600);
+  /* 
+  * Disqus Embed.js does not support OKLCH
+  * https://jamesauble.com/blog/oklch-colors-workaround-for-disqus-embed-js/
+  */
+  --color-neutral-50: #fafafa;
+  --color-gray-100: #f3f4f6;
+  --color-gray-800: #1e2939;
+  --color-gray-900: #101828;
+  --color-gray-950: #030712;
 }
 
 .bg-default {
@@ -82,19 +91,98 @@ a {
   }
 }
 
-::-webkit-scrollbar {
-  display: none;
-}
-
-.no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
 /* https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied */
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
   transition:
     background-color 600000s 0s,
     color 600000s 0s;
+}
+
+.task-list-item::before {
+  @apply hidden;
+}
+
+.task-list-item {
+  @apply list-none;
+}
+
+.footnotes {
+  @apply border-t border-gray-200 pt-4 dark:border-gray-700;
+}
+
+.data-footnote-backref {
+  @apply no-underline;
+}
+
+.katex-display {
+  overflow: auto hidden;
+}
+
+.content-header {
+  @apply relative flex cursor-pointer items-start;
+}
+
+.content-header:hover .content-header-link,
+.content-header-link:hover {
+  opacity: 1;
+}
+
+.content-header-link {
+  @apply absolute ml-1 hidden opacity-0 transition-opacity duration-200 lg:block;
+}
+
+.prose {
+  @apply wrap-break-word;
+}
+
+/* inline code */
+.prose span[data-rehype-pretty-code-figure] code {
+  @apply rounded-lg border border-gray-400 px-1 opacity-90 dark:border-gray-500;
+}
+
+/* remove `` */
+span[data-rehype-pretty-code-figure] code::before,
+span[data-rehype-pretty-code-figure] code::after {
+  content: none !important;
+}
+
+.prose pre {
+  @apply my-0;
+}
+
+figcaption[data-rehype-pretty-code-title] {
+  @apply my-0 overflow-x-auto rounded-t-lg bg-gray-700 p-2 pl-4 text-sm text-gray-300 dark:bg-gray-800;
+}
+
+figcaption[data-rehype-pretty-code-title] + div.relative pre {
+  @apply my-0 overflow-x-auto rounded-t-none;
+}
+
+/* https://itsbruno.dev/blog/syntax-highlighting-for-mdx */
+code[data-line-numbers] {
+  counter-reset: line;
+}
+
+code[data-line-numbers] > [data-line]::before {
+  padding: 0;
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 0.75rem;
+  margin-right: 0.5rem;
+  text-align: left;
+  color: gray;
+}
+
+code[data-line-numbers-max-digits='2'] > [data-line]::before {
+  width: 1.25rem;
+}
+
+code[data-line-numbers-max-digits='3'] > [data-line]::before {
+  width: 1.75rem;
+}
+
+code[data-line-numbers-max-digits='4'] > [data-line]::before {
+  width: 2.25rem;
 }

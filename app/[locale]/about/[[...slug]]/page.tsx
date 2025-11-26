@@ -1,5 +1,6 @@
 import 'katex/dist/katex.css'
-import '@/styles/post.css'
+import 'remark-github-blockquote-alert/alert.css'
+
 import { Authors, allAuthors } from 'contentlayer/generated'
 import { SiteUrlWithBase, SiteConfig } from '@/data/siteConfig.mjs'
 import { getTranslations, setRequestLocale } from 'next-intl/server'

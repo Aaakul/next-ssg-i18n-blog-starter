@@ -1,6 +1,6 @@
 import { use } from 'react'
+import 'remark-github-blockquote-alert/alert.css'
 import 'katex/dist/katex.css'
-import '@/styles/post.css'
 
 import { components } from '@/components/MDXComponents'
 import { MDXLayoutRenderer } from '@/lib/pliny/mdx-components'

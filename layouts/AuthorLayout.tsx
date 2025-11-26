@@ -55,6 +55,8 @@ export default function AuthorLayout({ children, content }: AuthorLayoutProps) {
               width={128}
               height={128}
               className="m-0 rounded-full object-cover shadow-sm"
+              showPlaceholder={true}
+              isLocal={true}
             />
           )}
 

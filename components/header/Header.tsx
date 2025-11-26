@@ -30,15 +30,14 @@ export default function Header({ locale }: { locale: Locale }) {
         <div className="flex flex-1 items-center justify-start">
           <Link href={`/${locale}`} aria-label={t('link_to', { title: t('home') })}>
             <div className="flex-center space-x-2">
-              <div className="h-8 w-8">
+              <div className="h-8 w-8 rounded-full">
                 <Image
                   src="/favicon.svg"
                   alt="Logo"
                   width={32}
                   height={32}
-                  fetchPriority="high"
                   loading="eager"
-                  preload={true}
+                  isLocal={true}
                 />
               </div>
               <div
@@ -56,7 +55,7 @@ export default function Header({ locale }: { locale: Locale }) {
 
         <div
           className={clsx(
-            '"break-keep mx-auto items-center justify-center space-x-4',
+            'mx-auto items-center justify-center space-x-4 break-keep',
             'hidden sm:flex sm:shrink-0'
           )}
         >

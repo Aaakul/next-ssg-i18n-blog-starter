@@ -49,12 +49,25 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
         type="application/json"
         href={`${SiteConfig.basePath}/${locale}/feed.json`}
       />
+      <link rel="preload" as="image" href={`${SiteConfig.basePath}/favicon.svg`} />
       <NextIntlClientProvider>
         <ThemeProviders>
           <DynamicScrollTop />
           <DynamicSearchProvider>
             <Header locale={locale as Locale} />
-            <main className="m-auto w-full max-w-6xl flex-1 px-2 xl:px-0">{children}</main>
+            <style>{`#main{@media{padding-inline:0;}}`}</style>
+            <main
+              id="main"
+              style={{
+                margin: 'auto',
+                width: '100%',
+                maxWidth: '72rem',
+                flex: 1,
+                paddingInline: '0.5rem',
+              }}
+            >
+              {children}
+            </main>
           </DynamicSearchProvider>
           <Footer copyrightText={t('site_title')} />
         </ThemeProviders>

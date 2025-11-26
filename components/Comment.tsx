@@ -71,7 +71,12 @@ export default function Comment(props: DisqusJSConfig) {
   }
 
   if (shouldLoad) {
-    return <DynamicDisqusJS {...props} className="dsqjs" />
+    return (
+      <DynamicDisqusJS
+        {...props}
+        className="dsqjs rounded-2xl bg-white p-4 shadow-sm dark:bg-gray-900"
+      />
+    )
   }
 
   return <div ref={commentContainerRef} className="h-full w-full" aria-busy={true} />

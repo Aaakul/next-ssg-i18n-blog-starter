@@ -35,10 +35,12 @@ export default function PostLayout({
             <Image
               src={displayImage}
               alt={t('image_of', { title })}
-              fill
               className="rounded-xl object-cover"
-              preload={true}
+              loading="eager"
               fetchPriority="high"
+              showPlaceholder={true}
+              isLocal={true}
+              webpSrc={displayImage + '.webp'}
             />
           </div>
         )}

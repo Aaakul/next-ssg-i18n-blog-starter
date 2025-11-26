@@ -1,16 +1,10 @@
 import type React from 'react'
 import '@/styles/global.css'
-import 'remark-github-blockquote-alert/alert.css'
 import { SiteConfig } from '@/data/siteConfig.mjs'
-import clsx from 'clsx'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      className="scroll-smooth antialiased"
-      data-scroll-behavior="smooth"
-      suppressHydrationWarning
-    >
+    <html data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <link
           rel="apple-touch-icon"
@@ -45,12 +39,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
+        <style>{`body{background-color:'#fafafa';&:is(.dark *){background-color:#030712;}}`}</style>
       </head>
       <body
-        className={clsx(
-          'bg-neutral-50 dark:bg-gray-950',
-          'no-scrollbar flex min-h-screen flex-col pl-[calc(100vw-100%)] duration-300'
-        )}
+        style={{
+          scrollBehavior: 'smooth',
+          WebkitFontSmoothing: 'antialiased',
+          MozOsxFontSmoothing: 'grayscale',
+          minHeight: ' 100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          paddingLeft: 'calc(100vw - 100%)',
+          transitionDuration: '300ms',
+        }}
       >
         {children}
       </body>

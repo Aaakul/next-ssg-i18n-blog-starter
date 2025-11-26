@@ -7,7 +7,7 @@ import { Locale } from '@/i18n'
 export default function Footer({ copyrightText }: { copyrightText: string }) {
   const locale = useLocale() as Locale
   return (
-    <footer className="mt-auto w-full pt-6 pb-2">
+    <footer className="w-full pt-6 pb-2">
       <div className="mx-auto max-w-6xl px-2">
         <div className="flex-center bottom-0 flex-col space-y-1 align-middle">
           <div className="flex-center h-6 space-x-6">
