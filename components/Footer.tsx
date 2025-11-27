@@ -9,7 +9,7 @@ export default function Footer({ copyrightText }: { copyrightText: string }) {
   return (
     <footer className="w-full pt-6 pb-2">
       <div className="mx-auto max-w-6xl px-2">
-        <div className="flex-center bottom-0 flex-col space-y-1 align-middle">
+        <div className="flex-center bottom-0 flex-col space-y-2 align-middle">
           <div className="flex-center h-6 space-x-6">
             {Object.entries(SiteConfig.social)
               .filter(([_, url]) => url && typeof url === 'string' && url.trim() !== '')
@@ -30,7 +30,7 @@ export default function Footer({ copyrightText }: { copyrightText: string }) {
               {copyrightText}
             </Link>
           </div>
-          <div className="text-muted my-0 text-sm">
+          <div className="text-muted text-sm">
             <Link
               href="https://github.com/Aaakul/next-ssg-i18n-blog-starter"
               className="link-hover"

@@ -8,7 +8,7 @@ categories: ['サンプル']
 tags: ['next', 'コーディング', 'ガイド']
 language: 'ja'
 authors: ['default', 'test']
-images: ['/static/images/twitter-card.jpg']
+image: '/static/images/twitter-card.jpg'
 ---
 
 > [!NOTE]
@@ -37,6 +37,7 @@ Next.js の**静的サイト生成 (SSG)** 機能に興味を持って、人気�
 - **多言語対応 RSS / Atom フィード**: [feed](https://github.com/jpmonette/feed) を使用し、静的フィードファイルを生成します。
 - **モダンなスタイルシステム**: [**Tailwind CSS v4.1**](https://tailwindcss.com/) を採用し、簡単にカスタマイズ可能。
 - **設定不要のサイト内検索**: [`pliny/search`](https://github.com/timlrx/pliny/tree/main/packages/pliny/src/search) をカスタマイズし、[`KBar`](https://github.com/timc1/kbar) で動作します。
+- [**画像読み込みの最適化**](/ja/blog/sample/MDX%E3%81%AE%E4%BE%8B#%E5%86%85%E8%94%B5%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%E3%82%B3%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%8D%E3%83%B3%E3%83%88): ローカルのPNGやJPG画像から自動的にWebPコピーを生成し、モダンブラウザ向けに画像の読み込み速度を最適化します。SVGプレースホルダーを活用して、読み込み中のユーザー体験を向上。ローカルのPNGおよびJPG形式の記事バナー画像については、WebPコピーのパスを設定する必要はありません。
 - **モダンな Markdown 執筆体験**:
   - [MDX](https://mdxjs.com/) をサポートし、Markdown 内で JSX/React コンポーネントを直接埋め込み可能。
   - [contentlayer2](https://github.com/timlrx/contentlayer2) を使って Markdown/MDX ファイルを処理。
@@ -122,13 +123,13 @@ Disqus を有効にするには、`./.env.example` を参考にして Disqus 設
 
 ### 国際化
 
-このプロジェクトには、簡体字中国語 (`zh`)、英語 (`en`)、日本語 (`ja`) の翻訳が内蔵されています。翻訳ファイルは `./i18n/messages/` にあります。既存の翻訳を改善したり、新しい言語を追加したりできます。  
+このプロジェクトには、簡体字中国語 (`zh`)、英語 (`en`)、日本語 (`ja`) の翻訳が内蔵されています。翻訳ファイルは `./i18n/messages/` にあります。既存の翻訳を改善したり、新しい言語を追加したりできます。
 翻訳ファイルに関する情報は、[next-intl のドキュメント](https://next-intl.dev/docs/usage/translations)を参照してください
 
 ### その他のカスタマイズ設定
 
 - **スタイルのカスタマイズ**  
-  `./tailwind.config.mjs` や `./styles/*.css` を使用して [Tailwind v4 の設定](https://tailwindcss.com/docs/upgrade-guide) や CSS スタイルを調整することで、全体的な見た目を簡単に変更できます。  
+  `./tailwind.config.mjs` や `./styles/*.css` を使用して [Tailwind v4 の設定](https://tailwindcss.com/docs/upgrade-guide) や CSS スタイルを調整することで、全体的な見た目を簡単に変更できます。
   テーマカラー（Primary color）を変更するには、`./styles/global.css` の `--color-primary-*: var(--color-sky-*);` を編集し、`sky` を他の色に置き換えてください。
 
 - **MDX コンポーネント**  
@@ -196,7 +197,7 @@ tags: string[]
 lastmod: string            // 最終更新日
 draft: boolean             // true の場合、記事はビルドされません
 summary: string            // 記事の要約
-images: string[]           // 画像URLのリスト。最初の画像は記事のヘッダーバナーとして使用されます。すべての画像はOpen Graphタグに使用します
+image: string              // 記事のトップバナー、Open Graph、Twitter Card に使用する画像のURL
 authors: string[]          // `./data/authors/` 以下のファイル名。指定がない場合は ['default']
 layout: string             // ページレイアウト。指定がない場合は 'PostLayout'
 isCanonical: boolean       // true の場合、<link rel="alternate" hreflang="x-default" ...> タグが追加されます。デフォルトは false
@@ -219,7 +220,7 @@ categories: ['サンプル']
 tags: ['next', 'コーディング', 'ガイド']
 language: 'ja'
 authors: ['default', 'test']
-images: ['/static/images/twitter-card.jpg']
+image: '/static/images/twitter-card.jpg'
 layout: PostLayout
 isCanonical: false
 enableComments: true

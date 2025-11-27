@@ -1,4 +1,5 @@
 // About page
+
 import Image from '@/components/Image'
 import { useTranslations } from 'next-intl'
 import { AuthorLayoutProps } from './types'
@@ -54,18 +55,18 @@ export default function AuthorLayout({ children, content }: AuthorLayoutProps) {
               alt={name || t('image_of', { title: name })}
               width={128}
               height={128}
-              className="m-0 rounded-full object-cover shadow-sm"
+              className="m-0 rounded-full object-cover shadow-md"
               showPlaceholder={true}
               isLocal={true}
             />
           )}
 
           <h2 className="text-3xl font-bold">{name}</h2>
-          <h3 className="text-muted text-xl">
+          <h3 className="text-muted my-0 text-lg">
             <dt className="sr-only">{t('occupation')}</dt>
             <dd>{occupation}</dd>
           </h3>
-          <h3 className="text-muted text-xl">
+          <h3 className="text-muted text-lg">
             <dt className="sr-only">{t('company')}</dt>
             <dd>{company}</dd>
           </h3>

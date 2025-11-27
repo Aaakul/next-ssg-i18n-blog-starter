@@ -49,6 +49,7 @@ export interface PostListProps {
     summary?: string
     tags?: string[]
     toc?: [{ value: string; url: string; depth: number }]
+    image?: string
   }>
   locale: Locale
   maxDisplay?: number

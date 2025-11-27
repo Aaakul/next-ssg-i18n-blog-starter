@@ -7,7 +7,7 @@ import type React from 'react'
 import Balancer from 'react-wrap-balancer'
 import { FooterNavigationProps, PostHeaderProps } from './types'
 
-export function PageTitle({ children }: { children: React.ReactNode }) {
+function PageTitle({ children }: { children: React.ReactNode }) {
   return (
     <h1 className="h1-heading">
       <Balancer>{children}</Balancer>
@@ -27,8 +27,10 @@ export function PostHeader({
   // hide author details if author is default author
   const shouldShowAuthor = authorDetails.length > 1 || !authorDetails[0].slug.endsWith('/default')
   return (
-    <div className="space-y-1 border-b border-gray-200 pb-4 md:space-y-2 dark:border-gray-700">
-      <div className="flex-center text-muted flex-col gap-2 text-sm md:flex-row lg:gap-4">
+    <div className="flex flex-col gap-y-2 border-b border-gray-200 py-4 md:gap-y-4 dark:border-gray-700">
+      {/* Title */}
+      <PageTitle>{title}</PageTitle>
+      <div className="text-muted flex flex-col gap-y-2 text-sm md:flex-row md:items-center md:gap-x-6 md:gap-y-0 lg:gap-x-8">
         {/* Published Date */}
         <div>
           <dl className="sr-only">
@@ -40,7 +42,7 @@ export function PostHeader({
 
         {/* Authors */}
         {shouldShowAuthor && (
-          <div>
+          <div className="flex">
             <span>{t('author_prefix')}</span>
             {authorDetails.map((author, index) => (
               <span key={author.slug} className="link-hover">
@@ -60,13 +62,8 @@ export function PostHeader({
         )}
       </div>
 
-      {/* Title */}
-      <div className="text-center">
-        <PageTitle>{title}</PageTitle>
-      </div>
-
       {/* Reading Time & Word Count */}
-      <div className="flex-center text-muted gap-4 text-sm">
+      <div className="text-muted flex flex-wrap gap-x-4 gap-y-2 text-sm">
         <div className="flex-center">
           <ClockIcon className="w-4" aria-hidden="true" />
           <span>
@@ -83,7 +80,7 @@ export function PostHeader({
 
       {/* Tags */}
       {tags && (
-        <div className="flex-center flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2">
           {tags.map((tag: string) => (
             <Tag key={tag} text={tag} locale={locale} className="text-sm" />
           ))}

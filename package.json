@@ -1,15 +1,16 @@
 {
   "name": "next-ssg-i18n-blog-starter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev:webpack": "cross-env INIT_CWD=$PWD next dev --webpack",
-    "dev": "npm run contentlayer && cross-env INIT_CWD=$PWD next dev",
-    "export": "npm run lint && npm run contentlayer && cross-env INIT_CWD=$PWD next build && npm run postbuild",
+    "dev:webpack": "npm run genwebp && cross-env INIT_CWD=$PWD next dev --webpack",
+    "dev": "npm run genwebp && npm run contentlayer && cross-env INIT_CWD=$PWD next dev",
+    "export": "npm run lint && npm run genwebp && npm run contentlayer && cross-env INIT_CWD=$PWD next build && npm run postbuild",
     "contentlayer": "contentlayer2 build",
+    "genwebp": "node ./scripts/genWebP.mjs",
     "postbuild": "next-sitemap && node ./scripts/genFeed.mjs",
-    "analyze": "cross-env INIT_CWD=$PWD ANALYZE=true next build --webpack",
+    "analyze": "npm run lint && npm run genwebp && cross-env INIT_CWD=$PWD ANALYZE=true next build --webpack",
     "lint": "eslint --fix",
     "prepare": "husky"
   },
@@ -78,6 +79,7 @@
     "postcss": "^8.5.6",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.7.1",
+    "sharp": "^0.34.5",
     "typescript": "^5.7.2"
   },
   "lint-staged": {

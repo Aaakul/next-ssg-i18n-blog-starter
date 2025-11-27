@@ -61,7 +61,7 @@ export default function LinksPanel({
   }
 
   return (
-    <aside className={clsx('bg-default rounded-lg shadow-sm lg:pt-6', linksPanelClass)}>
+    <aside className={clsx('bg-default rounded-lg drop-shadow-md lg:pt-6', linksPanelClass)}>
       {title && <h3 className="text-md mb-4 px-2 font-bold">{title}</h3>}
       <ul className="tag-list grid grid-cols-2 gap-0 md:grid-cols-3 lg:grid-cols-1">
         {Object.keys(fieldCount).map((item) => {

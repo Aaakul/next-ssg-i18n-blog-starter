@@ -16,11 +16,12 @@ export default function PostList({ posts, locale, maxDisplay }: PostListProps) {
   return (
     <ul>
       {displayPosts.map((post) => {
-        const { slug, date, title, summary, tags, toc } = post
+        const { slug, date, title, summary, tags, toc, image } = post
         const href = `/${locale}/blog/${slug}`
         return (
           <li key={slug} className="py-4">
             <article>
+              {image && <link rel="preload" as="image" href={image} />}
               <div className="xl:grid xl:grid-cols-4">
                 <dl className="text-muted text-sm">
                   <dt className="sr-only">{t('published_on') || 'Published on: '}</dt>

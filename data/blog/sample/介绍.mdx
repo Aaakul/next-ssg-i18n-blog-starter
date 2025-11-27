@@ -9,7 +9,7 @@ categories: ['示例']
 language: 'zh'
 authors: ['default', 'test']
 isCanonical: true
-images: ['/static/images/twitter-card.jpg']
+image: '/static/images/twitter-card.jpg'
 ---
 
 ## 动机
@@ -33,6 +33,7 @@ images: ['/static/images/twitter-card.jpg']
 - **多语言 RSS/Atom 订阅支持**: 使用 [feed](https://github.com/jpmonette/feed) 为每种语言生成独立的静态 Feed 文件
 - **现代化样式系统**: 基于 [Tailwind CSS v4.1](https://tailwindcss.com/), 轻松定制样式。
 - **零配置站内搜索**: 修改自 [`pliny/search`](https://github.com/timlrx/pliny/tree/main/packages/pliny/src/search), 基于 [`KBar`](https://github.com/timc1/kbar)提供。
+- [**图片加载优化**](/zh/blog/sample/MDX%E7%A4%BA%E4%BE%8B#%E5%86%85%E7%BD%AE%E5%9B%BE%E7%89%87%E7%BB%84%E4%BB%B6): 使用SVG占位符提升图片加载期间的用户体验。自动为本地PNG和JPG图片创建WebP副本，优化现代浏览器中的图片加载。本地的 PNG 和 JPG 格式的文章 Banner 图片无需手动设置 WebP 副本的路径。
 - **现代化的Markdown写作**:
   - 支持 [MDX](https://mdxjs.com/), 在 Markdown 中直接嵌入 JSX/React 组件
   - 由 [contentlayer2](https://github.com/timlrx/contentlayer2) 处理Markdown/MDX文件
@@ -116,13 +117,13 @@ npm run contentlayer
 
 ### 国际化(i18n)
 
-项目已内置简体中文(`zh`)、英文(`en`)和日文(`ja`)支持，翻译文件位于 `./i18n/messages/` 。你可以优化现有翻译, 或添加更多语言。  
+项目已内置简体中文(`zh`)、英文(`en`)和日文(`ja`)支持，翻译文件位于 `./i18n/messages/` 。你可以优化现有翻译, 或添加更多语言。
 关于翻译文件的相关信息，请参考[next-intl 文档](https://next-intl.dev/docs/usage/translations)
 
 ### 其他个性化配置
 
 - **样式定制**  
-  通过 `./tailwind.config.mjs` `./styles/*.css` 调整 [Tailwind v4 配置](https://tailwindcss.com/docs/upgrade-guide) 与CSS样式, 轻松修改整体外观。  
+  通过 `./tailwind.config.mjs` `./styles/*.css` 调整 [Tailwind v4 配置](https://tailwindcss.com/docs/upgrade-guide) 与CSS样式, 轻松修改整体外观。
   如需更改主题色（Primary color）, 请修改 `./styles/global.css`中的 `--color-primary-*: var(--color-sky-*);` ，将 `sky` 替换为其他颜色。
 
 - **MDX 组件**  
@@ -188,7 +189,7 @@ tags: string[]
 lastmod: string            // 最后修改日期
 draft: boolean             // 设为 true 时文章不会被构建
 summary: string            // 文章摘要
-images: string[]           // 包含图片URL的列表，其中第一张图片将用作文章顶部横幅。所有图片将用于Open Graph标签
+image: string              // 用于文章顶部横幅、Open Graph 和 Twitter Card 的图片 URL
 authors: string[]          // 对应 `./data/authors/` 下的文件名, 默认为 ['default']
 layout: string             // 页面布局, 如未指定则使用 'PostLayout'
 isCanonical: boolean       // 设为 true 时会添加 <link rel="alternate" hreflang="x-default" ...> 标签, 默认 false
@@ -212,7 +213,7 @@ categories: ['示例']
 language: 'zh'
 authors: ['default', 'test']
 isCanonical: true
-images: ['/static/images/twitter-card.jpg']
+image: '/static/images/twitter-card.jpg'
 layout: 'PostLayout'
 enableComments: true
 ---
@@ -251,7 +252,7 @@ npm run export
 npx serve out
 ```
 
-然后在浏览器中打开剪贴板中的链接查看效果。 默认为 [http://localhost:3000](http://localhost:3000)
+然后在浏览器中打开剪贴板中的链接查看效果。默认为 [http://localhost:3000](http://localhost:3000)
 
 **如果配置了 `basePath` (假设为'/blog') ，需要将 `./out` 中的文件复制到 `./out/blog`**
 

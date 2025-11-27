@@ -2,11 +2,11 @@
 
 const config = {
   content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './layouts/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{jsx,tsx}',
+    './components/**/*.{jsx,tsx}',
+    './layouts/**/*.{jsx,tsx}',
     './data/**/*.mdx',
-    './lib/**/*.{js,ts,jsx,tsx,mjs}',
+    './lib/**/*.{jsx,tsx,mjs}',
   ],
   darkMode: 'class',
 }

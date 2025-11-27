@@ -29,6 +29,7 @@ Next.js の**静的サイト生成 (SSG)** 機能に興味を持って、人気�
 - **多言語対応 RSS / Atom フィード**: [feed](https://github.com/jpmonette/feed) を使用し、静的フィードファイルを生成します。
 - **モダンなスタイルシステム**: [**Tailwind CSS v4.1**](https://tailwindcss.com/) を採用し、簡単にカスタマイズ可能。
 - **設定不要のサイト内検索**: [`pliny/search`](https://github.com/timlrx/pliny/tree/main/packages/pliny/src/search) をカスタマイズし、[`KBar`](https://github.com/timc1/kbar) で動作します。
+- **画像読み込みの最適化**: ローカルのPNGやJPG画像から自動的にWebPコピーを生成し、モダンブラウザ向けに画像の読み込み速度を最適化します。SVGプレースホルダーを活用して、読み込み中のユーザー体験を向上。ローカルのPNGおよびJPG形式の記事バナー画像については、WebPコピーのパスを設定する必要はありません。
 - **モダンな Markdown 執筆体験**:
   - [MDX](https://mdxjs.com/) をサポートし、Markdown 内で JSX/React コンポーネントを直接埋め込み可能。
   - [contentlayer2](https://github.com/timlrx/contentlayer2) を使って Markdown/MDX ファイルを処理。
@@ -188,7 +189,7 @@ tags: string[]
 lastmod: string            // 最終更新日
 draft: boolean             // true の場合、記事はビルドされません
 summary: string            // 記事の要約
-images: string[]           // 画像URLのリスト。最初の画像は記事のヘッダーバナーとして使用されます。すべての画像はOpen Graphタグに使用します
+image: string              // 記事のトップバナー、Open Graph、Twitter Card に使用する画像のURL
 authors: string[]          // `./data/authors/` 以下のファイル名。指定がない場合は ['default']
 layout: string             // ページレイアウト。指定がない場合は 'PostLayout'
 isCanonical: boolean       // true の場合、<link rel="alternate" hreflang="x-default" ...> タグが追加されます。デフォルトは false
@@ -211,7 +212,7 @@ categories: ['サンプル']
 tags: ['next', 'コーディング', 'ガイド']
 language: 'ja'
 authors: ['default', 'test']
-images: ['/static/images/twitter-card.jpg']
+image: '/static/images/twitter-card.jpg'
 layout: PostLayout
 isCanonical: false
 enableComments: true

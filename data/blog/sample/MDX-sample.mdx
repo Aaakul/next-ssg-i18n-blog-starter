@@ -11,7 +11,7 @@ language: 'en'
 > [!NOTE]
 > This article was translated by AI
 
-## JSX Component
+## JSX
 
 ### Built-in table of contents component
 
@@ -24,26 +24,38 @@ language: 'en'
 
 <TOCInline toc={props.toc} exclude="Built-in table of contents component" toHeading={3} />
 
-### JSX Sample：Gallery
+### Built-in image component
+
+The component `./components/Image.tsx` provides built-in support for prioritized WebP image loading with automatic fallback, enabling more efficient image loading in modern browsers. During the loading process, SVG placeholders are used to enhance the user experience. When starting the development server or running production builds, the `genwebp` script automatically generates WebP copies of local images in PNG and JPG formats, using Node.js's `worker_threads` multithreading mechanism.
+
+For local article banner images in PNG and JPG formats, you do not need to manually set the path for the WebP version.
 
 ```jsx
-// Tailwind CSS can be used directly
+// Tailwind CSS can be used
 <div className="container mx-auto p-4">
   <h3 className="text-center">Unsplash Gallery</h3>
   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
-      <img
+    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 drop-shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
+      <Image
         src="/static/images/canada/mountains.jpg"
         alt="Mountain"
         className="h-[200px] w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105"
+        loading="lazy"
+        showPlaceholder={true}
+        isLocal={true}
+        webpSrc="/static/images/canada/mountains.webp"
       />
       <p className="text-center">Mountain</p>
     </div>
-    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
-      <img
+    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 drop-shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
+      <Image
         src="/static/images/canada/toronto.jpg"
         alt="Toronto"
         className="h-[200px] w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105"
+        loading="lazy"
+        showPlaceholder={true}
+        isLocal={true}
+        webpSrc="/static/images/canada/toronto.webp"
       />
       <p className="text-center">Toronto</p>
     </div>
@@ -54,19 +66,27 @@ language: 'en'
 <div className="container mx-auto p-4">
   <h3 className="text-center">Unsplash Gallery</h3>
   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
-      <img
+    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 drop-shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
+      <Image
         src="/static/images/canada/mountains.jpg"
         alt="Mountain"
         className="h-[200px] w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105"
+        loading="lazy"
+        showPlaceholder={true}
+        isLocal={true}
+        webpSrc="/static/images/canada/mountains.webp"
       />
       <p className="text-center">Mountain</p>
     </div>
-    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
-      <img
+    <div className="group relative overflow-hidden rounded-lg bg-neutral-100 drop-shadow-md transition-shadow duration-300 ease-in-out hover:shadow-xl dark:bg-gray-900">
+      <Image
         src="/static/images/canada/toronto.jpg"
         alt="Toronto"
         className="h-[200px] w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-105"
+        loading="lazy"
+        showPlaceholder={true}
+        isLocal={true}
+        webpSrc="/static/images/canada/toronto.webp"
       />
       <p className="text-center">Toronto</p>
     </div>

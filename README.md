@@ -29,6 +29,7 @@ Building on the core [features](https://github.com/timlrx/tailwind-nextjs-starte
 - **Multilingual RSS/Atom Feed Support**: Uses [feed](https://github.com/jpmonette/feed) to generate separate static feed files for each language.
 - **Modern Styling**: Based on [**Tailwind CSS v4.1**](https://tailwindcss.com/) for easy customization.
 - **Zero-Config In-Site Search**: Modified from [`pliny/search`](https://github.com/timlrx/pliny/tree/main/packages/pliny/src/search), powered by [`KBar`](https://github.com/timc1/kbar).
+- **Image Loading Optimization**: Automatically create WebP copies for local PNG and JPG images to optimize image loading in modern browsers. Use SVG placeholders to enhance user experience during image loading. For local article banner images in PNG and JPG formats, you do not need to manually set the path for the WebP version.
 - **Modern Markdown Authoring**:
   - Supports [MDX](https://mdxjs.com/), allowing you to embed JSX/React components directly in Markdown.
   - Processes Markdown/MDX files with [`contentlayer2`](https://github.com/timlrx/contentlayer2).
@@ -188,7 +189,7 @@ tags: string[]
 lastmod: string            // Last modified date
 draft: boolean             // If true, the article will not be built in production
 summary: string            // Article summary
-images: string[]           // A list of image URLs, where the first image will be used as the article's header banner. All images will be used for OpenGraph
+image: string              // The URL of the image used for the article's top banner, Open Graph, and Twitter Card
 authors: string[]          // Filenames under `./data/authors/`. Defaults to ['default']
 layout: string             // Page layout. Defaults to 'PostLayout'
 isCanonical: boolean       // If true, adds <link rel="alternate" hreflang="x-default" ...> tag. Defaults to false
@@ -211,7 +212,7 @@ tags: ['next', 'coding', 'guide']
 categories: ['sample']
 language: 'en'
 authors: ['default', 'test']
-images: ['/static/images/twitter-card.jpg']
+image: '/static/images/twitter-card.jpg'
 isCanonical: false
 layout: 'PostLayout'
 enableComments: true

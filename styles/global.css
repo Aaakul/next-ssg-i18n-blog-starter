@@ -11,7 +11,6 @@
   * Disqus Embed.js does not support OKLCH
   * https://jamesauble.com/blog/oklch-colors-workaround-for-disqus-embed-js/
   */
-  --color-neutral-50: #fafafa;
   --color-gray-100: #f3f4f6;
   --color-gray-800: #1e2939;
   --color-gray-900: #101828;
@@ -19,7 +18,7 @@
 }
 
 .bg-default {
-  @apply bg-neutral-50 dark:bg-gray-800;
+  @apply bg-white dark:bg-gray-800;
 }
 
 .underline-2 {
@@ -39,7 +38,7 @@ a {
 }
 
 .text-muted {
-  @apply text-gray-500 dark:text-gray-400;
+  @apply text-gray-600 dark:text-gray-400;
 }
 
 .link-hover {
@@ -52,7 +51,7 @@ a {
 
 .button-primary {
   @apply bg-primary-600 hover:bg-primary-500 active:bg-primary-600 dark:bg-primary-500 dark:hover:bg-primary-400 dark:active:bg-primary-600;
-  @apply inline-flex justify-center rounded-lg text-sm font-semibold text-gray-100 shadow-sm;
+  @apply inline-flex justify-center rounded-lg text-sm font-semibold text-gray-100 drop-shadow-md;
 }
 
 .divide-y-gray {

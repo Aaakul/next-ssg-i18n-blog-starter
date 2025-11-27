@@ -36,7 +36,7 @@ function PaginationButton({
 }: PaginationButtonProps) {
   const baseClasses = 'flex-center h-10 w-10 rounded-md'
   const enabledClasses =
-    'link-hover-primary bg-default opacity-90 shadow-sm focus:ring-2 focus:outline-none'
+    'link-hover-primary bg-default opacity-90 drop-shadow-md focus:ring-2 focus:outline-none'
 
   if (isEnabled && href) {
     return (

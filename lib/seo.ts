@@ -30,6 +30,7 @@ export default function genPageMetadata({
   ...rest
 }: PageSEOProps): Metadata {
   return {
+    metadataBase: new URL(SiteUrlWithBase),
     title: title,
     description: description,
     openGraph: {
@@ -43,7 +44,7 @@ export default function genPageMetadata({
       type: type || 'website',
       publishedTime: publishedTime,
       modifiedTime: modifiedTime,
-      images: image ? [image] : `${SiteUrlWithBase}${SocialBannerPath}`,
+      images: image || `${SiteUrlWithBase}${SocialBannerPath}`,
     },
     alternates: {
       ...rest,

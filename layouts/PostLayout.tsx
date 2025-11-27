@@ -1,5 +1,4 @@
 // Default post layout
-
 import { FooterNavigation, PostHeader } from '@/components/PostLayoutComponents'
 import type { PostLayoutProps } from './types'
 import { useLocale, useTranslations } from 'next-intl'
@@ -21,26 +20,30 @@ export default function PostLayout({
   relatedPosts,
   showComments,
 }: PostLayoutProps) {
-  const { date, title, tags, readingTime, images } = content
+  const { date, title, tags, readingTime, image } = content
   const locale = useLocale() as Locale
   const t = useTranslations('common')
   const lastMod = t('last_modified')
-  const displayImage = images && images.length > 0 ? images[0] : undefined
-
+  const isLocal = !image?.startsWith('http')
+  const extensions = ['png', 'jpg', 'jpeg']
+  const fileName = image?.split('.')
+  const ext = fileName?.pop()
+  const webpSrc =
+    isLocal && ext && extensions.includes(ext.toLocaleLowerCase()) ? fileName + '.webp' : undefined
   return (
     <article className="post-layout pt-6">
       <header>
-        {displayImage && (
-          <div className="banner relative z-10 mb-2 aspect-5/2">
+        {image && (
+          <div className="banner relative z-10 mt-2 aspect-5/2 overflow-hidden rounded-xl drop-shadow-md">
             <Image
-              src={displayImage}
+              src={image}
               alt={t('image_of', { title })}
-              className="rounded-xl object-cover"
+              className="h-full w-full rounded-xl object-cover"
               loading="eager"
               fetchPriority="high"
               showPlaceholder={true}
-              isLocal={true}
-              webpSrc={displayImage + '.webp'}
+              isLocal={isLocal}
+              webpSrc={webpSrc}
             />
           </div>
         )}
@@ -74,7 +77,7 @@ export default function PostLayout({
           <FooterNavigation prev={prev} next={next} locale={locale} />
         </div>
         {showComments && (
-          <div className="comment my-12 min-h-[45vh]">
+          <div className="comment my-12 min-h-[45vh] rounded-2xl bg-white p-4 drop-shadow-md dark:bg-gray-900">
             <Comment
               shortname={process.env.DISQUS_SHORT_NAME as string}
               siteName={process.env.DISQUS_SITE_NAME}

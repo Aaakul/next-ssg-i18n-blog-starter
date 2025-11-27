@@ -39,7 +39,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
-        <style>{`body{background-color:'#fafafa';&:is(.dark *){background-color:#030712;}}`}</style>
+        {/* bg-neutral-100 dark:bg-gray-950 */}
+        <style>{`body{background-color:#f5f5f5;&:is(.dark *)&:is(.dark *){background-color:#030712;}@font-face{font-display:optional;}}`}</style>
       </head>
       <body
         style={{

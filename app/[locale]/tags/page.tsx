@@ -62,7 +62,7 @@ export default function Page(props: { params: Promise<LocaleParams> }) {
       {tagKeys.length === 0 ? (
         <p className="text-muted text-large">{t('no_tags_found')}</p>
       ) : (
-        <div className={clsx('flex flex-wrap items-center gap-4 md:max-w-lg')}>
+        <div className="flex flex-wrap gap-4 md:max-w-lg">
           {tagKeys.map((tag) => (
             <div
               key={tag}

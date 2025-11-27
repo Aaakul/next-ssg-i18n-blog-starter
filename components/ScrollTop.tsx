@@ -52,7 +52,7 @@ const ScrollTop = () => {
         aria-label={t('scroll_to_top')}
         onClick={handleScrollTop}
         className={clsx(
-          'rounded-full p-2 shadow-sm transition-all duration-300 ease-in-out',
+          'rounded-full p-2 drop-shadow-md transition-all duration-300 ease-in-out',
           'bg-default focus:outline-non link-hover hover:scale-125 focus:ring-2'
         )}
       >
