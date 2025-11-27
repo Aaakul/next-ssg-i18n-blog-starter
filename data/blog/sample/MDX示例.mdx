@@ -26,7 +26,7 @@ isCanonical: true
 
 `./components/Image.tsx` 实现了对 WebP 图片的优先加载及自动回退功能，在现代浏览器中可实现更高效的图片加载体验。加载过程中采用 SVG 占位符提升用户体验。在开发服务器启动或生产构建时，`genwebp`脚本会通过 Node.js 的 `worker_threads` 多线程机制，自动生成本地 PNG 和 JPG 格式图片的 WebP 副本。
 
-本地的 PNG 和 JPG 格式的文章 Banner 图片无需手动设置 WebP 副本的路径。
+本地 PNG 和 JPG 格式的文章 Banner 图片无需手动设置 WebP 副本的路径。
 
 ```jsx
 // 可以使用Tailwind CSS

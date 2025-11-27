@@ -13,7 +13,7 @@
 
 本模板在保留 Tailwind Next.js Starter Blog [核心功能](https://github.com/timlrx/tailwind-nextjs-starter-blog#features)的基础上, 集成了国际化, 并进一步增强了开发体验。主要特性包括:
 
-- **良好的用户体验**: [Lighthouse 评分接近满分](https://pagespeed.web.dev/analysis/https-next-ssg-i18n-blog-starter-pages-dev-zh-blog-sample-%E4%BB%8B%E7%BB%8D/4w99em84tv?form_factor=mobile)
+- **良好的用户体验**: [Lighthouse 评分接近满分](https://pagespeed.web.dev/analysis/https-next-ssg-i18n-blog-starter-pages-dev-en-blog-sample-intro/mzfi3x5wu6?form_factor=mobile)
 - **开箱即用的国际化**: 集成 [next-intl](https://next-intl.dev/), 支持SSG。
   - 自动检测浏览器语言环境
   - 通过 Cookie 持久化用户语言偏好(支持配置过期时间, 便于满足 GDPR 等合规要求。默认为 Session Cookie)
@@ -24,7 +24,7 @@
 - **多语言 RSS/Atom 订阅支持**: 使用 [feed](https://github.com/jpmonette/feed) 为每种语言生成独立的静态 Feed 文件
 - **现代化样式系统**: 基于 [Tailwind CSS v4.1](https://tailwindcss.com/), 轻松定制样式。
 - **零配置站内搜索**: 修改自 [`pliny/search`](https://github.com/timlrx/pliny/tree/main/packages/pliny/src/search), 基于 [`KBar`](https://github.com/timc1/kbar)提供。
-- **图片加载优化**: 自动为本地PNG和JPG图片创建WebP副本，优化现代浏览器中的图片加载。使用SVG占位符提升图片加载期间的用户体验。
+- **图片加载优化**: 自动为本地PNG和JPG图片创建WebP副本，优化现代浏览器中的图片加载。使用SVG占位符提升图片加载期间的用户体验。本地 PNG 和 JPG 格式的文章 Banner 图片无需手动设置 WebP 副本的路径。
 - **现代化的Markdown写作**:
   - 支持 [MDX](https://mdxjs.com/), 在 Markdown 中直接嵌入 JSX/React 组件
   - 由 [contentlayer2](https://github.com/timlrx/contentlayer2) 处理Markdown/MDX文件

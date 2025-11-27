@@ -18,7 +18,7 @@ After trying several approaches, I finally achieved stable and efficient i18n su
 
 Building on the core [features](https://github.com/timlrx/tailwind-nextjs-starter-blog#features) of the Tailwind Next.js Starter Blog, this project integrates i18n and improves the development process. Key features include:
 
-- **Excellent User Experience**: [Near-perfect Lighthouse scores](https://pagespeed.web.dev/analysis/https-next-ssg-i18n-blog-starter-pages-dev-zh-blog-sample-%E4%BB%8B%E7%BB%8D/4w99em84tv?form_factor=mobile)
+- **Excellent User Experience**: [Near-perfect Lighthouse scores](https://pagespeed.web.dev/analysis/https-next-ssg-i18n-blog-starter-pages-dev-en-blog-sample-intro/mzfi3x5wu6?form_factor=mobile)
 - **Out-of-the-Box i18n**: Integrated with [next-intl](https://next-intl.dev/), supporting SSG.
   - Automatically detects the user's browser language.
   - Saves the user's language preference via a **Cookie** (supports configurable expiration for compliance; defaults to a session cookie).
