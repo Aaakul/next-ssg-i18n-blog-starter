@@ -7,8 +7,8 @@ const SearchButton = () => {
   const { query } = useKBar()
   const t = useTranslations('common')
   return (
-    <button aria-label="Search" className="" onClick={() => query.toggle()}>
-      <div className="header-button" aria-label={t('open_search')}>
+    <button aria-label={t('open_search')} className="header-button" onClick={() => query.toggle()}>
+      <div>
         <MagnifyingGlassIcon className="icon-size" />
       </div>
     </button>

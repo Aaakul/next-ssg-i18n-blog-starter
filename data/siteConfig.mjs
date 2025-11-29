@@ -33,7 +33,7 @@ export const SiteConfig = {
   // 列表视图每页显示的博客文章数量
   // Number of blog posts displayed per page in list views
   // リストビューで 1 ページに表示されるブログ記事の数
-  postsPerPage: 2,
+  postsPerPage: 6,
 
   // 是否启用 Disqus
   // Whether to enable DisqusJS
