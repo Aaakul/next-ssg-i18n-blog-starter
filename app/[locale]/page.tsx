@@ -1,6 +1,5 @@
 import { use } from 'react'
 import { SiteUrlWithBase } from '@/data/siteConfig.mjs'
-import Balancer from 'react-wrap-balancer'
 import { supportedLocales, Locale } from '@/i18n'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { useTranslations } from 'next-intl'
@@ -44,7 +43,7 @@ export default function Home(props: { params: Promise<LocaleParams> }) {
     <>
       <h1 className="h1-heading">{t('latest_posts')}</h1>
       <h2 className="text-muted text-lg">
-        <Balancer dangerouslySetInnerHTML={{ __html: t.raw('site_description_html') }} />
+        <div dangerouslySetInnerHTML={{ __html: t.raw('site_description_html') }} />
       </h2>
     </>
   )

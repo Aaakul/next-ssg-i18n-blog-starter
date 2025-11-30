@@ -49,9 +49,7 @@ export default function SocialIcon({ kind, href, size = 6 }: SocialIconProps) {
   return (
     <a target="_blank" rel="noopener noreferrer" href={kind === 'mail' ? `mailto:${href}` : href}>
       <span className="sr-only">{t('link_to', { title: kind })}</span>
-      <SocialSvg
-        className={`link-hover text-muted fill-current hover:drop-shadow-xl ${sizeClass}`}
-      />
+      <SocialSvg className={`link-hover text-muted fill-current ${sizeClass}`} />
     </a>
   )
 }

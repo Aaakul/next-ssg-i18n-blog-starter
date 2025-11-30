@@ -8,6 +8,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { RootLayoutProps } from '@/app/types'
 import { redirect } from 'next/navigation'
 import { SiteConfig } from '@/data/siteConfig.mjs'
+import '@/styles/global.css'
 
 // create static pages for each language
 export async function generateStaticParams() {
@@ -49,7 +50,6 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
         type="application/json"
         href={`${SiteConfig.basePath}/${locale}/feed.json`}
       />
-      <link rel="preload" as="image" href={`${SiteConfig.basePath}/favicon.svg`} />
       <NextIntlClientProvider>
         <ThemeProviders>
           <DynamicScrollTop />

@@ -1,5 +1,4 @@
 import type React from 'react'
-import '@/styles/global.css'
 import { SiteConfig } from '@/data/siteConfig.mjs'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
