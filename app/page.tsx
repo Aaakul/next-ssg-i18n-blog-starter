@@ -69,10 +69,8 @@ const redirectScript = `
 
 export default function Page() {
   return (
-    <html lang={defaultLocale}>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: redirectScript }} />
-      </head>
-    </html>
+    <>
+      <script dangerouslySetInnerHTML={{ __html: redirectScript }} />
+    </>
   )
 }

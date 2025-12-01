@@ -2,11 +2,10 @@ import dynamic from 'next/dynamic'
 import Header from '@/components/header/Header'
 import Footer from '@/components/Footer'
 import ThemeProviders from '@/components/ThemeProviders'
-import { Locale, defaultLocale, supportedLocales } from '@/i18n'
+import { Locale, supportedLocales } from '@/i18n'
 import { NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { RootLayoutProps } from '@/app/types'
-import { redirect } from 'next/navigation'
 import { SiteConfig } from '@/data/siteConfig.mjs'
 import '@/styles/global.css'
 
@@ -26,12 +25,8 @@ const DynamicScrollTop = dynamic(() => import('@/components/ScrollTop'), {
 export default async function LocaleLayout({ children, params }: RootLayoutProps) {
   const { locale } = await params
 
-  if (!supportedLocales.includes(locale as any)) {
-    redirect(`/${defaultLocale}`)
-  }
-
   setRequestLocale(locale)
-  const t = await getTranslations({ locale, namespace: 'common' })
+  const t = await getTranslations('common')
 
   return (
     <>

@@ -25,7 +25,7 @@ export default function Footer({ copyrightText }: { copyrightText: string }) {
             )}
           </div>
           <div className="text-muted flex space-x-2 text-sm">
-            <Link href="/" className="link-hover">
+            <Link href={`${SiteConfig.basePath}/${locale}`} className="link-hover">
               {`© `}
               {copyrightText}
             </Link>

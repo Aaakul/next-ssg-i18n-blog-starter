@@ -1,7 +1,7 @@
 'use client'
 
 import type React from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import { useState, useEffect, useRef, useCallback, ReactNode } from 'react'
 import { KBarProvider } from 'kbar'
@@ -111,7 +111,7 @@ export default function SearchProvider({ children }: { children: ReactNode }) {
           month: 'long',
           day: 'numeric',
         }),
-        perform: () => router.push(`/${locale}/${post.path}`.replace(/\/+/g, '/')),
+        perform: () => router.push(`/${post.path}`.replace(/\/+/g, '/')),
       }))
 
   return (

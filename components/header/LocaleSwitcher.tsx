@@ -12,7 +12,7 @@ import {
   DialogTitle,
 } from '@headlessui/react'
 import { defaultLocale, supportedLocales, Locale, localeDisplayNames } from '@/i18n'
-import { useRouter, usePathname } from '@/i18n/routing'
+import { useRouter, usePathname } from '@/i18n/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import { InformationCircleIcon, LanguageIcon } from '@heroicons/react/24/outline'
 import { notFound } from 'next/navigation'
