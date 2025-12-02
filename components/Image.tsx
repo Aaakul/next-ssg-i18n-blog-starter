@@ -12,7 +12,6 @@ export interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageEl
   placeholderWidth?: number
   placeholderHeight?: number
   placeholderColor?: string
-  isLocal: boolean
   fetchPriority?: 'high' | 'low' | 'auto'
 }
 
@@ -29,7 +28,6 @@ const Image = ({
   loading = 'lazy',
   style,
   className,
-  isLocal,
   fetchPriority = 'auto',
   ...imgProps
 }: OptimizedImageProps) => {
@@ -45,6 +43,13 @@ const Image = ({
           </svg>`
       )}`
     : undefined
+
+  const isLocal = !src?.startsWith('http')
+  const extensions = ['png', 'jpg', 'jpeg']
+  const fileName = src?.split('.')
+  const ext = fileName?.pop()
+  webpSrc =
+    isLocal && ext && extensions.includes(ext.toLocaleLowerCase()) ? fileName + '.webp' : webpSrc
 
   const withBasePath = (source: string) => (isLocal ? `${BASE_PATH || ''}${source}` : source)
   const handleLoad: React.ReactEventHandler<HTMLImageElement> = (event) => {

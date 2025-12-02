@@ -30,15 +30,17 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => {
       className: 'object-cover object-center md:h-36 lg:h-48',
       width: 544,
       height: 306,
-      isLocal: true,
+      showPlaceholder: true,
+      loading: 'eager' as const,
+      fetchPriority: 'high' as const,
     }
 
     return href ? (
       <Link href={href} aria-label={t('link_to', { title })}>
-        <Image {...imageProps} alt={t('image_of', { title })} showPlaceholder={true} />
+        <Image {...imageProps} alt={t('image_of', { title })} />
       </Link>
     ) : (
-      <Image {...imageProps} alt={t('image_of', { title })} showPlaceholder={true} />
+      <Image {...imageProps} alt={t('image_of', { title })} />
     )
   }
 

@@ -24,12 +24,7 @@ export default function PostLayout({
   const locale = useLocale() as Locale
   const t = useTranslations('common')
   const lastMod = t('last_modified')
-  const isLocal = !image?.startsWith('http')
-  const extensions = ['png', 'jpg', 'jpeg']
-  const fileName = image?.split('.')
-  const ext = fileName?.pop()
-  const webpSrc =
-    isLocal && ext && extensions.includes(ext.toLocaleLowerCase()) ? fileName + '.webp' : undefined
+
   return (
     <article className="post-layout pt-6">
       <header>
@@ -42,8 +37,6 @@ export default function PostLayout({
               loading="eager"
               fetchPriority="high"
               showPlaceholder={true}
-              isLocal={isLocal}
-              webpSrc={webpSrc}
             />
           </div>
         )}

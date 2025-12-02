@@ -84,7 +84,8 @@ export function RenderBlogListPage({
 }: BlogListPageParams) {
   const listData = getBlogListData({ locale, pageNum, type, decodedSlug })
 
-  const tagsForThisLocaleEntries = Object.entries(tagsData[locale as Locale]) || []
+  const localeData = tagsData[locale as Locale]
+  const tagsForThisLocaleEntries = !localeData ? [] : Object.entries(localeData)
   const filteredTagsEntries =
     tagsForThisLocaleEntries.length <= 10
       ? tagsForThisLocaleEntries

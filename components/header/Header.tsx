@@ -31,14 +31,7 @@ export default function Header({ locale }: { locale: Locale }) {
           <Link href={`/${locale}`} aria-label={t('link_to', { title: t('home') })}>
             <div className="flex-center space-x-2">
               <div className="h-8 w-8 rounded-full">
-                <Image
-                  src="/favicon.svg"
-                  alt="Logo"
-                  width={32}
-                  height={32}
-                  loading="eager"
-                  isLocal={true}
-                />
+                <Image src="/favicon.svg" alt="Logo" width={32} height={32} loading="eager" />
               </div>
               <div
                 className={clsx(

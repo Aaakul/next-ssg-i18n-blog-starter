@@ -64,31 +64,31 @@ export default function LinksPanel({
     <aside className={clsx('bg-default rounded-lg drop-shadow-md lg:pt-6', linksPanelClass)}>
       {title && <h3 className="text-md mb-4 px-2 font-bold">{title}</h3>}
       <ul className="tag-list grid grid-cols-2 gap-0 md:grid-cols-3 lg:grid-cols-1">
-        {Object.keys(fieldCount).map((item) => {
-          const count = fieldCount[item]
-          const isCurrentItemActive = isActiveLink(item)
-
-          return (
-            <li key={item} className="w-full">
-              {isCurrentItemActive ? (
-                <span
-                  className="text-primary-500 block truncate px-2 py-2 font-bold uppercase"
-                  aria-current="page"
-                >
-                  {`${item} (${count})`}
-                </span>
-              ) : (
-                <Link
-                  href={`/${locale}/${field}/${slug(item)}`}
-                  className="link-hover text-muted block truncate p-2 text-sm font-semibold uppercase"
-                  aria-label={getAriaLabel(item)}
-                >
-                  {`${item} (${count})`}
-                </Link>
-              )}
-            </li>
-          )
-        })}
+        {fieldCount &&
+          Object.keys(fieldCount).map((item) => {
+            const count = fieldCount[item]
+            const isCurrentItemActive = isActiveLink(item)
+            return (
+              <li key={item} className="w-full">
+                {isCurrentItemActive ? (
+                  <span
+                    className="text-primary-500 block truncate px-2 py-2 font-bold uppercase"
+                    aria-current="page"
+                  >
+                    {`${item} (${count})`}
+                  </span>
+                ) : (
+                  <Link
+                    href={`/${locale}/${field}/${slug(item)}`}
+                    className="link-hover text-muted block truncate p-2 text-sm font-semibold uppercase"
+                    aria-label={getAriaLabel(item)}
+                  >
+                    {`${item} (${count})`}
+                  </Link>
+                )}
+              </li>
+            )
+          })}
       </ul>
     </aside>
   )

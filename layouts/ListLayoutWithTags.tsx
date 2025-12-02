@@ -13,7 +13,7 @@ export default function ListLayoutWithTags({
 }: ListLayoutProps) {
   return (
     <div className="divide-y-gray">
-      <header className="space-y-2 py-6">{header}</header>
+      <header className="space-y-2 pt-6 pb-2">{header}</header>
       <div className="flex flex-col lg:flex-row lg:space-x-12 lg:pt-6">
         {/* Sider */}
         <div className="hidden lg:flex lg:w-72 lg:flex-col lg:space-y-6">

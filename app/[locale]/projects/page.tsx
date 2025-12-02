@@ -8,7 +8,6 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { useTranslations } from 'next-intl'
 import { allAuthors, Authors } from '@/.contentlayer/generated'
 import { LocaleParams } from '@/app/types'
-import Balancer from 'react-wrap-balancer'
 
 export async function generateStaticParams() {
   return supportedLocales.map((locale: Locale) => ({ locale }))
@@ -52,11 +51,9 @@ export default function Projects(props: { params: Promise<LocaleParams> }) {
 
   return (
     <main className="divide-y-gray">
-      <header className="space-y-2 py-6">
+      <header className="space-y-2 pt-6 pb-2">
         <h1 className="h1-heading">{t('projects')}</h1>
-        <h2 className="text-muted text-lg">
-          <Balancer> {t('projects_description')}</Balancer>
-        </h2>
+        <h2 className="text-muted text-lg">{t('projects_description')}</h2>
       </header>
       <section className="lg:py-6">
         <div className="flex-center m-0 flex-wrap">
