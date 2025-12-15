@@ -45,12 +45,12 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => {
   }
 
   return (
-    <div className="p-4 md:w-1/2 md:max-w-[544px]">
+    <div className="p-4 md:w-1/2 md:max-w-136">
       <div
         className={clsx(
           imgSrc && 'h-full',
           'bg-gray-100/50 dark:bg-gray-900/50',
-          'overflow-hidden rounded-md shadow-lg'
+          'overflow-hidden rounded-lg shadow-lg'
         )}
       >
         {renderImage()}

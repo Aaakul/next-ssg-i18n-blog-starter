@@ -177,7 +177,7 @@ github: string
 
 ```ts
 title: string
-date: string // e.g., '2025-01-01T16:35:00+08:00'
+date: string // ISO 8601 format. e.g., '2025-01-01T08:35:00Z'
 translationKey: string // Used to link articles across languages
 language: string // Must match a language configured in `SiteConfig`
 ```
@@ -206,8 +206,8 @@ enableComments: boolean    // Default to `true`
 title: 'Introducing Next SSG i18n Blog Starter'
 summary: 'This article introduces the Next SSG i18n Blog Starter, a ready-to-use Next.js blog template that supports static site generation and multiple languages'
 translationKey: 'intro'
-date: '2025-11-11T15:45:00+08:00'
-lastmod: '2025-11-19T15:30:00+08:00'
+date: '2025-11-11T07:45:00Z'
+lastmod: '2025-11-19T07:30:00Z'
 tags: ['next', 'coding', 'guide']
 categories: ['sample']
 language: 'en'

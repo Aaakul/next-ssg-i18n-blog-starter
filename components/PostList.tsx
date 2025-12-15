@@ -10,7 +10,11 @@ export default function PostList({ posts, locale, maxDisplay }: PostListProps) {
   const t = useTranslations('common')
 
   if (!displayPosts.length) {
-    return <p>{t('no_posts_found')}</p>
+    return (
+      <h2>
+        <i>{t('no_posts_found')}</i>
+      </h2>
+    )
   }
 
   return (

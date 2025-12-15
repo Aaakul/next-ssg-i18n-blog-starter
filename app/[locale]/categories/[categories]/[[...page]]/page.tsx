@@ -49,8 +49,8 @@ export async function generateMetadata(props: { params: Promise<CategoriesPagePa
   }
 
   return genPageMetadata({
-    title: `${t('categories')}: ${decodedSlug} | ${t('site_title')}`,
-    description: `${t('categories')}: ${decodedSlug} | ${t('site_title')}`,
+    title: `${t('category')}: ${decodedSlug} | ${t('site_title')}`,
+    description: `${t('category')}: ${decodedSlug} | ${t('site_title')}`,
     fullUrl: altLangURL[locale],
     locale: locale,
     alternates: {
@@ -68,7 +68,7 @@ export default function Page(props: { params: Promise<CategoriesPageParams> }) {
   const pageNum = page?.[0] === 'page' && page?.[1] ? parseInt(page[1], 10) : 1
   const decodedSlug = decodeURI(categories)
   const title =
-    t('categories') +
+    t('category') +
     ': ' +
     decodedSlug![0].toUpperCase() +
     decodedSlug!.slice(1).replace(/\s+/g, '-')

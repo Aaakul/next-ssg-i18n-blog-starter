@@ -5,6 +5,7 @@
     "article": "Article",
     "author_prefix": "By: ",
     "blog": "Blog",
+    "category": "Category",
     "categories": "Categories",
     "close_nav": "Close Navigation Menu",
     "close_toc": "Close TOC Modal",
