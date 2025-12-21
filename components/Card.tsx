@@ -50,7 +50,7 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => {
         className={clsx(
           imgSrc && 'h-full',
           'bg-gray-100/50 dark:bg-gray-900/50',
-          'overflow-hidden rounded-lg shadow-lg'
+          'overflow-hidden rounded-lg drop-shadow-md ring-inset'
         )}
       >
         {renderImage()}

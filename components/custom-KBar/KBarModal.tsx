@@ -49,7 +49,7 @@ const KBarModal = ({ actions, isLoading }: { actions: Action[]; isLoading: boole
         <KBarAnimator className="w-full max-w-xl">
           <div className="bg-default rounded-2xl shadow-lg">
             <div className="flex-center space-x-4 p-4">
-              <span className="block w-5">
+              <span className="block size-5">
                 <svg
                   className="text-muted"
                   xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +78,7 @@ const KBarModal = ({ actions, isLoading }: { actions: Action[]; isLoading: boole
               <kbd
                 aria-label={t('close_search')}
                 className={clsx(
-                  'icon-size flex-center rounded px-1.5',
+                  'flex-center size-6 rounded px-1.5',
                   'text-muted text-xs font-medium',
                   'border border-gray-400 dark:border-gray-500'
                 )}
@@ -150,7 +150,7 @@ const RenderResults = () => {
                   <kbd
                     key={sc}
                     className={clsx(
-                      'icon-size rounded border text-xs font-medium',
+                      'size-6 rounded border text-xs font-medium',
                       active ? 'border-gray-200 text-gray-200' : 'border-gray-400 text-gray-400'
                     )}
                   >

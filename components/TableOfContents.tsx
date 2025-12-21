@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
 import { TableOfContentsProps } from './types'
-import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/solid'
 
 export default function TOCWithToggleButton({ toc }: TableOfContentsProps) {
   const [showTOC, setShowTOC] = useState(false)
@@ -44,7 +44,7 @@ export default function TOCWithToggleButton({ toc }: TableOfContentsProps) {
         ref={tocRef}
         className={clsx(
           'lg:hidden',
-          'fixed top-0 right-0 z-80 h-full w-full p-6',
+          'fixed top-0 right-0 z-30 h-full w-full p-6',
           'bg-default',
           'overflow-y-scroll',
           'transform transition-transform duration-300 ease-in-out',
@@ -60,7 +60,7 @@ export default function TOCWithToggleButton({ toc }: TableOfContentsProps) {
           onClick={toggleTOC}
           className="link-hover absolute top-3 right-3 rounded-full p-2 focus:outline-none"
         >
-          <XMarkIcon className="icon-size h-6 w-6" />
+          <XMarkIcon className="size-8" />
         </button>
 
         <TableOfContents toc={toc} />
@@ -75,11 +75,11 @@ export default function TOCWithToggleButton({ toc }: TableOfContentsProps) {
           onClick={toggleTOC}
           className={clsx(
             'rounded-full p-2 shadow-lg transition-all duration-300 ease-in-out',
-            'bg-default focus:outline-non link-hover hover:scale-125 focus:ring-2',
+            'bg-default focus:outline-non link-hover ring-inset hover:scale-125 focus:ring-2',
             showTOC ? 'hidden' : 'block'
           )}
         >
-          <Bars3BottomLeftIcon className="icon-size" />
+          <Bars3BottomLeftIcon className="size-6" />
         </button>
       </div>
 

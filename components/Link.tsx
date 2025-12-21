@@ -1,11 +1,9 @@
 import Link from 'next/link'
-import type { LinkProps } from 'next/link'
-import React, { AnchorHTMLAttributes, isValidElement } from 'react'
+import React, { isValidElement } from 'react'
 import clsx from 'clsx'
+import { CustomLinkProps } from './types'
 
-type Props = LinkProps & AnchorHTMLAttributes<HTMLAnchorElement>
-
-const CustomLink = ({ href, className = '', ...restProps }: Props) => {
+const CustomLink = ({ href, className = '', ...restProps }: CustomLinkProps) => {
   // Normalize href to a string for safe checks
   const hrefStr = typeof href === 'string' ? href : href ? String(href) : ''
 

@@ -31,19 +31,22 @@ const ScrollTop = () => {
   }
 
   const UpArrowIcon = (
-    <svg className="icon-size" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-      <path
-        fillRule="evenodd"
-        d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z"
-        clipRule="evenodd"
-      />
+    <svg
+      className="size-6"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      strokeWidth="1.5"
+      stroke="currentColor"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
     </svg>
   )
 
   return (
     <div
       className={clsx(
-        'fixed right-5 bottom-18 z-30 flex flex-col md:pr-4 md:pb-4 lg:pr-30',
+        'fixed right-5 bottom-18 z-30 flex-col md:pr-4 md:pb-4 lg:pr-30',
         show ? 'flex' : 'invisible'
       )}
     >
@@ -52,7 +55,7 @@ const ScrollTop = () => {
         aria-label={t('scroll_to_top')}
         onClick={handleScrollTop}
         className={clsx(
-          'rounded-full p-2 drop-shadow-md transition-all duration-300 ease-in-out',
+          'rounded-full p-2 drop-shadow-md transition-all duration-300 ease-in-out ring-inset',
           'bg-default focus:outline-non link-hover hover:scale-125 focus:ring-2'
         )}
       >

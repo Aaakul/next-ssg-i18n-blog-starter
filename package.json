@@ -1,6 +1,6 @@
 {
   "name": "next-ssg-i18n-blog-starter",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -15,7 +15,6 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.9",
     "@heroicons/react": "^2.2.0",
     "@next/bundle-analyzer": "^16.0.10",
     "@tailwindcss/postcss": "^4.1.18",
@@ -63,16 +62,14 @@
     "@types/react": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.46.2",
     "@typescript-eslint/parser": "^8.46.2",
-    "critical": "^7.2.1",
     "cross-env": "^10.1.0",
     "cssnano": "^7.1.2",
     "eslint": "^9.39.1",
-    "eslint-config-next": "^16.0.8",
+    "eslint-config-next": "^16.0.10",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.2.1",
     "foxact": "^0.2.49",
     "foxts": "^5.0.1",
-    "globals": "^16.5.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "next-sitemap": "^4.2.3",

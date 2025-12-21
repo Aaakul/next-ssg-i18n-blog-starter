@@ -1,16 +1,6 @@
 'use client'
-import { Fragment, useCallback, useState } from 'react'
-import {
-  Popover,
-  PopoverButton,
-  PopoverPanel,
-  Transition,
-  TransitionChild,
-  Dialog,
-  DialogBackdrop,
-  DialogPanel,
-  DialogTitle,
-} from '@headlessui/react'
+
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { defaultLocale, supportedLocales, Locale, localeDisplayNames } from '@/i18n'
 import { useRouter, usePathname } from '@/i18n/navigation'
 import { useLocale, useTranslations } from 'next-intl'
@@ -36,96 +26,79 @@ function LocaleFallbackModal({
     onClose()
   }
 
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    if (isOpen) document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [isOpen, onClose])
+
+  if (!isOpen) return null
+
   return (
-    <Transition appear show={isOpen} as={Fragment}>
-      <Dialog onClose={onClose} className="relative z-100">
-        {/* Backdrop */}
-        <TransitionChild
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <DialogBackdrop
-            className="fixed inset-0 bg-black/30 backdrop-blur backdrop-grayscale backdrop-filter"
-            style={{ WebkitBackdropFilter: 'blur(8px) grayscale(100%)' }}
-          />
-        </TransitionChild>
-
-        {/* Panel Wrapper */}
-        <div className="flex-center fixed inset-0 p-4 sm:p-6">
-          <TransitionChild
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0 scale-95"
-            enterTo="opacity-100 scale-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-95"
+    <div className="flex-center fixed inset-0 z-90 w-full">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/30 backdrop-blur-md"
+        style={{ WebkitBackdropFilter: 'blur(8px)' }}
+        onClick={onClose}
+        aria-hidden
+      />
+      {/* Panel */}
+      <div className="bg-default relative mx-4 w-full max-w-md rounded-2xl p-6 shadow-lg">
+        {/* Icon + Title + Message */}
+        <div className="flex items-start gap-3 sm:gap-4">
+          {/* Icon Circle */}
+          <div
+            className={clsx(
+              'bg-primary-100 rounded-full dark:bg-gray-900/50',
+              'size-10 sm:size-12',
+              'flex-center mt-1 flex shrink-0'
+            )}
           >
-            <DialogPanel
-              className={clsx(
-                'w-full max-w-md rounded-2xl p-6',
-                'bg-default transform text-left align-middle shadow-lg'
-              )}
-            >
-              {/* Icon + Title + Message */}
-              <div className="flex items-start gap-3 sm:gap-4">
-                {/* Icon Circle */}
-                <div
-                  className={clsx(
-                    'bg-primary-100 rounded-full dark:bg-gray-900/50',
-                    'h-10 w-10 sm:h-12 sm:w-12',
-                    'flex-center mt-1 flex shrink-0'
-                  )}
-                >
-                  <InformationCircleIcon
-                    className="text-primary-600 icon-size"
-                    aria-hidden="true"
-                  />
-                </div>
-
-                {/* Text Content */}
-                <div className="flex-1">
-                  <DialogTitle className="text-lg font-semibold">{t('title')}</DialogTitle>
-                  <div className="text-muted mt-1 space-y-1 text-sm">
-                    <p>{t('no_translation', { targetLocaleName })}</p>
-                    <p>{t('switch_to_available')}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Fallback Language Options */}
-              <div className="mt-5 max-h-40 space-y-2 overflow-y-auto rounded-lg px-1">
-                {fallbackOptions.map((option) => (
-                  <button
-                    key={option.locale}
-                    type="button"
-                    className={clsx(
-                      'hover:bg-primary-500 bg-white/95 dark:bg-gray-700 dark:hover:bg-gray-600',
-                      'w-full rounded-lg px-4 py-3 text-left text-sm font-medium shadow-xs'
-                    )}
-                    onClick={() => handleFallback(option.locale, option.slug)}
-                  >
-                    {option.displayName}
-                  </button>
-                ))}
-              </div>
-
-              {/* Close Button */}
-              <div className="mt-6">
-                <button type="button" className="button-primary w-full px-4 py-3" onClick={onClose}>
-                  {t('close')}
-                </button>
-              </div>
-            </DialogPanel>
-          </TransitionChild>
+            <InformationCircleIcon className="text-primary-600 size-6" aria-hidden="true" />
+          </div>
+          {/* Text Content */}
+          <div className="flex-1">
+            <h3 className="text-lg font-semibold">{t('title')}</h3>
+            <div className="text-muted mt-1 space-y-1 text-sm">
+              <p>{t('no_translation', { targetLocaleName })}</p>
+              <p>{t('switch_to_available')}</p>
+            </div>
+          </div>
         </div>
-      </Dialog>
-    </Transition>
+        {/* Fallback Language Options */}
+        <div className="mt-5 max-h-40 space-y-2 overflow-y-auto rounded-lg p-1">
+          {fallbackOptions.map((option) => (
+            <button
+              key={option.locale}
+              type="button"
+              className={clsx(
+                'hover:bg-primary-500 bg-white dark:bg-gray-700 dark:hover:bg-gray-600',
+                'w-full rounded-lg px-4 py-3 text-left text-sm font-medium drop-shadow-md ring-inset'
+              )}
+              onClick={() => handleFallback(option.locale, option.slug)}
+            >
+              {option.displayName}
+            </button>
+          ))}
+        </div>
+        {/* Close Button */}
+        <div className="mt-6">
+          <button
+            type="button"
+            className={clsx(
+              'bg-primary-600 hover:bg-primary-500 dark:bg-primary-500 dark:hover:bg-primary-400',
+              'inline-flex w-full justify-center rounded-lg px-4 py-3 text-sm font-semibold text-gray-100 drop-shadow-md ring-inset'
+            )}
+            onClick={onClose}
+          >
+            {t('close')}
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -144,6 +117,28 @@ export default function LocaleSwitcher() {
     targetLocale: defaultLocale as Locale,
     options: [],
   })
+
+  const [menuOpen, setMenuOpen] = useState(false)
+  const menuRef = useRef<HTMLDivElement | null>(null)
+  const buttonRef = useRef<HTMLButtonElement | null>(null)
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      const target = e.target as Node
+      if (
+        menuOpen &&
+        menuRef.current &&
+        !menuRef.current.contains(target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(target)
+      ) {
+        setMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [menuOpen])
 
   const openFallbackModal = (
     targetLocale: Locale,
@@ -213,49 +208,49 @@ export default function LocaleSwitcher() {
 
   return (
     <>
-      <Popover className="relative inline-block text-left">
-        {({ close: closePopover }) => (
-          <>
-            <PopoverButton className="header-button flex-center" aria-label={t('locale_switcher')}>
-              <LanguageIcon className="icon-size" />
-            </PopoverButton>
+      <div className="relative inline-block text-left">
+        <button
+          ref={buttonRef}
+          aria-haspopup="menu"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((s) => !s)}
+          className="header-button flex-center"
+          aria-label={t('locale_switcher')}
+          type="button"
+        >
+          <LanguageIcon className="size-6" />
+        </button>
 
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-200"
-              enterFrom="opacity-0 translate-y-1"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease-in duration-150"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-1"
-            >
-              <PopoverPanel
-                className={clsx(
-                  'absolute z-80 mt-2 w-24 origin-top-left',
-                  'bg-default shadow-lg',
-                  'rounded-lg focus:outline-none'
-                )}
-              >
-                <div className="p-1">
-                  {supportedLocales.map((locale: Locale) => (
-                    <button
-                      key={locale}
-                      onClick={() => changeLocale(locale, closePopover)}
-                      className={clsx(
-                        'hover:bg-primary-500 rounded-lg hover:text-gray-100',
-                        'text-left text-sm',
-                        'group space-x relative w-full px-2 py-2'
-                      )}
-                    >
-                      {localeDisplayNames[locale as Locale]}
-                    </button>
-                  ))}
-                </div>
-              </PopoverPanel>
-            </Transition>
-          </>
+        {menuOpen && (
+          <div
+            ref={menuRef}
+            className={clsx(
+              'absolute right-0 mt-2 w-28',
+              'bg-default z-40 rounded-lg drop-shadow-md ring-inset focus:outline-none'
+            )}
+            role="menu"
+          >
+            <div className="p-1">
+              {supportedLocales.map((locale: Locale) => (
+                <button
+                  key={locale}
+                  onClick={() => {
+                    changeLocale(locale, () => setMenuOpen(false))
+                    setMenuOpen(false)
+                  }}
+                  className={clsx(
+                    'hover:bg-primary-500 rounded-lg hover:text-gray-100',
+                    'w-full px-3 py-2 text-left text-sm'
+                  )}
+                  role="menuitem"
+                >
+                  {localeDisplayNames[locale as Locale]}
+                </button>
+              ))}
+            </div>
+          </div>
         )}
-      </Popover>
+      </div>
 
       {fallbackModal.isOpen && (
         <LocaleFallbackModal

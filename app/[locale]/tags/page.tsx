@@ -64,10 +64,7 @@ export default function Page(props: { params: Promise<LocaleParams> }) {
       ) : (
         <div className="flex flex-wrap gap-4 md:max-w-lg">
           {tagKeys.map((tag) => (
-            <div
-              key={tag}
-              className="text-muted text-muted text-base font-bold md:text-lg lg:text-xl"
-            >
+            <div key={tag} className="text-muted text-base font-bold md:text-lg lg:text-xl">
               <Tag
                 text={tag}
                 locale={locale as Locale}

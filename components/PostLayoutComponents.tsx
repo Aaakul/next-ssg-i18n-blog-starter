@@ -32,13 +32,7 @@ export function PostHeader({
       <PageTitle>{title}</PageTitle>
       <div className="text-muted flex flex-col gap-y-2 text-sm md:flex-row md:items-center md:gap-x-6 md:gap-y-0 lg:gap-x-8">
         {/* Published Date */}
-        <div>
-          <dl className="sr-only">
-            <dt>{t('published_on') || 'Published on: '}</dt>
-            <dd>{date}</dd>
-          </dl>
-          <PostDateLocalized date={date} />
-        </div>
+        <PostDateLocalized locale={locale} date={date} srText={t('published_on')} />
 
         {/* Authors */}
         {shouldShowAuthor && (
@@ -63,15 +57,18 @@ export function PostHeader({
       </div>
 
       {/* Reading Time & Word Count */}
-      <div className="text-muted flex flex-wrap gap-x-4 gap-y-2 text-sm">
+      <div
+        className="text-muted flex flex-wrap gap-x-4 gap-y-2 text-sm"
+        aria-label={t('reading_time')}
+      >
         <div className="flex-center">
-          <ClockIcon className="w-4" aria-hidden="true" />
+          <ClockIcon className="size-4" aria-hidden="true" />
           <span>
             {Math.ceil(readingTime.minutes)} {t('minutes')}
           </span>
         </div>
         <div className="flex-center">
-          <LanguageIcon className="w-4" aria-hidden="true" />
+          <LanguageIcon className="size-4" aria-hidden="true" />
           <span>
             {readingTime.words} {t('words')}
           </span>
@@ -96,14 +93,15 @@ export function FooterNavigation({ prev, next, locale }: FooterNavigationProps) 
   const showNext = next && next.path
 
   if (!showPrev && !showNext) return null
-  const previous_title =
-    t('prev_post', { title: prev?.title ?? '' }) || `Previous post: ${prev?.title ?? ''}`
-  const next_title =
-    t('next_post', { title: next?.title ?? '' }) || `Next post: ${next?.title ?? ''}`
-  const linkClass = 'text-muted underline-2 link-hover flex focus:ring-2 focus:outline-none'
+  const previous_title = t('prev_post', { title: prev?.title ?? '' })
+  const next_title = t('next_post', { title: next?.title ?? '' })
+  const linkClass = 'underline-2 link-hover flex focus:ring-2 focus:outline-none'
 
   return (
-    <nav aria-label={t('pagination')} className="mt-8 self-start text-ellipsis sm:self-auto">
+    <nav
+      aria-label={t('pagination')}
+      className="mt-8 self-start text-ellipsis opacity-90 sm:self-auto"
+    >
       <ul className="flex flex-col gap-y-4 sm:flex-row sm:gap-x-8 xl:gap-y-8">
         {showPrev && (
           <li>
@@ -122,14 +120,17 @@ export function FooterNavigation({ prev, next, locale }: FooterNavigationProps) 
         )}
         {showNext && (
           <li className="sm:ml-auto">
-            <Link
-              href={`/${locale}/${next.path}`}
-              className={linkClass}
-              aria-label={next_title}
-              title={next_title}
-            >
-              <span className="mr-1">{next_title}</span> &rarr;
-            </Link>
+            <span className="flex gap-x-1">
+              <Link
+                href={`/${locale}/${next.path}`}
+                className={linkClass}
+                aria-label={next_title}
+                title={next_title}
+              >
+                <span className="mr-1">{next_title}</span>
+              </Link>
+              &rarr;
+            </span>
           </li>
         )}
       </ul>

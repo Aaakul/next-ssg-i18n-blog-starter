@@ -10,16 +10,16 @@ import HeaderButtons from './HeaderButtons'
 export default function Header({ locale }: { locale: Locale }) {
   const t = useTranslations('common')
   const links = [
-    { href: '', title: t('home') || 'Home' },
-    { href: '/tags', title: t('tags') || 'Tags' },
-    { href: '/projects', title: t('projects') || 'Projects' },
-    { href: '/about', title: t('about') || 'About' },
+    { href: '/', title: t('home') },
+    { href: '/tags', title: t('tags') },
+    { href: '/projects', title: t('projects') },
+    { href: '/about', title: t('about') },
   ]
   return (
     <header
       className={clsx(
         'z-30 m-auto flex h-16 w-[98%] max-w-7xl rounded-2xl focus:outline-none',
-        'bg-default shadow-lg',
+        'bg-default shadow-lg ring-inset',
         SiteConfig.isStickyNav && 'sticky top-2'
       )}
     >
@@ -30,7 +30,7 @@ export default function Header({ locale }: { locale: Locale }) {
         <div className="flex flex-1 items-center justify-start">
           <Link href={`/${locale}`} aria-label={t('link_to', { title: t('home') })}>
             <div className="flex-center space-x-2">
-              <div className="h-8 w-8 rounded-full">
+              <div className="size-8 rounded-full">
                 <Image src="/favicon.svg" alt="Logo" width={32} height={32} loading="eager" />
               </div>
               <div

@@ -44,7 +44,7 @@ export default function SocialIcon({ kind, href, size = 6 }: SocialIconProps) {
   if (!href) return null
 
   const SocialSvg = components[kind]
-  const sizeClass = `h-${size} w-${size}`
+  const sizeClass = `size-${size}`
 
   return (
     <a target="_blank" rel="noopener noreferrer" href={kind === 'mail' ? `mailto:${href}` : href}>

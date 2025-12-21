@@ -6,7 +6,7 @@ export function IconPlaceholder() {
   const t = useTranslations('kbar_search')
   return (
     <div
-      className="icon-size animate-pulse rounded-full bg-neutral-300/50"
+      className="size-6 animate-pulse rounded-full bg-neutral-300/50"
       aria-label={t('loading')}
       aria-busy={true}
     ></div>

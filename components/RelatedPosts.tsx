@@ -6,7 +6,7 @@ export default function RelatedPosts({ relatedPosts }: RelatedPostsProps) {
   const t = useTranslations('common')
   return (
     <nav className="pt-8 opacity-90">
-      <h3 className="text-md mb-4 font-bold">{t('related_post')}</h3>
+      <h3 className="mb-4 text-lg font-bold">{t('related_post')}</h3>
       <ul className="max-w-3xl flex-1">
         {relatedPosts.map((post) => {
           return (

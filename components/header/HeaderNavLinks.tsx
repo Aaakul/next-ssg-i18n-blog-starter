@@ -11,20 +11,18 @@ export default function HeaderNavLinks({
 }: HeaderNavLinksProps) {
   return (
     <>
-      {links
-        .filter((link) => link.href !== '/')
-        .map((link) => (
-          <Link
-            key={link.title}
-            href={`/${locale}${link.href}`}
-            className={linkClassName}
-            onClick={() => {
-              onLinkClick?.()
-            }}
-          >
-            {link.title}
-          </Link>
-        ))}
+      {links.map((link) => (
+        <Link
+          key={link.title}
+          href={`/${locale}${link.href}`}
+          className={linkClassName}
+          onClick={() => {
+            onLinkClick?.()
+          }}
+        >
+          {link.title}
+        </Link>
+      ))}
     </>
   )
 }

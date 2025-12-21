@@ -29,7 +29,7 @@ export default function PostLayout({
     <article className="post-layout pt-6">
       <header>
         {image && (
-          <div className="banner relative z-10 mt-2 aspect-5/2 overflow-hidden rounded-xl drop-shadow-md">
+          <div className="banner relative mt-2 aspect-5/2 overflow-hidden rounded-xl drop-shadow-md ring-inset">
             <Image
               src={image}
               alt={t('image_of', { title })}
@@ -55,9 +55,9 @@ export default function PostLayout({
           <div className="prose dark:prose-invert max-w-none pt-6">{children}</div>
           <div className="flex justify-end">
             {lastmod && (
-              <span aria-label={`${lastMod}`} className="text-muted my-2 text-sm">
+              <span className="text-muted my-2 text-sm">
                 {lastMod}
-                <PostDateLocalized date={lastmod} />
+                <PostDateLocalized locale={locale} date={lastmod} />
               </span>
             )}
           </div>
@@ -70,7 +70,7 @@ export default function PostLayout({
           <FooterNavigation prev={prev} next={next} locale={locale} />
         </div>
         {showComments && (
-          <div className="comment my-12 min-h-[45vh] rounded-2xl bg-white p-4 drop-shadow-md dark:bg-gray-900">
+          <div className="my-12 min-h-[45vh] rounded-2xl bg-white p-4 drop-shadow-md ring-inset dark:bg-gray-900">
             <Comment
               shortname={process.env.DISQUS_SHORT_NAME as string}
               siteName={process.env.DISQUS_SITE_NAME}

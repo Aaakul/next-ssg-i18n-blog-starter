@@ -17,7 +17,7 @@ const renderButtonContent = ({
   if (Icon) {
     return (
       <>
-        <Icon className="icon-size" aria-hidden={true} />
+        <Icon className="size-6" aria-hidden={true} />
         <span className="sr-only">{label}</span>
       </>
     )
@@ -34,9 +34,9 @@ function PaginationButton({
   className = '',
   isCurrentPage = false,
 }: PaginationButtonProps) {
-  const baseClasses = 'flex-center h-10 w-10 rounded-md'
+  const baseClasses = 'flex-center size-10 rounded-md'
   const enabledClasses =
-    'link-hover-primary bg-default opacity-90 drop-shadow-md focus:ring-2 focus:outline-none'
+    'link-hover-primary bg-default opacity-90 drop-shadow-md ring-inset focus:ring-2 focus:outline-none'
 
   if (isEnabled && href) {
     return (

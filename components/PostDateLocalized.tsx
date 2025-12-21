@@ -1,43 +1,64 @@
-import { Locale } from '@/i18n'
-import { useLocale } from 'next-intl'
+'use client'
 
-type Template = 'full' | 'compact'
+import { useMemo } from 'react'
+import { PostDateProps } from './types'
 
-const PostDateLocalized = ({ date, template = 'full' }: { date: string; template?: Template }) => {
-  const locale = useLocale() as Locale
+const PostDateLocalized = ({ locale, date, template = 'full', srText }: PostDateProps) => {
+  const formatted = useMemo(() => {
+    if (!date) return ''
+    if (typeof date === 'string' && Number.isNaN(Date.parse(date))) return ''
 
-  const targetDate = new Date(date)
-  const now = new Date()
+    // Handle date only strings 'YYYY-MM-DD'
+    const isDateOnly = /^\d{4}-\d{2}-\d{2}$/.test(date)
+    // Treat them as UTC 0:00
+    const target = isDateOnly ? new Date(date + 'T00:00:00Z') : new Date(date)
 
-  const isThisYear = targetDate.getFullYear() === now.getFullYear()
+    const now = new Date()
+    const targetYear = target.getFullYear()
+    const isThisYear = targetYear === now.getFullYear()
 
-  const baseOptions: Intl.DateTimeFormatOptions = {
-    month: 'long',
-    day: 'numeric',
-  }
+    const base: Intl.DateTimeFormatOptions = { month: 'long', day: 'numeric' }
+    const year: Intl.DateTimeFormatOptions = isThisYear ? {} : { year: 'numeric' }
 
-  const yearOption: Intl.DateTimeFormatOptions = isThisYear ? {} : { year: 'numeric' }
-
-  let dateTemplate: Intl.DateTimeFormatOptions = {}
-
-  if (template === 'full') {
-    dateTemplate = {
-      hour: '2-digit',
-      minute: '2-digit',
-      weekday: 'long',
-      ...baseOptions,
-      ...yearOption,
+    let opts: Intl.DateTimeFormatOptions = {}
+    if (template === 'full') {
+      opts = {
+        weekday: 'long',
+        hour: '2-digit',
+        minute: '2-digit',
+        ...base,
+        ...year,
+      }
+    } else {
+      opts = {
+        weekday: isThisYear ? 'long' : 'short',
+        ...base,
+        ...year,
+      }
     }
-  } else {
-    dateTemplate = {
-      weekday: 'short',
-      ...baseOptions,
-      ...yearOption,
-      ...(isThisYear ? { weekday: 'long' } : {}),
-    }
-  }
 
-  return <span>{targetDate.toLocaleDateString(locale, dateTemplate)}</span>
+    try {
+      const formatter = new Intl.DateTimeFormat(locale, opts)
+      return formatter.format(target)
+    } catch {
+      try {
+        return target.toLocaleDateString(locale, opts)
+      } catch {
+        return target.toString()
+      }
+    }
+  }, [date, template, locale])
+
+  if (!formatted) return null
+
+  return (
+    <>
+      {srText && <span className="sr-only">{srText}</span>}
+      <time suppressHydrationWarning dateTime={date}>
+        {formatted}
+      </time>
+    </>
+  )
 }
 
 export default PostDateLocalized

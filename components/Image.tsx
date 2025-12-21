@@ -1,19 +1,9 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import { SiteConfig } from '@/data/siteConfig.mjs'
+import { OptimizedImageProps } from './types'
 
 const BASE_PATH = SiteConfig.basePath
-
-export interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
-  src: string
-  webpSrc?: string
-  alt: string
-  showPlaceholder?: boolean
-  placeholderWidth?: number
-  placeholderHeight?: number
-  placeholderColor?: string
-  fetchPriority?: 'high' | 'low' | 'auto'
-}
 
 const Image = ({
   src,

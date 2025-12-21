@@ -4,6 +4,7 @@ import { ReadTimeResults } from 'reading-time'
 import { Authors } from '@/.contentlayer/generated/types'
 import type { Action } from 'kbar'
 import type React from 'react'
+import type { LinkProps } from 'next/link'
 
 export interface CardProps {
   title: string
@@ -123,4 +124,24 @@ export type RelatedPostsData = {
 
 export interface RelatedPostsProps {
   relatedPosts: RelatedPostsData[]
+}
+
+export type CustomLinkProps = LinkProps & React.AnchorHTMLAttributes<HTMLAnchorElement>
+
+export interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+  src: string
+  webpSrc?: string
+  alt: string
+  showPlaceholder?: boolean
+  placeholderWidth?: number
+  placeholderHeight?: number
+  placeholderColor?: string
+  fetchPriority?: 'high' | 'low' | 'auto'
+}
+
+export type PostDateProps = {
+  locale: Locale
+  date: string
+  template?: 'full' | 'compact'
+  srText?: string
 }

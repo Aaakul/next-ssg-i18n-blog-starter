@@ -27,14 +27,14 @@ export default function PostList({ posts, locale, maxDisplay }: PostListProps) {
             <article>
               {image && <link rel="preload" as="image" href={image} fetchPriority="low" />}
               <div className="xl:grid xl:grid-cols-4">
-                <dl className="text-muted text-sm">
-                  <dt className="sr-only">{t('published_on') || 'Published on: '}</dt>
-                  <dd>
-                    <time dateTime={date}>
-                      <PostDateLocalized date={date} template="compact" />
-                    </time>
-                  </dd>
-                </dl>
+                <span className="text-muted text-sm">
+                  <PostDateLocalized
+                    locale={locale}
+                    date={date}
+                    template="compact"
+                    srText={t('published_on')}
+                  />
+                </span>
                 <div className="xl:col-span-3">
                   <h2 className="text-2xl font-bold">
                     <Link href={href} className="link-hover">

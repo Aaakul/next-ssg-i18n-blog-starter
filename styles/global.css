@@ -33,16 +33,12 @@ a {
   @apply text-4xl leading-normal font-bold tracking-tight md:text-5xl lg:text-6xl;
 }
 
-.text-default {
-  @apply text-gray-900 dark:text-gray-100;
-}
-
 .text-muted {
   @apply text-gray-600 dark:text-gray-400;
 }
 
 .link-hover {
-  @apply hover:text-primary-600 dark:hover:text-primary-500 hover:drop-shadow-xl;
+  @apply hover:text-primary-600 dark:hover:text-primary-500 hover:drop-shadow-lg;
 }
 
 .link-with-icon::after {
@@ -62,21 +58,16 @@ a {
   @apply hover:text-primary-500 cursor-pointer hover:scale-125;
 }
 
-.button-primary {
-  @apply bg-primary-600 hover:bg-primary-500 active:bg-primary-600 dark:bg-primary-500 dark:hover:bg-primary-400 dark:active:bg-primary-600;
-  @apply inline-flex justify-center rounded-lg text-sm font-semibold text-gray-100 drop-shadow-md;
-}
-
 .divide-y-gray {
   @apply divide-y divide-gray-300 dark:divide-gray-700;
 }
 
-.icon-size {
-  @apply h-6 w-6;
-}
-
 .flex-center {
   @apply flex items-center justify-center;
+}
+
+.ring-inset {
+  @apply inset-ring inset-ring-black/5 dark:inset-ring-white/5;
 }
 
 /* * {
@@ -84,32 +75,6 @@ a {
     0 0 0 1px red inset,
     0 0 0 1px red;
 } */
-
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
-}
-
-/* https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied */
-input:-webkit-autofill,
-input:-webkit-autofill:focus {
-  transition:
-    background-color 600000s 0s,
-    color 600000s 0s;
-}
 
 .task-list-item::before {
   @apply hidden;
@@ -120,11 +85,11 @@ input:-webkit-autofill:focus {
 }
 
 .footnotes {
-  @apply border-t border-gray-200 pt-4 dark:border-gray-700;
+  @apply pt-6;
 }
 
-.data-footnote-backref {
-  @apply no-underline;
+a[data-footnote-backref] {
+  @apply no-underline grayscale-100;
 }
 
 .katex-display {
@@ -150,13 +115,17 @@ input:-webkit-autofill:focus {
 
 /* inline code */
 .prose span[data-rehype-pretty-code-figure] code {
-  @apply rounded-lg border border-gray-400 px-1 opacity-90 dark:border-gray-500;
+  @apply rounded-lg border border-gray-300/25 px-1 opacity-90;
 }
 
 /* remove `` */
 span[data-rehype-pretty-code-figure] code::before,
 span[data-rehype-pretty-code-figure] code::after {
   content: none !important;
+}
+
+figure[data-rehype-pretty-code-figure] {
+  @apply rounded-lg border border-gray-300/10;
 }
 
 .prose pre {
@@ -197,4 +166,30 @@ code[data-line-numbers-max-digits='3'] > [data-line]::before {
 
 code[data-line-numbers-max-digits='4'] > [data-line]::before {
   width: 2.25rem;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+/* https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition:
+    background-color 600000s 0s,
+    color 600000s 0s;
 }
