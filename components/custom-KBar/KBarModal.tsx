@@ -46,7 +46,7 @@ const KBarModal = ({ actions, isLoading }: { actions: Action[]; isLoading: boole
         className="z-80 bg-black/30 p-4 backdrop-blur backdrop-grayscale backdrop-filter dark:bg-black/50"
         style={{ WebkitBackdropFilter: 'blur(8px) grayscale(100%)' }}
       >
-        <KBarAnimator className="w-full max-w-xl">
+        <KBarAnimator className="w-full max-w-5xl">
           <div className="bg-default rounded-2xl shadow-lg">
             <div className="flex-center space-x-4 p-4">
               <span className="block size-5">

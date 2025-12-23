@@ -17,7 +17,7 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => {
           title
         )}
       </h2>
-      <p className="text-muted mb-3 max-w-none">{description}</p>
+      <p className="text-muted mb-3">{description}</p>
     </div>
   )
 
@@ -27,7 +27,7 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => {
     const imageProps = {
       alt: title,
       src: imgSrc,
-      className: 'object-cover object-center md:h-36 lg:h-48',
+      className: 'object-cover object-center',
       width: 544,
       height: 306,
       showPlaceholder: true,
@@ -45,15 +45,17 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => {
   }
 
   return (
-    <div className="p-4 md:w-1/2 md:max-w-136">
+    <div className="max-w-4xl p-4">
       <div
         className={clsx(
           imgSrc && 'h-full',
-          'bg-gray-100/50 dark:bg-gray-900/50',
+          'bg-default',
           'overflow-hidden rounded-lg drop-shadow-md ring-inset'
         )}
       >
-        {renderImage()}
+        {imgSrc && (
+          <div className="relative aspect-video h-full w-full overflow-hidden">{renderImage()}</div>
+        )}
         {renderContent()}
       </div>
     </div>

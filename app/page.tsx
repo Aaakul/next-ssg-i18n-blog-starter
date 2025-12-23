@@ -70,6 +70,7 @@ const redirectScript = `
 export default function Page() {
   return (
     <>
+      <style>{`@keyframes pulse{50%{background-color:#a3a3a3}}body{background-color:#262626;animation:pulse 2s cubic-bezier(0.4,0,0.6,1)infinite}`}</style>
       <script dangerouslySetInnerHTML={{ __html: redirectScript }} />
     </>
   )

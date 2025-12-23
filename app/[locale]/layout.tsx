@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { RootLayoutProps } from '@/app/types'
 import { SiteConfig } from '@/data/siteConfig.mjs'
+import ProgressWrapper from '@/components/ProgressWrapper'
 import '@/styles/global.css'
 
 // create static pages for each language
@@ -47,24 +48,24 @@ export default async function LocaleLayout({ children, params }: RootLayoutProps
       />
       <NextIntlClientProvider>
         <ThemeProviders>
-          <DynamicScrollTop />
-          <DynamicSearchProvider>
-            <Header locale={locale as Locale} />
-            <style>{`#main{@media{padding-inline:0;}}`}</style>
-            <main
-              id="main"
-              style={{
-                margin: 'auto',
-                width: '100%',
-                maxWidth: '72rem',
-                flex: 1,
-                paddingInline: '0.5rem',
-              }}
-            >
-              {children}
-            </main>
-          </DynamicSearchProvider>
-          <Footer copyrightText={t('site_title')} />
+          <ProgressWrapper>
+            <DynamicScrollTop />
+            <DynamicSearchProvider>
+              <Header locale={locale as Locale} />
+              <main
+                style={{
+                  margin: 'auto',
+                  width: '100%',
+                  maxWidth: '80rem',
+                  flex: 1,
+                  paddingInline: '0.5rem',
+                }}
+              >
+                {children}
+              </main>
+            </DynamicSearchProvider>
+            <Footer copyrightText={t('site_title')} />
+          </ProgressWrapper>
         </ThemeProviders>
       </NextIntlClientProvider>
     </>

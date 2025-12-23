@@ -18,21 +18,16 @@ export default function Header({ locale }: { locale: Locale }) {
   return (
     <header
       className={clsx(
-        'z-30 m-auto flex h-16 w-[98%] max-w-7xl rounded-2xl focus:outline-none',
+        'z-30 mx-auto flex h-16 w-[98%] max-w-400 rounded-2xl focus:outline-none',
         'bg-default shadow-lg ring-inset',
         SiteConfig.isStickyNav && 'sticky top-2'
       )}
     >
-      <nav
-        className="m-auto flex w-full items-center justify-between p-2"
-        aria-label={t('global_nav')}
-      >
+      <nav className="flex w-full items-center justify-between px-2" aria-label={t('global_nav')}>
         <div className="flex flex-1 items-center justify-start">
           <Link href={`/${locale}`} aria-label={t('link_to', { title: t('home') })}>
-            <div className="flex-center space-x-2">
-              <div className="size-8 rounded-full">
-                <Image src="/favicon.svg" alt="Logo" width={32} height={32} loading="eager" />
-              </div>
+            <div className="flex-center space-x-4 sm:pl-2">
+              <Image src="/favicon.svg" alt="Logo" width={32} height={32} loading="eager" />
               <div
                 className={clsx(
                   'link-hover truncate bg-clip-text text-lg font-semibold text-transparent xl:text-2xl',
@@ -48,7 +43,7 @@ export default function Header({ locale }: { locale: Locale }) {
 
         <div
           className={clsx(
-            'mx-auto items-center justify-center space-x-4 break-keep',
+            'mx-auto items-center justify-center gap-x-4 break-keep',
             'hidden sm:flex sm:shrink-0'
           )}
         >
@@ -59,7 +54,7 @@ export default function Header({ locale }: { locale: Locale }) {
           />
         </div>
 
-        <div className="flex flex-1 items-center justify-end space-x-4">
+        <div className="flex flex-1 items-center justify-end gap-x-4">
           <HeaderButtons locale={locale} links={links} />
         </div>
       </nav>

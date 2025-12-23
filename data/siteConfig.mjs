@@ -40,11 +40,16 @@ export const SiteConfig = {
   // Disqus を有効にするかどうか
   isEnableDisqusJS: true,
 
+  // 是否在 Header 中显示 Logo
+  // Whether to display the logo in the header
+  // ヘッダーにロゴを表示するかどうか
+  isShowLogo: true,
+
   social: {
     // 页脚会显示对应社交平台的图标及链接
     // The footer will display the corresponding social platform icons with links
     // フッターには対応するソーシャルプラットフォームのアイコンとリンクが表示されます
-    mail: 'address@yoursite.com',
+    mail: 'contact@example.com',
     github: 'https://github.com/aaakul',
     bilibili: '',
     youtube: '',
@@ -95,6 +100,7 @@ export const SiteConfig = {
  * @property {'session' | 'none' | number} cookieMaxAgeDays
  * @property {number} postsPerPage
  * @property {boolean} isEnableDisqusJS
+ * @property {boolean} isShowLogo
  * @property {SocialConfig} social
  */
 

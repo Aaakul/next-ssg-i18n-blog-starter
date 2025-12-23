@@ -7,7 +7,7 @@ export default function RelatedPosts({ relatedPosts }: RelatedPostsProps) {
   return (
     <nav className="pt-8 opacity-90">
       <h3 className="mb-4 text-lg font-bold">{t('related_post')}</h3>
-      <ul className="max-w-3xl flex-1">
+      <ul className="flex-1">
         {relatedPosts.map((post) => {
           return (
             <li key={post.title}>

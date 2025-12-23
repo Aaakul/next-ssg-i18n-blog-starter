@@ -8,7 +8,7 @@ export default function Footer({ copyrightText }: { copyrightText: string }) {
   const locale = useLocale() as Locale
   return (
     <footer className="w-full pt-6 pb-2">
-      <div className="mx-auto max-w-6xl px-2">
+      <div className="mx-auto px-2">
         <div className="flex-center bottom-0 flex-col space-y-2 align-middle">
           <div className="flex-center h-6 space-x-6">
             {Object.entries(SiteConfig.social)

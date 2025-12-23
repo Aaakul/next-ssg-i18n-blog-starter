@@ -1,7 +1,8 @@
 'use client'
 
 import type React from 'react'
-import { useRouter } from '@/i18n/navigation'
+import { useRouter } from '@bprogress/next/app'
+import { useRouter as useNextIntlRouter } from '@/i18n/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import { useState, useEffect, useRef, useCallback, ReactNode } from 'react'
 import { KBarProvider } from 'kbar'
@@ -94,7 +95,9 @@ const KBarSearchProvider = ({
 }
 
 export default function SearchProvider({ children }: { children: ReactNode }) {
-  const router = useRouter()
+  const router = useRouter({
+    customRouter: useNextIntlRouter,
+  })
   const locale = useLocale() as Locale
   const t = useTranslations('common')
 

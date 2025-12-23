@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { defaultLocale, supportedLocales, Locale, localeDisplayNames } from '@/i18n'
-import { useRouter, usePathname } from '@/i18n/navigation'
+import { useRouter as useNextIntlRouter, usePathname } from '@/i18n/navigation'
+import { useRouter } from '@bprogress/next/app'
 import { useLocale, useTranslations } from 'next-intl'
 import { InformationCircleIcon, LanguageIcon } from '@heroicons/react/24/outline'
 import { notFound } from 'next/navigation'
@@ -16,7 +17,9 @@ function LocaleFallbackModal({
   targetLocale,
   fallbackOptions,
 }: LocaleFallbackModalProps) {
-  const intlRouter = useRouter()
+  const intlRouter = useRouter({
+    customRouter: useNextIntlRouter,
+  })
   const t = useTranslations('locale_switcher')
 
   const targetLocaleName = localeDisplayNames[targetLocale] || targetLocale
@@ -46,7 +49,7 @@ function LocaleFallbackModal({
         aria-hidden
       />
       {/* Panel */}
-      <div className="bg-default relative mx-4 w-full max-w-md rounded-2xl p-6 shadow-lg">
+      <div className="bg-default relative mx-4 w-full max-w-3xl rounded-xl p-6 shadow-lg">
         {/* Icon + Title + Message */}
         <div className="flex items-start gap-3 sm:gap-4">
           {/* Icon Circle */}
@@ -69,7 +72,7 @@ function LocaleFallbackModal({
           </div>
         </div>
         {/* Fallback Language Options */}
-        <div className="mt-5 max-h-40 space-y-2 overflow-y-auto rounded-lg p-1">
+        <div className="mt-5 space-y-2 overflow-y-auto rounded-lg p-1">
           {fallbackOptions.map((option) => (
             <button
               key={option.locale}
@@ -103,7 +106,9 @@ function LocaleFallbackModal({
 }
 
 export default function LocaleSwitcher() {
-  const intlRouter = useRouter()
+  const intlRouter = useRouter({
+    customRouter: useNextIntlRouter,
+  })
   const intlPathname = usePathname()
   const currentLocale = useLocale() as Locale
   const t = useTranslations('locale_switcher')

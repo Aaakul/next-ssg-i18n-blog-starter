@@ -6,6 +6,8 @@
 > [!NOTE]
 > This article was translated by AI
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FAaakul%2Fnext-ssg-i18n-blog-starter)
+
 ## Motivation
 
 I was keen on using Next.js's **Static Site Generation (SSG)**. I chose the popular [**Tailwind Next.js Starter Blog**](https://github.com/timlrx/tailwind-nextjs-starter-blog) as the base for my personal blog but ran into many issue when adding **internationalization (i18n)**.

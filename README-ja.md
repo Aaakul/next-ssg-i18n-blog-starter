@@ -6,6 +6,8 @@
 > [!NOTE]
 > この文章はAIによって翻訳されました
 
+[![Vercelでデプロイ](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FAaakul%2Fnext-ssg-i18n-blog-starter)
+
 ## 動機
 
 Next.js の**静的サイト生成 (SSG)** 機能に興味を持って、人気の [**Tailwind Next.js Starter Blog**](https://github.com/timlrx/tailwind-nextjs-starter-blog) を基に個人ブログを作成し始めました。しかし、**国際化 (i18n)** を統合する過程で、i18n と SSG の間で多くの問題に直面しました。

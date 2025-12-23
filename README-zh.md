@@ -3,6 +3,8 @@
 - [English](README.md)
 - [日本語](README-ja.md)
 
+[![通过 Vercel 部署](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FAaakul%2Fnext-ssg-i18n-blog-starter)
+
 ## 动机
 
 我对 Next.js 的 **静态站点生成(SSG)** 很感兴趣, 于是选择广受欢迎的 [**Tailwind Next.js Starter Blog**](https://github.com/timlrx/tailwind-nextjs-starter-blog) 作为开发个人博客的起点。但在集成国际化(i18n)时, 发现 i18n 与 SSG 存在诸多兼容性问题。

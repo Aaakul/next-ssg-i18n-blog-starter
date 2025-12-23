@@ -53,7 +53,7 @@ export default function PostList({ posts, locale, maxDisplay }: PostListProps) {
                     </div>
                   )}
 
-                  <div className="text-muted max-w-none py-1 text-sm">
+                  <div className="text-muted py-1 text-sm">
                     {summary ? (
                       <p>{summary}</p>
                     ) : toc?.length ? (

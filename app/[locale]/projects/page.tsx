@@ -57,15 +57,16 @@ export default function Projects(props: { params: Promise<LocaleParams> }) {
       </header>
       <section className="lg:py-6">
         <div className="flex-center m-0 flex-wrap">
-          {projectsData.map((d) => (
-            <Card
-              key={d.href}
-              title={d.title[locale]}
-              description={d.description[locale]}
-              imgSrc={d.imgSrc}
-              href={d.href}
-            />
-          ))}
+          {projectsData.length > 0 &&
+            projectsData.map((d) => (
+              <Card
+                key={d.href}
+                title={d.title[locale]}
+                description={d.description[locale]}
+                imgSrc={d.imgSrc}
+                href={d.href}
+              />
+            ))}
         </div>
       </section>
     </main>

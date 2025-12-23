@@ -19,6 +19,7 @@ const plugins = [withContentlayer, withBundleAnalyzer, withNextIntl]
 const nextConfig = plugins.reduce((acc, next) => next(acc), {
   experimental: {
     turbopackFileSystemCacheForDev: true,
+    globalNotFound: true,
   },
   ...(process.env.NODE_ENV === 'production' ? { output: 'export' } : undefined),
   basePath: basePath,

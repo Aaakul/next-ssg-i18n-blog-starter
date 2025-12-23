@@ -82,7 +82,7 @@ export default function AuthorLayout({ children, content }: AuthorLayoutProps) {
           </div>
         </div>
         {/* Main Content */}
-        <div className="prose dark:prose-invert max-w-none border-t border-gray-300 pt-6 lg:col-span-2 lg:border-0 lg:pt-0 dark:border-gray-700">
+        <div className="prose dark:prose-invert border-t border-gray-300 pt-6 lg:col-span-2 lg:border-0 lg:pt-0 dark:border-gray-700">
           {children}
         </div>
       </section>

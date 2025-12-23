@@ -38,18 +38,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
-        {/* bg-neutral-100 dark:bg-gray-950 */}
-        <style>{`body{background-color:#f5f5f5;&:is(.dark *)&:is(.dark *){background-color:#030712;}@font-face{font-display:optional;}}`}</style>
+        <style>{`html{overflow-y:scroll}body{background-color:#f5f5f5;&:is(.dark *){background-color:#030712}@font-face{font-display:optional}}`}</style>
       </head>
       <body
         style={{
           scrollBehavior: 'smooth',
           WebkitFontSmoothing: 'antialiased',
           MozOsxFontSmoothing: 'grayscale',
-          minHeight: ' 100vh',
+          minHeight: '100vh',
           display: 'flex',
           flexDirection: 'column',
-          paddingLeft: 'calc(100vw - 100%)',
+          paddingLeft: 'calc(100%-100vw)',
           transitionDuration: '300ms',
         }}
       >

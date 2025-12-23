@@ -52,7 +52,7 @@ export default function PostLayout({
       <div className="w-full lg:grid lg:grid-cols-4 lg:gap-x-6">
         <div className="divide-y-gray lg:col-span-3 lg:row-span-2">
           {/* Main Content */}
-          <div className="prose dark:prose-invert max-w-none pt-6">{children}</div>
+          <div className="prose dark:prose-invert pt-6">{children}</div>
           <div className="flex justify-end">
             {lastmod && (
               <span className="text-muted my-2 text-sm">
