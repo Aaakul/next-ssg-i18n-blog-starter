@@ -43,7 +43,7 @@ export default function AuthorLayout({ children, content }: AuthorLayoutProps) {
   }
   return (
     <article className="divide-y-gray">
-      <header className="space-y-2 py-6">
+      <header className="space-y-2 pt-4 pb-2">
         <h1 className="h1-heading">{t('about') || 'About'}</h1>
       </header>
       {/* Avatar and personal information */}
@@ -62,7 +62,7 @@ export default function AuthorLayout({ children, content }: AuthorLayoutProps) {
           )}
 
           <h2 className="text-3xl font-bold">{name}</h2>
-          <h3 className="text-muted my-0 text-lg">
+          <h3 className="text-muted text-lg">
             <dt className="sr-only">{t('occupation')}</dt>
             <dd>{occupation}</dd>
           </h3>
@@ -70,7 +70,7 @@ export default function AuthorLayout({ children, content }: AuthorLayoutProps) {
             <dt className="sr-only">{t('company')}</dt>
             <dd>{company}</dd>
           </h3>
-          <div className="text-muted my-2 flex flex-wrap justify-center gap-4 lg:my-0 lg:flex-col lg:items-center lg:gap-2 lg:space-y-2">
+          <div className="text-muted flex flex-wrap justify-center gap-4 space-y-2 lg:flex-col lg:items-center">
             {Object.entries(social)
               .filter((entry): entry is [string, string] => {
                 const [, url] = entry
@@ -82,7 +82,7 @@ export default function AuthorLayout({ children, content }: AuthorLayoutProps) {
           </div>
         </div>
         {/* Main Content */}
-        <div className="prose dark:prose-invert border-t border-gray-300 pt-6 lg:col-span-2 lg:border-0 lg:pt-0 dark:border-gray-700">
+        <div className="prose dark:prose-invert max-w-full border-t border-gray-300 pt-6 lg:col-span-2 lg:border-0 lg:pt-0 dark:border-gray-700">
           {children}
         </div>
       </section>

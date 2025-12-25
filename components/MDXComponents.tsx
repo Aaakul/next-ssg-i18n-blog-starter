@@ -4,6 +4,7 @@ import type { MDXComponents } from 'mdx/types'
 import Image from './Image'
 import CustomLink from './Link'
 import TableWrapper from './TableWrapper'
+import Script from 'next/script'
 
 export const components: MDXComponents = {
   Image,
@@ -11,4 +12,5 @@ export const components: MDXComponents = {
   a: CustomLink,
   pre: CodeBlockWithCopyButton,
   table: TableWrapper,
+  Script: Script,
 }

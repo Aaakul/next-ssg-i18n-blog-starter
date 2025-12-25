@@ -1,12 +1,9 @@
-import { Authors, allAuthors } from 'contentlayer/generated'
+import { Authors, allAuthors, allBlogs } from 'contentlayer/generated'
 import { MDXLayoutRenderer } from '@/lib/pliny/mdx-components'
-import { AuthorLayout } from '@/layouts'
+import { AuthorLayout, ListLayout } from '@/layouts'
 import { Locale } from '@/i18n'
 import { notFound } from 'next/navigation'
-import { coreContent } from '@/lib/contentlayer-utils'
-import ListLayout from '@/layouts/ListLayoutWithTags'
-import { allCoreContent, sortPosts } from '@/lib/contentlayer-utils'
-import { allBlogs } from 'contentlayer/generated'
+import { coreContent, allCoreContent, sortPosts } from '@/lib/contentlayer-utils'
 import { BlogListPageParams } from './types'
 import tagsDataRaw from '@/.contentlayer/generated/tags-data.json' with { type: 'json' }
 import categoriesDataRaw from '@/.contentlayer/generated/categories-data.json' with { type: 'json' }

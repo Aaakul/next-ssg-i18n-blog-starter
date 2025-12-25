@@ -1,77 +1,80 @@
-import { defaultLocale, supportedLocales } from '@/i18n/'
+import { defaultLocale, supportedLocales } from '@/i18n'
 import { SiteConfig } from '@/data/siteConfig.mjs'
-
-const serializedDefaultLocale = JSON.stringify(defaultLocale)
-const serializedBasePath = JSON.stringify(SiteConfig.basePath)
-const serializedCookieMaxAgeDays = JSON.stringify(SiteConfig.cookieMaxAgeDays)
+import getMessageByLocale from '@/lib/locale-message-utils.mjs'
+import Script from 'next/script'
 
 const redirectScript = `
-  (function() {
-    const defaultLocale = ${serializedDefaultLocale};
-    const supportedLocales = ${JSON.stringify(supportedLocales)};
-    const basePath = ${serializedBasePath};
-    const cookieConfig = ${serializedCookieMaxAgeDays};
-    const COOKIE_NAME = 'NEXT_LOCALE'; 
+;(function() {
+  const DEFAULT_LOCALE = ${JSON.stringify(defaultLocale)};
+  const SUPPORTED_LOCALES = ${JSON.stringify(supportedLocales)};
+  const BASE_PATH = ${JSON.stringify(SiteConfig.basePath)};;
+  const COOKIE_MAX_AGE_DAYS = ${JSON.stringify(SiteConfig.cookieMaxAgeDays)};
+  const COOKIE_NAME = 'NEXT_LOCALE';
 
-    const checkLocale = (locales, lang) => {
-      // full match
-      if (locales.indexOf(lang) !== -1) { 
-        return lang;
+  const getPreferredLocale = () => {
+    const localeFromCookie = getLocaleFromCookie();
+    if (localeFromCookie) {
+      if (SUPPORTED_LOCALES.indexOf(localeFromCookie) !== -1) {
+        return localeFromCookie
       }
-      // partial match
-      const langPrefix = lang.split('-')[0];
-      for (const supported of locales) {
-        if (supported.startsWith(langPrefix)) {
-          return supported;
-        }
+      const matchedByPrefix = findLocaleByPrefix(localeFromCookie);
+      if (matchedByPrefix) {
+        return matchedByPrefix
       }
-      return null;
-    };
-    
-    let preferredLocale = defaultLocale;
+    }
 
-    const match = document.cookie.match(new RegExp('(^| )' + COOKIE_NAME + '=([^;]+)')); 
-    const localeInCookie = match ? match[2] : null;
+    const browserLocales = navigator.languages || [navigator.language];
+    for (const locale of browserLocales) {
+      if (SUPPORTED_LOCALES.indexOf(locale) != -1) return locale;
+      const matched = findLocaleByPrefix(locale);
+      if (matched) return matched
+    }
 
-    if (localeInCookie && checkLocale(supportedLocales, localeInCookie)) {
-      preferredLocale = localeInCookie;
+    return DEFAULT_LOCALE
+  };
+
+  const getLocaleFromCookie = () => {
+    const match = document.cookie.match(new RegExp('(^| )' + COOKIE_NAME + '=([^;]+)'));
+    return match ? match[2] : null
+  };
+
+  const findLocaleByPrefix = (locale) => {
+    const prefix = locale.split('-')[0];
+    return SUPPORTED_LOCALES.find((supportedLocale) => supportedLocale.startsWith(prefix))
+  };
+
+  const setLocaleCookie = (locale) => {
+    let cookieValue = COOKIE_NAME + '=' + locale;
+    if (COOKIE_MAX_AGE_DAYS > 0) {
+      const expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + COOKIE_MAX_AGE_DAYS);
+      cookieValue += '; expires=' + expirationDate.toUTCString() + '; path=/; SameSite=Lax'
     } else {
-      const languages = [...(navigator.languages || [])];
-      for (let lang of languages) {
-        const checkedLang = checkLocale(supportedLocales, lang);
-        if (checkedLang) {
-          preferredLocale = checkedLang;
-          break;
-        }
-      }
+      cookieValue += '; path=/; SameSite=Lax'
     }
+    document.cookie = cookieValue
+  };
 
-    let cookieOptions = '';
+  const currentLocaleInCookie = getLocaleFromCookie();
+  const preferredLocale = getPreferredLocale();
+  if (!currentLocaleInCookie) {
+    setLocaleCookie(preferredLocale)
+  }
 
-    if (preferredLocale !== localeInCookie && cookieConfig !== 'none') {
-        if (typeof cookieConfig === 'number' && Number.isInteger(cookieConfig) && cookieConfig > 0) {
-            const expirationDate = new Date();
-            expirationDate.setDate(expirationDate.getDate() + cookieConfig);
-            cookieOptions = '; expires=' + expirationDate.toUTCString() + '; path=/';
-        } else {
-            //'session' or invalid value
-            cookieOptions = '; path=/'; 
-        }
-        document.cookie = COOKIE_NAME + '=' + preferredLocale + cookieOptions; 
-    }
+  window.location.replace(BASE_PATH + '/' + preferredLocale)
+})()`
 
-    document.documentElement.lang = preferredLocale;
+export default async function Page() {
+  const defaultTranslations = (await getMessageByLocale(defaultLocale))?.common
 
-    window.location.replace(\`\${basePath}/\${preferredLocale}\`);
-
-  })();
-`
-
-export default function Page() {
   return (
     <>
-      <style>{`@keyframes pulse{50%{background-color:#a3a3a3}}body{background-color:#262626;animation:pulse 2s cubic-bezier(0.4,0,0.6,1)infinite}`}</style>
-      <script dangerouslySetInnerHTML={{ __html: redirectScript }} />
+      <title>{`${defaultTranslations?.redirecting} | ${defaultTranslations?.site_title}`}</title>
+      <meta name="description" content={defaultTranslations?.redirecting}></meta>
+      <style>{`@keyframes pulse{50%{background-color:#1f2937}}body{background-color:#d4d4d4;animation:pulse 2s cubic-bezier(0.4,0,0.6,1)infinite}`}</style>
+      <Script strategy="beforeInteractive" id="redirect">
+        {redirectScript}
+      </Script>
     </>
   )
 }

@@ -45,7 +45,7 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => {
   }
 
   return (
-    <div className="max-w-4xl p-4">
+    <div className="max-w-3xl p-4">
       <div
         className={clsx(
           imgSrc && 'h-full',
@@ -53,9 +53,7 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => {
           'overflow-hidden rounded-lg drop-shadow-md ring-inset'
         )}
       >
-        {imgSrc && (
-          <div className="relative aspect-video h-full w-full overflow-hidden">{renderImage()}</div>
-        )}
+        {imgSrc && <div className="relative aspect-video overflow-hidden">{renderImage()}</div>}
         {renderContent()}
       </div>
     </div>

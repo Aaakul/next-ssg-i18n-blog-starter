@@ -51,7 +51,7 @@ export default function Projects(props: { params: Promise<LocaleParams> }) {
 
   return (
     <main className="divide-y-gray">
-      <header className="space-y-2 pt-6 pb-2">
+      <header className="gap-y-2 pt-4">
         <h1 className="h1-heading">{t('projects')}</h1>
         <h2 className="text-muted text-lg">{t('projects_description')}</h2>
       </header>

@@ -64,8 +64,8 @@ export default function LinksPanel({
     <aside
       className={clsx('bg-default rounded-lg drop-shadow-md ring-inset lg:pt-6', linksPanelClass)}
     >
-      {title && <h3 className="text-md mb-4 px-2 font-bold">{title}</h3>}
-      <ul className="tag-list grid grid-cols-2 gap-0 md:grid-cols-3 lg:grid-cols-1">
+      {title && <h3 className="text-md mb-4 px-2 font-bold opacity-80">{title}</h3>}
+      <ul className="tag-list grid grid-cols-2 md:grid-cols-3 lg:grid-cols-1">
         {fieldCount &&
           Object.keys(fieldCount).map((item) => {
             const count = fieldCount[item]

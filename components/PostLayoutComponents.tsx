@@ -27,7 +27,7 @@ export function PostHeader({
   // hide author details if author is default author
   const shouldShowAuthor = authorDetails.length > 1 || !authorDetails[0].slug.endsWith('/default')
   return (
-    <div className="flex flex-col gap-y-2 border-b border-gray-200 py-4 md:gap-y-4 dark:border-gray-700">
+    <div className="flex flex-col gap-y-2 border-b border-gray-200 md:gap-y-4 dark:border-gray-700">
       {/* Title */}
       <PageTitle>{title}</PageTitle>
       <div className="text-muted flex flex-col gap-y-2 text-sm md:flex-row md:items-center md:gap-x-6 md:gap-y-0 lg:gap-x-8">
@@ -77,7 +77,7 @@ export function PostHeader({
 
       {/* Tags */}
       {tags && (
-        <div className="flex flex-wrap gap-2">
+        <div className="mb-2 flex flex-wrap gap-2">
           {tags.map((tag: string) => (
             <Tag key={tag} text={tag} locale={locale} className="text-sm" />
           ))}
@@ -98,10 +98,7 @@ export function FooterNavigation({ prev, next, locale }: FooterNavigationProps) 
   const linkClass = 'underline-2 link-hover flex focus:ring-2 focus:outline-none'
 
   return (
-    <nav
-      aria-label={t('pagination')}
-      className="mt-8 self-start text-ellipsis opacity-90 sm:self-auto"
-    >
+    <nav aria-label={t('pagination')} className="self-start pt-4 pb-2 text-ellipsis opacity-80">
       <ul className="flex flex-col gap-y-4 sm:flex-row sm:gap-x-8 xl:gap-y-8">
         {showPrev && (
           <li>

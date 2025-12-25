@@ -23,14 +23,19 @@ export default function Header({ locale }: { locale: Locale }) {
         SiteConfig.isStickyNav && 'sticky top-2'
       )}
     >
-      <nav className="flex w-full items-center justify-between px-2" aria-label={t('global_nav')}>
+      <nav
+        className="mx-auto flex w-full items-center justify-between px-2"
+        aria-label={t('global_nav')}
+      >
         <div className="flex flex-1 items-center justify-start">
           <Link href={`/${locale}`} aria-label={t('link_to', { title: t('home') })}>
-            <div className="flex-center space-x-4 sm:pl-2">
-              <Image src="/favicon.svg" alt="Logo" width={32} height={32} loading="eager" />
+            <div className="flex-center space-x-2 sm:pl-2">
+              {SiteConfig.isShowLogo && (
+                <Image src="/favicon.svg" alt="Logo" width={32} height={32} loading="eager" />
+              )}
               <div
                 className={clsx(
-                  'link-hover truncate bg-clip-text text-lg font-semibold text-transparent xl:text-2xl',
+                  'link-hover truncate bg-clip-text text-xl font-semibold text-transparent xl:text-2xl',
                   'to-primary-500 bg-linear-to-bl from-neutral-100 via-blue-300',
                   'hidden lg:block'
                 )}
@@ -54,7 +59,7 @@ export default function Header({ locale }: { locale: Locale }) {
           />
         </div>
 
-        <div className="flex flex-1 items-center justify-end gap-x-4">
+        <div className="flex flex-1 items-center justify-end gap-x-4 sm:-mr-2">
           <HeaderButtons locale={locale} links={links} />
         </div>
       </nav>

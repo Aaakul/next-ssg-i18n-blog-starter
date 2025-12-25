@@ -77,11 +77,11 @@ a {
 } */
 
 .task-list-item::before {
-  @apply hidden;
+  display: none;
 }
 
 .task-list-item {
-  @apply list-none;
+  list-style-type: none;
 }
 
 .footnotes {
@@ -89,7 +89,8 @@ a {
 }
 
 a[data-footnote-backref] {
-  @apply no-underline grayscale-100;
+  text-decoration-line: none;
+  filter: grayscale(100%);
 }
 
 .katex-display {
@@ -115,7 +116,7 @@ a[data-footnote-backref] {
 
 /* inline code */
 .prose span[data-rehype-pretty-code-figure] code {
-  @apply rounded-lg border border-gray-300/25 px-1 opacity-90;
+  @apply rounded-lg border border-gray-300/50 px-1 opacity-80;
 }
 
 /* remove `` */

@@ -40,12 +40,12 @@ export default function Home(props: { params: Promise<LocaleParams> }) {
   setRequestLocale(locale)
   const t = useTranslations('common')
   const header = (
-    <>
+    <div>
       <h1 className="h1-heading">{t('latest_posts')}</h1>
       <h2 className="text-muted text-lg">
         <div dangerouslySetInnerHTML={{ __html: t.raw('site_description_html') }} />
       </h2>
-    </>
+    </div>
   )
 
   return RenderBlogListPage({

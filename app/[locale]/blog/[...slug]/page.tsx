@@ -2,9 +2,8 @@ import { use } from 'react'
 
 import { components } from '@/components/MDXComponents'
 import { MDXLayoutRenderer } from '@/lib/pliny/mdx-components'
-import { sortPosts, coreContent, allCoreContent } from '@/lib/contentlayer-utils'
-import { allBlogs, allAuthors } from 'contentlayer/generated'
-import type { Authors, Blog } from 'contentlayer/generated'
+import { sortPosts, coreContent, allCoreContent, Toc } from '@/lib/contentlayer-utils'
+import { allBlogs, allAuthors, Authors, Blog } from 'contentlayer/generated'
 import { PostLayout } from '@/layouts'
 import { SiteConfig, SiteUrlWithBase } from '@/data/siteConfig.mjs'
 import { Locale, supportedLocales } from '@/i18n'
@@ -33,6 +32,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: { params: Promise<PostSlugParams> }) {
   const { locale, slug } = await props.params
+  const t = await getTranslations({ locale, namespace: 'common' })
+
   const decodedSlug = decodeURI(slug.join('/'))
 
   const post = allBlogs
@@ -44,7 +45,6 @@ export async function generateMetadata(props: { params: Promise<PostSlugParams> 
   }
 
   const authorList = post.authors || ['default']
-
   const authorDetails = authorList.map((author) => {
     const authorAltUrl = allAuthors.find((a) => a.slug === `${locale}/${author}`)
     return coreContent(authorAltUrl as Authors)
@@ -53,9 +53,20 @@ export async function generateMetadata(props: { params: Promise<PostSlugParams> 
 
   const publishedAt = new Date(post.date).toISOString()
   const modifiedAt = new Date(post.lastmod || post.date).toISOString()
-
   const title = post.title
-  const description = !post.summary ? title : post.summary
+  const toc: Toc = post.toc
+
+  const description =
+    post.summary +
+    (toc?.length
+      ? t('toc_with_contents', {
+          contents: toc
+            .filter((heading) => heading.depth === 1 || heading.depth === 2)
+            .map((heading) => heading.value)
+            .join(' · '),
+        })
+      : title)
+
   const getFullURL = (locale: Locale, slug: string) =>
     new URL(`${SiteUrlWithBase}/${locale}/blog/${slug}`).toString()
 
@@ -74,8 +85,6 @@ export async function generateMetadata(props: { params: Promise<PostSlugParams> 
       altLangURL[locale] = getFullURL(locale, altLangSlug)
     }
   }
-
-  const t = await getTranslations({ locale, namespace: 'common' })
 
   return genPageMetadata({
     title: `${title} | ${t('site_title')}`,
@@ -110,8 +119,9 @@ export default function Page(props: { params: Promise<PostSlugParams> }) {
   }
 
   const post = allBlogs.find((post) => post.slug === decodedSlug) as Blog
-  const relatedPosts = findRelatedPosts(sortPosts(allBlogs), post)
   const mainContent = coreContent(post)
+
+  const relatedPosts = findRelatedPosts(sortedCoreContents, mainContent)
   const prev = sortedCoreContents[postIndex + 1]
   const next = sortedCoreContents[postIndex - 1]
 

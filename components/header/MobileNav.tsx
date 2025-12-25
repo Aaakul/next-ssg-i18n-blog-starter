@@ -49,7 +49,7 @@ const MobileNav = ({ locale, links }: MobileNavProps) => {
           className="link-hover flex-center absolute top-4 right-4 z-85 size-16 cursor-pointer p-4"
           aria-label={t('close_nav')}
         >
-          <XMarkIcon aria-hidden="true" />
+          <XMarkIcon className="size-8" aria-hidden="true" />
         </label>
 
         {/* Navigation Links */}

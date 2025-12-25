@@ -18,7 +18,6 @@ const CustomLink = ({ href, className = '', ...restProps }: CustomLinkProps) => 
       <Link
         href={href}
         className={clsx('link-hover', 'wrap-break-word', className)}
-        prefetch={false} // https://github.com/vercel/next.js/issues/85374
         {...anchorProps}
       >
         {children}

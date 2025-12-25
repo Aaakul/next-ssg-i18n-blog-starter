@@ -26,10 +26,10 @@ export default function PostLayout({
   const lastMod = t('last_modified')
 
   return (
-    <article className="post-layout pt-6">
-      <header>
+    <article className="post-layout">
+      <header className="pt-4">
         {image && (
-          <div className="banner relative mt-2 aspect-5/2 overflow-hidden rounded-xl drop-shadow-md ring-inset">
+          <div className="banner relative mt-4 mb-2 aspect-5/2 overflow-hidden rounded-xl drop-shadow-md ring-inset">
             <Image
               src={image}
               alt={t('image_of', { title })}
@@ -52,10 +52,10 @@ export default function PostLayout({
       <div className="w-full lg:grid lg:grid-cols-4 lg:gap-x-6">
         <div className="divide-y-gray lg:col-span-3 lg:row-span-2">
           {/* Main Content */}
-          <div className="prose dark:prose-invert pt-6">{children}</div>
+          <div className="prose dark:prose-invert max-w-full py-4">{children}</div>
           <div className="flex justify-end">
             {lastmod && (
-              <span className="text-muted my-2 text-sm">
+              <span className="text-muted my-4 text-sm">
                 {lastMod}
                 <PostDateLocalized locale={locale} date={lastmod} />
               </span>
@@ -64,13 +64,15 @@ export default function PostLayout({
         </div>
         {toc && toc.length > 0 && <TableOfContents toc={toc} />}
       </div>
-      {relatedPosts && relatedPosts.length > 0 && <RelatedPosts relatedPosts={relatedPosts} />}
+      {relatedPosts && relatedPosts.length > 0 && (
+        <RelatedPosts relatedPosts={relatedPosts} locale={locale} />
+      )}
       <footer>
         <div className="flex flex-col text-base font-semibold">
           <FooterNavigation prev={prev} next={next} locale={locale} />
         </div>
         {showComments && (
-          <div className="my-12 min-h-[45vh] rounded-2xl bg-white p-4 drop-shadow-md ring-inset dark:bg-gray-900">
+          <div className="my-12 min-h-171 rounded-2xl bg-white p-4 drop-shadow-md ring-inset sm:min-h-127.25 dark:bg-gray-900">
             <Comment
               shortname={process.env.DISQUS_SHORT_NAME as string}
               siteName={process.env.DISQUS_SITE_NAME}

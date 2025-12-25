@@ -4,10 +4,11 @@ import Tag from '@/components/Tag'
 import { useTranslations } from 'next-intl'
 import Balancer from 'react-wrap-balancer'
 import { PostListProps } from './types'
+import clsx from 'clsx'
 
-export default function PostList({ posts, locale, maxDisplay }: PostListProps) {
-  const displayPosts = maxDisplay ? posts.slice(0, maxDisplay) : posts
+export default function PostList({ posts, locale, maxDisplay, template = 'full' }: PostListProps) {
   const t = useTranslations('common')
+  const displayPosts = maxDisplay ? posts.slice(0, maxDisplay) : posts
 
   if (!displayPosts.length) {
     return (
@@ -23,20 +24,25 @@ export default function PostList({ posts, locale, maxDisplay }: PostListProps) {
         const { slug, date, title, summary, tags, toc, image } = post
         const href = `/${locale}/blog/${slug}`
         return (
-          <li key={slug} className="py-4">
+          <li key={slug} className="flow-root py-4">
             <article>
-              {image && <link rel="preload" as="image" href={image} fetchPriority="low" />}
+              {image && <link rel="prefetch" as="image" href={image} fetchPriority="low" />}
               <div className="xl:grid xl:grid-cols-4">
-                <span className="text-muted text-sm">
-                  <PostDateLocalized
-                    locale={locale}
-                    date={date}
-                    template="compact"
-                    srText={t('published_on')}
-                  />
-                </span>
+                {template === 'full' && (
+                  <div className="text-muted flex items-center text-sm">
+                    <PostDateLocalized
+                      locale={locale}
+                      date={date}
+                      template="compact"
+                      srText={t('published_on')}
+                    />
+                  </div>
+                )}
+
                 <div className="xl:col-span-3">
-                  <h2 className="text-2xl font-bold">
+                  <h2
+                    className={clsx('font-bold', template === 'full' ? 'text-2xl' : 'opacity-80')}
+                  >
                     <Link href={href} className="link-hover">
                       <Balancer>{title}</Balancer>
                     </Link>
@@ -58,15 +64,17 @@ export default function PostList({ posts, locale, maxDisplay }: PostListProps) {
                       <p>{summary}</p>
                     ) : toc?.length ? (
                       <p>
-                        {t('in_this_article', {
-                          summary: toc
+                        {t('toc_with_contents', {
+                          contents: toc
                             .filter((heading) => heading.depth === 1 || heading.depth === 2)
                             .map((heading) => heading.value)
                             .join(' · '),
                         })}
                       </p>
                     ) : (
-                      <i>{title}</i>
+                      <p>
+                        <i>{title}</i>
+                      </p>
                     )}
                   </div>
                 </div>

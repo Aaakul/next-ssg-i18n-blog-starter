@@ -1,8 +1,7 @@
-import type { CoreContent } from '@/lib/contentlayer-utils'
+import type { CoreContent, Toc } from '@/lib/contentlayer-utils'
 import type { Authors, Blog } from 'contentlayer/generated'
 import type React from 'react'
 import { Locale } from '@/i18n'
-import { RelatedPostsData } from '@/components/types'
 
 export interface PostLayoutProps {
   content: CoreContent<Blog>
@@ -10,9 +9,9 @@ export interface PostLayoutProps {
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
   children: React.ReactNode
-  toc?: [{ value: string; url: string; depth: number }]
+  toc?: Toc
   lastmod?: string | undefined
-  relatedPosts: RelatedPostsData[]
+  relatedPosts: CoreContent<Blog>[]
   showComments: boolean
 }
 

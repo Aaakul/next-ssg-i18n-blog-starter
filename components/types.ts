@@ -1,7 +1,7 @@
-import type { CoreContent } from '@/lib/contentlayer-utils'
+import type { CoreContent, Toc } from '@/lib/contentlayer-utils'
 import { Locale } from '@/i18n'
 import { ReadTimeResults } from 'reading-time'
-import { Authors } from '@/.contentlayer/generated/types'
+import { Authors, Blog } from '@/.contentlayer/generated/types'
 import type { Action } from 'kbar'
 import type React from 'react'
 import type { LinkProps } from 'next/link'
@@ -49,15 +49,12 @@ export interface PostListProps {
     title: string
     summary?: string
     tags?: string[]
-    toc?: [{ value: string; url: string; depth: number }]
+    toc?: Toc
     image?: string
   }>
   locale: Locale
   maxDisplay?: number
-}
-
-export interface TableOfContentsProps {
-  toc: [{ value: string; url: string; depth: number }]
+  template?: 'compact' | 'full'
 }
 
 export interface TagProps {
@@ -117,13 +114,9 @@ export interface PaginationButtonProps {
   isCurrentPage?: boolean
 }
 
-export type RelatedPostsData = {
-  path: string
-  title: string
-}
-
 export interface RelatedPostsProps {
-  relatedPosts: RelatedPostsData[]
+  relatedPosts: CoreContent<Blog>[]
+  locale: Locale
 }
 
 export type CustomLinkProps = LinkProps & React.AnchorHTMLAttributes<HTMLAnchorElement>

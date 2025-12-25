@@ -1,4 +1,5 @@
 'use client'
+
 import { useCallback, useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 import { useTranslations, useLocale } from 'next-intl'

@@ -1,11 +1,12 @@
 'use client'
+
 import { useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
-import { TableOfContentsProps } from './types'
 import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/solid'
+import { Toc } from '@/lib/pliny/mdx-plugins'
 
-export default function TOCWithToggleButton({ toc }: TableOfContentsProps) {
+export default function TOCWithToggleButton({ toc }: { toc: Toc }) {
   const [showTOC, setShowTOC] = useState(false)
   const t = useTranslations('common')
   const tocRef = useRef<HTMLDivElement>(null)
@@ -47,7 +48,7 @@ export default function TOCWithToggleButton({ toc }: TableOfContentsProps) {
           'fixed top-0 right-0 z-30 h-full w-full p-6',
           'bg-default',
           'overflow-y-scroll',
-          'transform transition-transform duration-300 ease-in-out',
+          'transform transform-gpu transition-transform duration-300 ease-in-out',
           showTOC ? 'translate-x-0' : 'translate-x-full'
         )}
         onClick={() => {
@@ -91,7 +92,7 @@ export default function TOCWithToggleButton({ toc }: TableOfContentsProps) {
 }
 
 // https://easonchang.com/zh-TW/posts/post-side-toc
-function TableOfContents({ toc }: TableOfContentsProps) {
+function TableOfContents({ toc }: { toc: Toc }) {
   const filteredHeadings = toc.filter(
     (item) => item.depth === 1 || item.depth === 2 || item.depth === 3
   )
@@ -127,9 +128,9 @@ function TableOfContents({ toc }: TableOfContentsProps) {
   }
 
   return (
-    <div aria-label={t('table_of_contents') || 'On this page'}>
+    <div aria-label={t('table_of_contents')}>
       <p className="mb-3 text-left text-3xl font-semibold md:text-4xl lg:text-base">
-        {t('table_of_contents') || 'On this page'}
+        {t('table_of_contents')}
       </p>
       <nav className="flex flex-col">
         {filteredHeadings.map((heading) => {

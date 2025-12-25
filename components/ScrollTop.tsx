@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import clsx from 'clsx'
 
@@ -9,12 +9,16 @@ const SCROLL_THRESHOLD = 50
 const ScrollTop = () => {
   const t = useTranslations('common')
   const [show, setShow] = useState<boolean>(false)
+  const ticking = useRef(false)
 
   const handleWindowScroll = useCallback(() => {
-    if (window.scrollY > SCROLL_THRESHOLD) {
-      setShow(true)
-    } else {
-      setShow(false)
+    if (!ticking.current) {
+      ticking.current = true
+      requestAnimationFrame(() => {
+        const shouldShow = window.scrollY > SCROLL_THRESHOLD
+        setShow((prev) => (prev === shouldShow ? prev : shouldShow))
+        ticking.current = false
+      })
     }
   }, [])
 
@@ -46,8 +50,11 @@ const ScrollTop = () => {
   return (
     <div
       className={clsx(
-        'fixed right-5 bottom-18 z-30 flex-col md:pr-4 md:pb-4 lg:pr-30',
-        show ? 'flex' : 'invisible'
+        'fixed right-5 bottom-18 z-30 flex flex-col md:pr-4 md:pb-4 lg:pr-30',
+        'transition-opacity duration-300 ease-in-out',
+        show
+          ? 'pointer-events-auto translate-y-0 opacity-100'
+          : 'pointer-events-none translate-y-3 opacity-0'
       )}
     >
       <button
@@ -56,8 +63,14 @@ const ScrollTop = () => {
         onClick={handleScrollTop}
         className={clsx(
           'rounded-full p-2 drop-shadow-md transition-all duration-300 ease-in-out ring-inset',
-          'bg-default focus:outline-non link-hover hover:scale-125 focus:ring-2'
+          'bg-default focus:outline-non link-hover hover:scale-125 focus:ring-2',
+          'transform-gpu'
         )}
+        style={{
+          willChange: 'opacity, transform',
+          WebkitBackfaceVisibility: 'hidden',
+          WebkitTransform: 'translateZ(0)',
+        }}
       >
         {UpArrowIcon}
       </button>

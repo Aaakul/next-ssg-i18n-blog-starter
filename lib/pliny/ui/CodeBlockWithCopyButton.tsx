@@ -69,7 +69,7 @@ function CodeBlockWithCopyButton({ children }: { children: ReactNode }) {
     <div className="group relative">
       <button
         aria-label={t('copy_code')}
-        className={`absolute top-2 right-2 size-8 rounded border-2 bg-gray-700 p-1 opacity-0 transition-opacity duration-150 group-hover:opacity-90 focus:opacity-100 ${
+        className={`absolute top-2 right-2 size-8 rounded border-2 bg-gray-700 p-1 opacity-0 transition-opacity duration-150 group-hover:opacity-80 focus:opacity-100 ${
           copied ? 'border-green-400 focus:border-green-400 focus:outline-none' : 'border-gray-300'
         }`}
         onClick={onCopy}

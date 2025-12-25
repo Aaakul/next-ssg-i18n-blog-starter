@@ -52,8 +52,8 @@ export default function Page(props: { params: Promise<LocaleParams> }) {
   return (
     <section
       className={clsx(
-        'mb-4 flex flex-col gap-y-6 py-6',
-        'md:mt-24 md:flex-row md:items-center md:justify-center md:gap-x-6'
+        'flex flex-col gap-y-2 pt-4',
+        'md:mt-48 md:flex-row md:items-center md:justify-center md:gap-x-6'
       )}
     >
       <header className={clsx('shrink-0', 'md:border-r-2 md:pr-6 md:pl-0')}>
@@ -62,7 +62,7 @@ export default function Page(props: { params: Promise<LocaleParams> }) {
       {tagKeys.length === 0 ? (
         <p className="text-muted text-large">{t('no_tags_found')}</p>
       ) : (
-        <div className="flex flex-wrap gap-4">
+        <div className="flex max-w-3xl flex-wrap gap-4">
           {tagKeys.map((tag) => (
             <div key={tag} className="text-muted text-base font-bold md:text-lg lg:text-xl">
               <Tag
